@@ -9,3 +9,4 @@ This is an editable HTML prototype. We can next:
 - create Diwali sweet-box sections
 - improve the mobile layout
 - recreate the finished design in WordPress using a free theme/block editor.
+-add logo to this
