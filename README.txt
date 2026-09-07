@@ -1,4 +1,4 @@
-SATYANAND'S LIMITED TEST WEBSITE
+SATYANAND'S LIMITED WEBSITE
 
 Unzip the folder and open index.html in a browser to preview the site.
 
