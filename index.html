@@ -1,46 +1,383 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Satyanand's Limited</title>
-<style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#fff9f3;color:#3d1b1b}
-header{background:#65142a;color:#fff;padding:18px 7%;display:flex;justify-content:space-between;align-items:center}
-.logo{font-weight:800;font-size:22px}.nav a{color:#fff;text-decoration:none;margin-left:20px}
-.hero{padding:90px 8%;background:linear-gradient(135deg,#fff0dc,#efc4b9);min-height:470px;display:flex;align-items:center}
-.hero div{max-width:700px}h1{font-size:58px;color:#65142a;margin:12px 0}.eyebrow{text-transform:uppercase;letter-spacing:2px;font-weight:800;color:#9a6417}
-.btn{display:inline-block;background:#b18420;color:#fff;padding:14px 24px;border-radius:30px;text-decoration:none;font-weight:700}
-section{padding:65px 8%}.title{text-align:center;margin-bottom:35px}h2{font-size:36px;color:#65142a}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}.card{background:#fff;padding:22px;border-radius:18px;text-align:center;box-shadow:0 6px 20px #00000012}
-.photo{height:150px;border-radius:12px;background:#f1dfd1;display:grid;place-items:center;color:#866c62}.price{color:#9a6417;font-weight:800}
-.feature{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center}.box{background:#f5dfd1;padding:30px;border-radius:20px}
-.diwali{background:linear-gradient(135deg,#65142a,#a33b5a);color:#fff;text-align:center}.diwali h2{color:#ffd978}
-footer{background:#351018;color:#fff;text-align:center;padding:35px}
-@media(max-width:700px){.nav{display:none}h1{font-size:42px}.feature{grid-template-columns:1fr}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satyanand's Limited</title>
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; background:#fdf7f2; color:#333; }
+    header { background:#800020; color:white; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; }
+    header h1 { font-size:16px; margin:0; color:#D4AF37; }
+    nav a { color:white; text-decoration:none; margin-left:15px; font-size:13px; }
+    .hero { background:linear-gradient(135deg, #fde2e4, #fff8f0); padding:50px 20px; text-align:center; }
+    .hero h2 { color:#800020; font-size:28px; margin:10px 0; }
+    .hero p { color:#666; font-size:14px; }
+    .btn { background:#D4AF37; color:#800020; padding:12px 25px; border-radius:25px; text-decoration:none; font-weight:bold; display:inline-block; margin-top:15px; }
+    section { padding:40px 20px; max-width:1000px; margin:auto; }
+    h3 { text-align:center; color:#D4AF37; font-size:14px; letter-spacing:2px; }
+    h2 { text-align:center; color:#800020; margin-bottom:30px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px; }
+    .card { background:white; border-radius:12px; padding:15px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+    .card img { width:100%; height:180px; object-fit:cover; background:#ffe8dd; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#999; font-size:12px; }
+    .card h4 { margin:12px 0 5px 0; color:#333; font-size:18px; }
+    .price { color:#D4AF37; font-weight:bold; font-size:18px; }
+    .order-section { background:#fff8f0; padding:40px 20px; }
+    .form-card { background:white; max-width:600px; margin:auto; padding:25px; border-radius:12px; border:2px solid #D4AF37; }
+    label { font-weight:bold; color:#800020; display:block; margin-top:15px; }
+    input, select, textarea { width:100%; padding:12px; margin:8px 0; border:1px solid #ccc; border-radius:5px; box-sizing:border-box; }
+    .btn-order { width:100%; padding:16px; background:#D4AF37; color:#800020; border:none; font-weight:bold; font-size:17px; border-radius:8px; cursor:pointer; margin-top:15px; }
+    footer { background:#800020; color:white; text-align:center; padding:25px; }
+  </style>
 </head>
 <body>
-<header><div class="logo">SATYANAND'S LIMITED</div><nav class="nav"><a href="#sweets">Sweets</a><a href="#raksha">Raksha Threads</a><a href="#diwali">Diwali</a><a href="#contact">Contact</a></nav></header>
 
-<section class="hero"><div><div class="eyebrow">Est. 2024 • Trinidad & Tobago</div><h1>Sweet traditions, beautifully shared.</h1><p>Traditional Indian sweets and festive essentials for celebrations, prayers and gifting.</p><a class="btn" href="#sweets">Explore Our Sweets</a></div></section>
+<header>
+  <h1>SATYANAND'S LIMITED</h1>
+  <nav>
+    <a href="#sweets">Sweets</a>
+    <a href="#raksha">Raksha Threads</a>
+    <a href="#diwali">Diwali</a>
+    <a href="#order">Contact</a>
+  </nav>
+</header>
 
-<section id="sweets"><div class="title"><div class="eyebrow">Made for celebrations</div><h2>Indian Sweets</h2></div>
-<div class="grid">
-<div class="card"><div class="photo">Add Ladoo Photo</div><h3>Ladoo</h3><div class="price">$3.00 / pc</div></div>
-<div class="card"><div class="photo">Add Gulab Jamun Photo</div><h3>Gulab Jamun</h3><div class="price">$3.00 / pc</div></div>
-<div class="card"><div class="photo">Add Milk Barfi Photo</div><h3>Milk Barfi</h3><div class="price">$4.50 / pc</div></div>
-<div class="card"><div class="photo">Add Peera Photo</div><h3>Peera</h3><div class="price">Contact us</div></div>
-<div class="card"><div class="photo">Add Sweet Rice Photo</div><h3>Sweet Rice</h3><div class="price">Contact us</div></div>
-<div class="card"><div class="photo">Add Hanuman Roat Photo</div><h3>Hanuman Roat</h3><div class="price">$8.00 / pc</div></div>
-<div class="card"><div class="photo">Add Flour Parsad Photo</div><h3>Flour Parsad</h3><div class="price">$150 / lb</div></div>
-<div class="card"><div class="photo">Add Tilli Cake Photo</div><h3>Tilli Cake</h3><div class="price">Contact us</div></div>
-</div></section>
+<div class="hero">
+  <p style="color:#D4AF37; font-size:12px;">EST. 2024 • TRINIDAD & TOBAGO</p>
+  <h2>Sweet traditions,<br>beautifully shared.</h2>
+  <p>Traditional Indian sweets and festive essentials for celebrations, prayers and gifting</p>
+  <a href="#sweets" class="btn">Explore Our Sweets</a>
+</div>
 
-<section id="raksha" class="feature"><div><div class="eyebrow">Festive tradition</div><h2>Plaited Raksha Threads</h2><p>Beautifully plaited raksha threads prepared for your festive and religious celebrations.</p><a class="btn" href="#contact">Ask About Threads</a></div><div class="box"><h3>Your Product Photo Here</h3><p>Replace this box with your raksha thread and packaging photo.</p></div></section>
+<section id="sweets">
+  <h3>MADE FOR CELEBRATIONS</h3>
+  <h2>Indian Sweets</h2>
+  <div class="grid">
+    <div class="card">
+      <img src="ladoo.jpg" alt="Ladoo">
+      <h4>Ladoo</h4>
+      <div class="price">$3.00 / pc</div>
+    </div>
+    <div class="card">
+      <img src="gulab-jamun.jpg" alt="Gulab Jamun">
+      <h4>Gulab Jamun</h4>
+      <div class="price">$3.00 / pc</div>
+    </div>
+    <div class="card">
+      <img src="milk-barfi.jpg" alt="Milk Barfi">
+      <h4>Milk Barfi</h4>
+      <div class="price">$4.50 / pc</div>
+    </div>
+    <div class="card">
+      <img src="peera.jpg" alt="Peera">
+      <h4>Peera</h4>
+      <div class="price">Contact us</div>
+    </div>
+    <div class="card">
+      <img src="sweet-rice.jpg" alt="Sweet Rice">
+      <h4>Sweet Rice</h4>
+      <div class="price">Contact us</div>
+    </div>
+    <div class="card">
+      <img src="hanuman-roat.jpg" alt="Hanuman Roat">
+      <h4>Hanuman Roat</h4>
+      <div class="price">$8.00 / pc</div>
+    </div>
+    <div class="card">
+      <img src="flour-parsad.jpg" alt="Flour Parsad">
+      <h4>Flour Parsad</h4>
+      <div class="price">$150 / lb</div>
+    </div>
+    <div class="card">
+      <img src="tilli-cake.jpg" alt="Tilli Cake">
+      <h4>Tilli Cake</h4>
+      <div class="price">Contact us</div>
+    </div>
+  </div>
+</section>
 
-<section id="diwali" class="diwali"><div class="eyebrow" style="color:#ffd978">Diwali 2026</div><h2>Celebrate the Festival of Lights</h2><p>Bring sweetness, tradition and light to your Diwali celebrations. Special Diwali offerings and pre-orders coming soon.</p><a class="btn" href="#contact">Stay Connected</a></section>
+<!-- RAKSHA THREADS SECTION WITH YOUR IMAGE -->
+<section id="raksha" style="background:#fff;">
+  <h3>DIWALI 2026 SPECIAL</h3>
+  <h2>Raksha Threads</h2>
+  <div class="grid">
+    <div class="card">
+      <img src="raksha-thread.jpg" alt="Plaited Raksha Thread">
+      <h4>Plaited Raksha Thread</h4>
+      <p style="font-size:13px; color:#666;">Handmade/plaited design. Special packaging for Diwali 2026</p>
+      <div class="price">$10.00 / pc</div>
+    </div>
+    <div class="card">
+      <img src="fresh-flowers.jpg" alt="Fresh Flowers">
+      <h4>Fresh Flowers</h4>
+      <div class="price">Contact us</div>
+    </div>
+    <div class="card">
+      <img src="neem-leaves.jpg" alt="Neem Leaves">
+      <h4>Neem Leaves</h4>
+      <div class="price">Contact us</div>
+    </div>
+  </div>
+</section>
 
-<section id="contact"><div class="title"><div class="eyebrow">Let's connect</div><h2>Order & Contact</h2></div>
-<div class="feature"><div><h3>Satyanand's Limited</h3><p>Indian sweets & festival essentials</p><p><b>WhatsApp:</b> 868-787-0821</p><p><b>Email:</b> satyanandslimitedest.24@yahoo.com</p><p><b>Instagram:</b> Satyanand's Limited</p></div><div class="box"><h3>Ready to order?</h3><p>Message us with your products and quantities and we'll confirm availability.</p><a class="btn" href="https://wa.me/18687870821">WhatsApp Us</a></div></div></section>
-<footer>© 2026 Satyanand's Limited • Est. 2024</footer>
-</body></html>
+<!-- ONLINE ORDER FORM -->
+<section id="order" class="order-section">
+  <h2>Place Your Order</h2>
+  <div class="form-card">
+    <form id="orderForm">
+      <label>Select Product:</label>
+      <select id="product" onchange="updatePrice()">
+        <option value="Ladoo" data-price="3">Ladoo - $3.00 / pc</option>
+        <option value="Gulab Jamun" data-price="3">Gulab Jamun - $3.00 / pc</option>
+        <option value="Milk Barfi" data-price="4.5">Milk Barfi - $4.50 / pc</option>
+        <option value="Peera" data-price="0">Peera - Contact us</option>
+        <option value="Hanuman Roat" data-price="8">Hanuman Roat - $8.00 / pc</option>
+        <option value="Flour Parsad" data-price="150">Flour Parsad - $150 / lb</option>
+        <option value="Plaited Raksha Thread" data-price="10">Plaited Raksha Thread - $10.00 / pc</option>
+        <option value="Sweet Rice" data-price="0">Sweet Rice - Contact us</option>
+        <option value="Tilli Cake" data-price="0">Tilli Cake - Contact us</option>
+        <option value="Fresh Flowers" data-price="0">Fresh Flowers - Contact us</option>
+        <option value="Neem Leaves" data-price="0">Neem Leaves - Contact us</option>
+      </select>
+
+      <label>Quantity:</label>
+      <input type="number" id="qty" value="1" min="1" oninput="updatePrice()">
+      <p><b>Subtotal: $<span id="total">3.00</span></b></p>
+
+      <label>Full Name:</label><input type="text" id="name" required>
+      <label>WhatsApp/Phone:</label><input type="tel" id="phone" required>
+      <label>Email:</label><input type="email" id="email">
+
+      <label>Pickup or Delivery:</label>
+      <select id="orderType" onchange="toggleAddress()">
+        <option>Pickup</option>
+        <option>Delivery</option>
+      </select>
+      <div id="addressDiv" style="display:none;">
+        <label>Delivery Address:</label><textarea id="address"></textarea>
+      </div>
+
+      <label>Date:</label><input type="date" id="date" required>
+      <label>Time:</label><input type="time" id="time" required>
+      <label>Notes:</label><textarea id="notes"></textarea>
+
+      <button type="button" class="btn-order" onclick="sendOrder()">Send Order to WhatsApp</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p><b>Satyanand's Limited</b><br>
+  Est. 2024 | Trinidad & Tobago<br>
+  Phone: 868-787-0821 | Email: satyanandslimitedest.24@yahoo.com<br>
+  Instagram: @Satyanand's Limited</p>
+</footer>
+
+<script>
+function updatePrice(){
+  let p = document.getElementById('product');
+  let price = parseFloat(p.options[p.selectedIndex].getAttribute('data-price'));
+  let qty = document.getElementById('qty').value;
+  document.getElementById('total').innerText = price === 0 ? "TBD" : (price*qty).toFixed(2);
+}
+function toggleAddress(){
+  document.getElementById('addressDiv').style.display = document.getElementById('orderType').value === 'Delivery' ? 'block' : 'none';
+}
+function sendOrder(){
+  let msg = `*ORDER - Satyanand's Limited*%0AProduct: ${document.getElementById('product').value}%0AQty: ${document.getElementById('qty').value}%0AName: ${document.getElementById('name').value}%0APhone: ${document.getElementById('phone').value}`;
+  window.open(`https://wa.me/8687870821?text=${msg}`, '_blank');
+}
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satyanand's Limited</title>
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; background:#fdf7f2; color:#333; }
+    header { background:#800020; color:white; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; }
+    header h1 { font-size:16px; margin:0; color:#D4AF37; }
+    nav a { color:white; text-decoration:none; margin-left:15px; font-size:13px; }
+    .hero { background:linear-gradient(135deg, #fde2e4, #fff8f0); padding:50px 20px; text-align:center; }
+    .hero h2 { color:#800020; font-size:28px; margin:10px 0; }
+    .hero p { color:#666; font-size:14px; }
+    .btn { background:#D4AF37; color:#800020; padding:12px 25px; border-radius:25px; text-decoration:none; font-weight:bold; display:inline-block; margin-top:15px; }
+    section { padding:40px 20px; max-width:1000px; margin:auto; }
+    h3 { text-align:center; color:#D4AF37; font-size:14px; letter-spacing:2px; }
+    h2 { text-align:center; color:#800020; margin-bottom:30px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px; }
+    .card { background:white; border-radius:12px; padding:15px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+    .card img { width:100%; height:180px; object-fit:cover; background:#ffe8dd; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#999; font-size:12px; }
+    .card h4 { margin:12px 0 5px 0; color:#333; font-size:18px; }
+    .price { color:#D4AF37; font-weight:bold; font-size:18px; }
+    .order-section { background:#fff8f0; padding:40px 20px; }
+    .form-card { background:white; max-width:600px; margin:auto; padding:25px; border-radius:12px; border:2px solid #D4AF37; }
+    label { font-weight:bold; color:#800020; display:block; margin-top:15px; }
+    input, select, textarea { width:100%; padding:12px; margin:8px 0; border:1px solid #ccc; border-radius:5px; box-sizing:border-box; }
+    .btn-order { width:100%; padding:16px; background:#D4AF37; color:#800020; border:none; font-weight:bold; font-size:17px; border-radius:8px; cursor:pointer; margin-top:15px; }
+    footer { background:#800020; color:white; text-align:center; padding:25px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>SATYANAND'S LIMITED</h1>
+  <nav>
+    <a href="#sweets">Sweets</a>
+    <a href="#raksha">Raksha Threads</a>
+    <a href="#diwali">Diwali</a>
+    <a href="#order">Contact</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <p style="color:#D4AF37; font-size:12px;">EST. 2024 • TRINIDAD & TOBAGO</p>
+  <h2>Sweet traditions,<br>beautifully shared.</h2>
+  <p>Traditional Indian sweets and festive essentials for celebrations, prayers and gifting</p>
+  <a href="#sweets" class="btn">Explore Our Sweets</a>
+</div>
+
+<section id="sweets">
+  <h3>MADE FOR CELEBRATIONS</h3>
+  <h2>Indian Sweets</h2>
+  <div class="grid">
+    <div class="card">
+      <img src="ladoo.jpg" alt="Ladoo">
+      <h4>Ladoo</h4>
+      <div class="price">$3.00 / pc</div>
+    </div>
+    <div class="card">
+      <img src="gulab-jamun.jpg" alt="Gulab Jamun">
+      <h4>Gulab Jamun</h4>
+      <div class="price">$3.00 / pc</div>
+    </div>
+    <div class="card">
+      <img src="milk-barfi.jpg" alt="Milk Barfi">
+      <h4>Milk Barfi</h4>
+      <div class="price">$4.50 / pc</div>
+    </div>
+    <div class="card">
+      <img src="peera.jpg" alt="Peera">
+      <h4>Peera</h4>
+      <div class="price">Contact us</div>
+    </div>
+    <div class="card">
+      <img src="sweet-rice.jpg" alt="Sweet Rice">
+      <h4>Sweet Rice</h4>
+      <div class="price">Contact us</div>
+    </div>
+    <div class="card">
+      <img src="hanuman-roat.jpg" alt="Hanuman Roat">
+      <h4>Hanuman Roat</h4>
+      <div class="price">$8.00 / pc</div>
+    </div>
+    <div class="card">
+      <img src="flour-parsad.jpg" alt="Flour Parsad">
+      <h4>Flour Parsad</h4>
+      <div class="price">$150 / lb</div>
+    </div>
+    <div class="card">
+      <img src="tilli-cake.jpg" alt="Tilli Cake">
+      <h4>Tilli Cake</h4>
+      <div class="price">Contact us</div>
+    </div>
+  </div>
+</section>
+
+<!-- RAKSHA THREADS SECTION WITH YOUR IMAGE -->
+<section id="raksha" style="background:#fff;">
+  <h3>DIWALI 2026 SPECIAL</h3>
+  <h2>Raksha Threads</h2>
+  <div class="grid">
+    <div class="card">
+      <img src="raksha-thread.jpg" alt="Plaited Raksha Thread">
+      <h4>Plaited Raksha Thread</h4>
+      <p style="font-size:13px; color:#666;">Handmade/plaited design. Special packaging for Diwali 2026</p>
+      <div class="price">$10.00 / pc</div>
+    </div>
+    <div class="card">
+      <img src="fresh-flowers.jpg" alt="Fresh Flowers">
+      <h4>Fresh Flowers</h4>
+      <div class="price">Contact us</div>
+    </div>
+    <div class="card">
+      <img src="neem-leaves.jpg" alt="Neem Leaves">
+      <h4>Neem Leaves</h4>
+      <div class="price">Contact us</div>
+    </div>
+  </div>
+</section>
+
+<!-- ONLINE ORDER FORM -->
+<section id="order" class="order-section">
+  <h2>Place Your Order</h2>
+  <div class="form-card">
+    <form id="orderForm">
+      <label>Select Product:</label>
+      <select id="product" onchange="updatePrice()">
+        <option value="Ladoo" data-price="3">Ladoo - $3.00 / pc</option>
+        <option value="Gulab Jamun" data-price="3">Gulab Jamun - $3.00 / pc</option>
+        <option value="Milk Barfi" data-price="4.5">Milk Barfi - $4.50 / pc</option>
+        <option value="Peera" data-price="0">Peera - Contact us</option>
+        <option value="Hanuman Roat" data-price="8">Hanuman Roat - $8.00 / pc</option>
+        <option value="Flour Parsad" data-price="150">Flour Parsad - $150 / lb</option>
+        <option value="Plaited Raksha Thread" data-price="10">Plaited Raksha Thread - $10.00 / pc</option>
+        <option value="Sweet Rice" data-price="0">Sweet Rice - Contact us</option>
+        <option value="Tilli Cake" data-price="0">Tilli Cake - Contact us</option>
+        <option value="Fresh Flowers" data-price="0">Fresh Flowers - Contact us</option>
+        <option value="Neem Leaves" data-price="0">Neem Leaves - Contact us</option>
+      </select>
+
+      <label>Quantity:</label>
+      <input type="number" id="qty" value="1" min="1" oninput="updatePrice()">
+      <p><b>Subtotal: $<span id="total">3.00</span></b></p>
+
+      <label>Full Name:</label><input type="text" id="name" required>
+      <label>WhatsApp/Phone:</label><input type="tel" id="phone" required>
+      <label>Email:</label><input type="email" id="email">
+
+      <label>Pickup or Delivery:</label>
+      <select id="orderType" onchange="toggleAddress()">
+        <option>Pickup</option>
+        <option>Delivery</option>
+      </select>
+      <div id="addressDiv" style="display:none;">
+        <label>Delivery Address:</label><textarea id="address"></textarea>
+      </div>
+
+      <label>Date:</label><input type="date" id="date" required>
+      <label>Time:</label><input type="time" id="time" required>
+      <label>Notes:</label><textarea id="notes"></textarea>
+
+      <button type="button" class="btn-order" onclick="sendOrder()">Send Order to WhatsApp</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p><b>Satyanand's Limited</b><br>
+  Est. 2024 | Trinidad & Tobago<br>
+  Phone: 868-787-0821 | Email: satyanandslimitedest.24@yahoo.com<br>
+  Instagram: @Satyanand's Limited</p>
+</footer>
+
+<script>
+function updatePrice(){
+  let p = document.getElementById('product');
+  let price = parseFloat(p.options[p.selectedIndex].getAttribute('data-price'));
+  let qty = document.getElementById('qty').value;
+  document.getElementById('total').innerText = price === 0 ? "TBD" : (price*qty).toFixed(2);
+}
+function toggleAddress(){
+  document.getElementById('addressDiv').style.display = document.getElementById('orderType').value === 'Delivery' ? 'block' : 'none';
+}
+function sendOrder(){
+  let msg = `*ORDER - Satyanand's Limited*%0AProduct: ${document.getElementById('product').value}%0AQty: ${document.getElementById('qty').value}%0AName: ${document.getElementById('name').value}%0APhone: ${document.getElementById('phone').value}`;
+  window.open(`https://wa.me/8687870821?text=${msg}`, '_blank');
+}
+</script>
+
+</body>
+</html>
