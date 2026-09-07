@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satyanand's Limited - Order Online</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; background:#fff; color:#333; }
+    header { background:linear-gradient(135deg, #800020, #5a0016); color:white; text-align:center; padding:40px 20px; }
+    header h1 { color:#D4AF37; font-size:32px; margin:0; }
+    nav { background:#D4AF37; padding:12px; text-align:center; }
+    nav a { color:#800020; text-decoration:none; margin:0 15px; font-weight:bold; }
+    section { padding:40px 20px; max-width:700px; margin:auto; }
+    h2 { color:#800020; text-align:center; }
+    .card { background:white; padding:25px; border-radius:12px; border:2px solid #D4AF37; margin-bottom:20px; }
+    label { font-weight:bold; color:#800020; display:block; margin-top:15px; }
+    input, select { width:100%; padding:12px; margin:8px 0 15px 0; border:1px solid #ccc; border-radius:5px; font-size:15px; box-sizing:border-box; }
+    .btn { width:100%; padding:16px; background:#D4AF37; color:#800020; border:none; font-weight:bold; font-size:17px; border-radius:8px; cursor:pointer; }
+    .btn:hover { opacity:0.9; }
+    .price { color:#800020; font-weight:bold; }
+    #summary { background:#f8f8f8; padding:15px; border-radius:8px; margin-top:15px; display:none; }
+    footer { background:#800020; color:white; text-align:center; padding:20px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Satyanand's Limited</h1>
+</header>
+
+<nav>
