@@ -1,0 +1,9 @@
+{
+  "name":"Satyanand's Limited",
+  "short_name":"Satyanand's",
+  "start_url":"./index.html",
+  "display":"standalone",
+  "background_color":"#fffdf8",
+  "theme_color":"#c9a227",
+  "icons":[{"src":"logo.png","sizes":"512x512","type":"image/png"}]
+}
