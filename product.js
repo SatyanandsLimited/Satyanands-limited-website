@@ -2,7 +2,7 @@ const DEFAULT_STORE = {
   settings: {
     vatRate: 12.5,
     currency: "TT$",
-    adminPassword: "CHANGE-ME"
+    adminPassword: "SL2024!"
   },
 
   products: [
