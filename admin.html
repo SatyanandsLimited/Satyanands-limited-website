@@ -25,7 +25,36 @@
 </section>
 </main>
 <script src="product.js"></script><script>
-let store;function login(){let pw=document.getElementById('pw').value;let s=SATYANANDS_LOAD();if(pw!==s.settings.adminPassword){document.getElementById('loginErr').textContent='Incorrect password.';return}store=s;document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.remove('hidden');render()}
+let store;function login(){
+  let pw=document.getElementById('pw').value;
+  let s=normalizeStore(SATYANANDS_LOAD());
+
+  /*
+    SL2024 is the owner password.
+    This also repairs an older saved password
+    without deleting any existing business data.
+  */
+  if(pw!=='SL2024' && pw!==s.settings.adminPassword){
+    document.getElementById('loginErr').textContent='Incorrect password.';
+    return;
+  }
+
+  /*
+    Make SL2024 the current owner password while
+    preserving all existing products, prices,
+    VAT settings, zero-rated settings and sales.
+  */
+  s.settings.adminPassword='SL2024';
+
+  SATYANANDS_SAVE(s);
+
+  store=s;
+
+  document.getElementById('login').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+
+  render();
+}
 function logout(){location.reload()}function render(){document.getElementById('vat').value=store.settings.vatRate;document.getElementById('phone').value=store.settings.phone;document.getElementById('email').value=store.settings.email;document.getElementById('instagram').value=store.settings.instagram;document.getElementById('products').innerHTML=store.products.map((p,i)=>`<div class="row" data-i="${i}"><input data-k="name" value="${e(p.name)}"><input data-k="price" type="number" step="0.01" value="${p.price}"><input data-k="unit" value="${e(p.unit)}"><select data-k="tax"><option ${p.tax==='taxable'?'selected':''} value="taxable">Taxable</option><option ${p.tax==='inclusive'?'selected':''} value="inclusive">VAT inclusive</option><option ${p.tax==='zero'?'selected':''} value="zero">Zero-rated</option><option ${p.tax==='quote'?'selected':''} value="quote">Price on request</option></select><input data-k="image" value="${e(p.image||'')}" placeholder="image filename"><button class="btn danger" onclick="delProduct(${i})">Delete</button><div class="small full">${e(p.description||'')} • <label><input data-k="active" type="checkbox" ${p.active?'checked':''}> Active</label></div></div>`).join('');document.getElementById('free').innerHTML=store.freeItems.map((x,i)=>`<div class="free-row"><input class="input" data-f="name" data-i="${i}" value="${e(x.name)}"><input class="input" data-f="description" data-i="${i}" value="${e(x.description||'')}"><button class="btn danger" onclick="delFree(${i})">Delete</button></div>`).join('');
 renderReports();
 function collect(){document.querySelectorAll('#products .row').forEach(r=>{let p=store.products[Number(r.dataset.i)];r.querySelectorAll('[data-k]').forEach(x=>{let k=x.dataset.k;p[k]=k==='price'?Number(x.value||0):k==='active'?x.checked:x.value})});document.querySelectorAll('[data-f]').forEach(x=>{store.freeItems[Number(x.dataset.i)][x.dataset.f]=x.value})}
