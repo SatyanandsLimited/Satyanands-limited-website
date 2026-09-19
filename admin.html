@@ -1,112 +1,802 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Owner — Satyanand's Limited</title><style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#fbf8ef;color:#222}.head{background:#fff;border-bottom:2px solid #c9a227;padding:16px;text-align:center}.head img{width:90px;height:90px;object-fit:contain}.wrap{max-width:1100px;margin:auto;padding:25px 16px}.box{background:#fff;border:1px solid #e5d9b9;border-radius:18px;padding:20px;margin-bottom:20px;box-shadow:0 6px 20px #0000000d}h1,h2{margin-top:0}.gold{color:#9b7a0c}.login{max-width:440px;margin:60px auto}.input{width:100%;padding:13px;border:1px solid #cfc4a7;border-radius:10px;margin:8px 0 12px}.btn{border:0;border-radius:10px;padding:11px 14px;font-weight:800;cursor:pointer;margin:4px}.primary{background:#171717;color:#fff}.goldbtn{background:#c9a227}.danger{background:#eee}.row{display:grid;grid-template-columns:1.4fr .8fr .9fr .9fr 1fr auto;gap:8px;align-items:center;border-top:1px solid #eee;padding:12px 0}.row input,.row select{width:100%;padding:9px;border:1px solid #d8cfba;border-radius:8px}.small{font-size:12px;color:#6f685b}.actions{display:flex;flex-wrap:wrap;gap:7px}.hidden{display:none}.free-row{display:grid;grid-template-columns:1fr 2fr auto;gap:8px;margin:8px 0}.notice{padding:12px;background:#fff7dc;border-left:4px solid #c9a227;line-height:1.5}@media(max-width:850px){.row{grid-template-columns:1fr 1fr}.free-row{grid-template-columns:1fr}.row .full{grid-column:1/-1}}
-</style></head><body><div class="head"><img src="logo.png" alt="Logo"><h1>Owner Price & Product Manager</h1><div>Satyanand's Limited • Est. 2024</div></div>
-<div id="login" class="login box"><h2>Owner Login</h2><p class="small">This page is hidden from the customer website. Default temporary password: <strong>SL2024!</strong>. Change it below after signing in.</p><input id="pw" class="input" type="password" placeholder="Password"><button class="btn primary" onclick="login()">Unlock</button><p id="loginErr"></p></div>
-<main id="app" class="wrap hidden"><div class="notice"><strong>Important:</strong> On a static/GitHub Pages website, changes saved here are stored in this browser. Use <b>Export Product Data</b> after changing prices/items, then replace <code>product.js</code> on the website to publish the changes for customers.</div>
-<section class="box"><h2 class="gold">Business Settings</h2><div class="row"><label>VAT rate %<input id="vat" type="number" step="0.01"></label><label>Phone<input id="phone"></label><label>Email<input id="email"></label><label>Instagram<input id="instagram"></label><label>Admin password<input id="newpw" type="password" placeholder="New password"></label></div><div class="actions"><button class="btn goldbtn" onclick="saveSettings()">Save Settings</button><button class="btn danger" onclick="logout()">Lock</button></div></section>
-<section class="box"><h2 class="gold">Products</h2><p class="small">Tax options: <b>taxable</b> adds VAT, <b>inclusive</b> treats the entered price as VAT-inclusive, <b>zero</b> adds no VAT, and <b>quote</b> shows price on request.</p><div id="products"></div><div class="actions"><button class="btn goldbtn" onclick="addProduct()">+ Add New Item</button><button class="btn primary" onclick="saveAll()">Save All Changes</button><button class="btn goldbtn" onclick="exportData()">Export Product Data</button><button class="btn danger" onclick="resetData()">Reset to Original</button></div></section>
-<section class="box"><h2 class="gold">Free Items</h2><div id="free"></div><button class="btn goldbtn" onclick="addFree()">+ Add Free Item</button></section>
-<section class="box">
-<h2 class="gold">Sales Reports</h2>
-<p class="small">Sales are stored in this browser. Orders sent from the customer order form are recorded as <b>Order sent</b>. You can mark them completed below, or record a completed sale manually.</p>
-<div class="row" style="grid-template-columns:1fr 1fr 1fr 1fr;">
-  <label>From<input id="reportFrom" type="date"></label>
-  <label>To<input id="reportTo" type="date"></label>
-  <label>Status<select id="reportStatus"><option value="all">All</option><option value="completed">Completed</option><option value="order-sent">Order sent</option></select></label>
-  <div class="actions"><button class="btn primary" onclick="renderReports()">Run Report</button></div>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Owner — Satyanand's Limited</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#fbf8ef;
+  color:#222
+}
+.head{
+  background:#fff;
+  border-bottom:2px solid #c9a227;
+  padding:16px;
+  text-align:center
+}
+.head img{
+  width:90px;
+  height:90px;
+  object-fit:contain
+}
+.wrap{
+  max-width:1100px;
+  margin:auto;
+  padding:25px 16px
+}
+.box{
+  background:#fff;
+  border:1px solid #e5d9b9;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 6px 20px #0000000d
+}
+h1,h2{margin-top:0}
+.gold{color:#9b7a0c}
+.login{
+  max-width:440px;
+  margin:60px auto
+}
+.input{
+  width:100%;
+  padding:13px;
+  border:1px solid #cfc4a7;
+  border-radius:10px;
+  margin:8px 0 12px
+}
+.btn{
+  border:0;
+  border-radius:10px;
+  padding:11px 14px;
+  font-weight:800;
+  cursor:pointer;
+  margin:4px
+}
+.primary{
+  background:#171717;
+  color:#fff
+}
+.goldbtn{
+  background:#c9a227
+}
+.danger{
+  background:#eee
+}
+.row{
+  display:grid;
+  grid-template-columns:1.4fr .8fr .9fr .9fr 1fr auto;
+  gap:8px;
+  align-items:center;
+  border-top:1px solid #eee;
+  padding:12px 0
+}
+.row input,
+.row select{
+  width:100%;
+  padding:9px;
+  border:1px solid #d8cfba;
+  border-radius:8px
+}
+.small{
+  font-size:12px;
+  color:#6f685b
+}
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px
+}
+.hidden{
+  display:none
+}
+.free-row{
+  display:grid;
+  grid-template-columns:1fr 2fr auto;
+  gap:8px;
+  margin:8px 0
+}
+.notice{
+  padding:12px;
+  background:#fff7dc;
+  border-left:4px solid #c9a227;
+  line-height:1.5
+}
+@media(max-width:850px){
+  .row{
+    grid-template-columns:1fr 1fr
+  }
+  .free-row{
+    grid-template-columns:1fr
+  }
+  .row .full{
+    grid-column:1/-1
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="head">
+  <img src="logo.png" alt="Logo">
+  <h1>Owner Price & Product Manager</h1>
+  <div>Satyanand's Limited • Est. 2024</div>
 </div>
-<div id="reportSummary" class="notice"></div>
-<div id="reportTable" style="overflow:auto;margin-top:12px"></div>
-<div class="actions">
-  <button class="btn goldbtn" onclick="addManualSale()">+ Record Completed Sale</button>
-  <button class="btn goldbtn" onclick="exportSales()">Export Sales Report</button>
-  <label class="btn danger" style="display:inline-block">Import Sales <input id="importSalesFile" type="file" accept=".json" style="display:none" onchange="importSales(this)"></label>
+
+<div id="login" class="login box">
+  <h2>Owner Login</h2>
+
+  <p class="small">
+    Enter the owner password to access the price and product manager.
+  </p>
+
+  <input
+    id="pw"
+    class="input"
+    type="password"
+    placeholder="Password"
+  >
+
+  <button class="btn primary" onclick="login()">
+    Unlock
+  </button>
+
+  <p id="loginErr"></p>
 </div>
-</section>
+
+
+<main id="app" class="wrap hidden">
+
+  <div class="notice">
+    <strong>Important:</strong>
+    On a static/GitHub Pages website, changes saved here are stored in this browser.
+    Use <b>Export Product Data</b> after changing prices/items, then replace
+    <code>product.js</code> on the website to publish the changes for customers.
+  </div>
+
+
+  <section class="box">
+
+    <h2 class="gold">Business Settings</h2>
+
+    <div class="row">
+
+      <label>
+        VAT rate %
+        <input id="vat" type="number" step="0.01">
+      </label>
+
+      <label>
+        Phone
+        <input id="phone">
+      </label>
+
+      <label>
+        Email
+        <input id="email">
+      </label>
+
+      <label>
+        Instagram
+        <input id="instagram">
+      </label>
+
+      <label>
+        Admin password
+        <input
+          id="newpw"
+          type="password"
+          placeholder="New password"
+        >
+      </label>
+
+    </div>
+
+    <div class="actions">
+
+      <button
+        class="btn goldbtn"
+        onclick="saveSettings()">
+        Save Settings
+      </button>
+
+      <button
+        class="btn danger"
+        onclick="logout()">
+        Lock
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <section class="box">
+
+    <h2 class="gold">Products</h2>
+
+    <p class="small">
+      Tax options:
+      <b>taxable</b> adds VAT,
+      <b>inclusive</b> treats the entered price as VAT-inclusive,
+      <b>zero</b> adds no VAT,
+      and <b>quote</b> shows price on request.
+    </p>
+
+    <div id="products"></div>
+
+    <div class="actions">
+
+      <button
+        class="btn goldbtn"
+        onclick="addProduct()">
+        + Add New Item
+      </button>
+
+      <button
+        class="btn primary"
+        onclick="saveAll()">
+        Save All Changes
+      </button>
+
+      <button
+        class="btn goldbtn"
+        onclick="exportData()">
+        Export Product Data
+      </button>
+
+      <button
+        class="btn danger"
+        onclick="resetData()">
+        Reset to Original
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <section class="box">
+
+    <h2 class="gold">Free Items</h2>
+
+    <div id="free"></div>
+
+    <button
+      class="btn goldbtn"
+      onclick="addFree()">
+      + Add Free Item
+    </button>
+
+  </section>
+
 </main>
-<script src="product.js"></script><script>
-let store;function login(){let pw=document.getElementById('pw').value;let s=SATYANANDS_LOAD();if(pw!==s.settings.adminPassword){document.getElementById('loginErr').textContent='Incorrect password.';return}store=s;document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.remove('hidden');render()}
-function logout(){location.reload()}function render(){document.getElementById('vat').value=store.settings.vatRate;document.getElementById('phone').value=store.settings.phone;document.getElementById('email').value=store.settings.email;document.getElementById('instagram').value=store.settings.instagram;document.getElementById('products').innerHTML=store.products.map((p,i)=>`<div class="row" data-i="${i}"><input data-k="name" value="${e(p.name)}"><input data-k="price" type="number" step="0.01" value="${p.price}"><input data-k="unit" value="${e(p.unit)}"><select data-k="tax"><option ${p.tax==='taxable'?'selected':''} value="taxable">Taxable</option><option ${p.tax==='inclusive'?'selected':''} value="inclusive">VAT inclusive</option><option ${p.tax==='zero'?'selected':''} value="zero">Zero-rated</option><option ${p.tax==='quote'?'selected':''} value="quote">Price on request</option></select><input data-k="image" value="${e(p.image||'')}" placeholder="image filename"><button class="btn danger" onclick="delProduct(${i})">Delete</button><div class="small full">${e(p.description||'')} • <label><input data-k="active" type="checkbox" ${p.active?'checked':''}> Active</label></div></div>`).join('');document.getElementById('free').innerHTML=store.freeItems.map((x,i)=>`<div class="free-row"><input class="input" data-f="name" data-i="${i}" value="${e(x.name)}"><input class="input" data-f="description" data-i="${i}" value="${e(x.description||'')}"><button class="btn danger" onclick="delFree(${i})">Delete</button></div>`).join('');
-renderReports();
-} // Close the render() function
+
+
+<script src="product.js"></script>
+
+<script>
+
+let store;
+
+
+/* NEW OWNER PASSWORD */
+const OWNER_PASSWORD = "SL2024";
+
+
+function login(){
+
+  let pw = document.getElementById('pw').value.trim();
+
+  if(pw !== OWNER_PASSWORD){
+
+    document.getElementById('loginErr').textContent =
+      'Incorrect password.';
+
+    return;
+  }
+
+  let s = SATYANANDS_LOAD();
+
+  if(!s.settings){
+    s.settings = {};
+  }
+
+  /* Keep the password synchronized */
+  s.settings.adminPassword = OWNER_PASSWORD;
+
+  SATYANANDS_SAVE(s);
+
+  store = s;
+
+  document
+    .getElementById('login')
+    .classList.add('hidden');
+
+  document
+    .getElementById('app')
+    .classList.remove('hidden');
+
+  render();
+}
+
+
+function logout(){
+
+  location.reload();
+
+}
+
+
+function render(){
+
+  if(!store.settings){
+    store.settings = {};
+  }
+
+  if(store.settings.vatRate == null){
+    store.settings.vatRate = 12.5;
+  }
+
+  if(store.settings.phone == null){
+    store.settings.phone = '';
+  }
+
+  if(store.settings.email == null){
+    store.settings.email = '';
+  }
+
+  if(store.settings.instagram == null){
+    store.settings.instagram = '';
+  }
+
+  if(!Array.isArray(store.products)){
+    store.products = [];
+  }
+
+  if(!Array.isArray(store.freeItems)){
+    store.freeItems = [];
+  }
+
+  if(!Array.isArray(store.sales)){
+    store.sales = [];
+  }
+
+
+  document.getElementById('vat').value =
+    store.settings.vatRate;
+
+  document.getElementById('phone').value =
+    store.settings.phone;
+
+  document.getElementById('email').value =
+    store.settings.email;
+
+  document.getElementById('instagram').value =
+    store.settings.instagram;
+
+
+  document.getElementById('products').innerHTML =
+    store.products.map((p,i)=>`
+
+      <div class="row" data-i="${i}">
+
+        <input
+          data-k="name"
+          value="${e(p.name)}"
+        >
+
+        <input
+          data-k="price"
+          type="number"
+          step="0.01"
+          value="${p.price}"
+        >
+
+        <input
+          data-k="unit"
+          value="${e(p.unit)}"
+        >
+
+        <select data-k="tax">
+
+          <option
+            ${p.tax==='taxable'?'selected':''}
+            value="taxable">
+            Taxable
+          </option>
+
+          <option
+            ${p.tax==='inclusive'?'selected':''}
+            value="inclusive">
+            VAT inclusive
+          </option>
+
+          <option
+            ${p.tax==='zero'?'selected':''}
+            value="zero">
+            Zero-rated
+          </option>
+
+          <option
+            ${p.tax==='quote'?'selected':''}
+            value="quote">
+            Price on request
+          </option>
+
+        </select>
+
+        <input
+          data-k="image"
+          value="${e(p.image||'')}"
+          placeholder="image filename"
+        >
+
+        <button
+          class="btn danger"
+          onclick="delProduct(${i})">
+          Delete
+        </button>
+
+        <div class="small full">
+
+          ${e(p.description||'')}
+
+          •
+
+          <label>
+
+            <input
+              data-k="active"
+              type="checkbox"
+              ${p.active?'checked':''}
+            >
+
+            Active
+
+          </label>
+
+        </div>
+
+      </div>
+
+    `).join('');
+
+
+  document.getElementById('free').innerHTML =
+    store.freeItems.map((x,i)=>`
+
+      <div class="free-row">
+
+        <input
+          class="input"
+          data-f="name"
+          data-i="${i}"
+          value="${e(x.name)}"
+        >
+
+        <input
+          class="input"
+          data-f="description"
+          data-i="${i}"
+          value="${e(x.description||'')}"
+        >
+
+        <button
+          class="btn danger"
+          onclick="delFree(${i})">
+          Delete
+        </button>
+
+      </div>
+
+    `).join('');
+}
+
+
 function collect(){
-function col2lect(){document.querySelectorAll('#products .row').forEach(r=>{let p=store.products[Number(r.dataset.i)];r.querySelectorAll('[data-k]').forEach(x=>{let k=x.dataset.k;p[k]=k==='price'?Number(x.value||0):k==='active'?x.checked:x.value})});document.querySelectorAll('[data-f]').forEach(x=>{store.freeItems[Number(x.dataset.i)][x.dataset.f]=x.value})}
-function saveAll(){collect();SATYANANDS_SAVE(store);alert('Saved on this browser. Use Export Product Data to publish the changes to your live website.');render()}function saveSettings(){store.settings.vatRate=Number(document.getElementById('vat').value||0);store.settings.phone=document.getElementById('phone').value.trim();store.settings.email=document.getElementById('email').value.trim();store.settings.instagram=document.getElementById('instagram').value.trim();let np=document.getElementById('newpw').value.trim();if(np)store.settings.adminPassword=np;SATYANANDS_SAVE(store);alert('Settings saved.');document.getElementById('newpw').value=''}
-function addProduct(){collect();store.products.push({id:'item-'+Date.now(),name:'New Item',description:'Add a description.',price:0,unit:'pc',tax:'taxable',image:'',active:true});SATYANANDS_SAVE(store);render()}function delProduct(i){if(confirm('Delete this item?')){collect();store.products.splice(i,1);SATYANANDS_SAVE(store);render()}}function addFree(){collect();store.freeItems.push({id:'free-'+Date.now(),name:'New Free Item',description:'Free with order.'});SATYANANDS_SAVE(store);render()}function delFree(i){collect();store.freeItems.splice(i,1);SATYANANDS_SAVE(store);render()}
-function resetData(){if(confirm('Reset all products and settings?')){store=structuredClone(SATYANANDS_DEFAULT_STORE);SATYANANDS_SAVE(store);render()}}
-function exportData(){collect();let js='const DEFAULT_STORE = '+JSON.stringify(store,null,2)+';\nfunction loadStore(){try{const s=localStorage.getItem(\'satyanandsStore\');if(s)return JSON.parse(s)}catch(e){}return structuredClone(DEFAULT_STORE)}\nfunction saveStore(s){localStorage.setItem(\'satyanandsStore\',JSON.stringify(s))}\nfunction money(n){return `TT$${Number(n||0).toFixed(2)}`}\nif(typeof window!==\'undefined\'){window.SATYANANDS_DEFAULT_STORE=DEFAULT_STORE;window.SATYANANDS_LOAD=loadStore;window.SATYANANDS_SAVE=saveStore;window.SATYANANDS_MONEY=money}';let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([js],{type:'text/javascript'}));a.download='product.js';a.click();URL.revokeObjectURL(a.href)}
-function e(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 
-function ensureSalesLocal(){if(!Array.isArray(store.sales))store.sales=[]}
-function money2(n){return 'TT$'+Number(n||0).toFixed(2)}
-function dateOnly(iso){return String(iso||'').slice(0,10)}
-function filteredSales(){
-  ensureSalesLocal();
-  const from=document.getElementById('reportFrom').value;
-  const to=document.getElementById('reportTo').value;
-  const status=document.getElementById('reportStatus').value;
-  return store.sales.filter(s=>{
-    const d=dateOnly(s.date);
-    return (!from||d>=from)&&(!to||d<=to)&&(status==='all'||s.status===status);
+  document
+    .querySelectorAll('#products .row')
+    .forEach(r=>{
+
+      let p =
+        store.products[
+          Number(r.dataset.i)
+        ];
+
+      r
+        .querySelectorAll('[data-k]')
+        .forEach(x=>{
+
+          let k = x.dataset.k;
+
+          p[k] =
+            k === 'price'
+              ? Number(x.value || 0)
+              : k === 'active'
+              ? x.checked
+              : x.value;
+
+        });
+
+    });
+
+
+  document
+    .querySelectorAll('[data-f]')
+    .forEach(x=>{
+
+      store.freeItems[
+        Number(x.dataset.i)
+      ][x.dataset.f] = x.value;
+
+    });
+
+}
+
+
+function saveAll(){
+
+  collect();
+
+  SATYANANDS_SAVE(store);
+
+  alert(
+    'Saved on this browser. Use Export Product Data to publish the changes to your live website.'
+  );
+
+  render();
+
+}
+
+
+function saveSettings(){
+
+  store.settings.vatRate =
+    Number(
+      document.getElementById('vat').value || 0
+    );
+
+  store.settings.phone =
+    document
+      .getElementById('phone')
+      .value
+      .trim();
+
+  store.settings.email =
+    document
+      .getElementById('email')
+      .value
+      .trim();
+
+  store.settings.instagram =
+    document
+      .getElementById('instagram')
+      .value
+      .trim();
+
+
+  let np =
+    document
+      .getElementById('newpw')
+      .value
+      .trim();
+
+
+  if(np){
+
+    store.settings.adminPassword = np;
+
+  }else{
+
+    store.settings.adminPassword =
+      OWNER_PASSWORD;
+
+  }
+
+
+  SATYANANDS_SAVE(store);
+
+  alert('Settings saved.');
+
+  document.getElementById('newpw').value = '';
+
+}
+
+
+function addProduct(){
+
+  collect();
+
+  store.products.push({
+
+    id:
+      'item-' + Date.now(),
+
+    name:
+      'New Item',
+
+    description:
+      'Add a description.',
+
+    price:
+      0,
+
+    unit:
+      'pc',
+
+    tax:
+      'taxable',
+
+    image:
+      '',
+
+    active:
+      true
+
   });
-}
-function setReportDates(){
-  const now=new Date(), y=now.getFullYear(), m=String(now.getMonth()+1).padStart(2,'0');
-  const first=`${y}-${m}-01`;
-  const last=`${y}-${m}-${String(new Date(y,now.getMonth()+1,0).getDate()).padStart(2,'0')}`;
-  if(!document.getElementById('reportFrom').value)document.getElementById('reportFrom').value=first;
-  if(!document.getElementById('reportTo').value)document.getElementById('reportTo').value=last;
-}
-function renderReports(){setReportDates();
-  ensureSalesLocal();
-  const rows=filteredSales();
-  let taxable=0,vat=0,zero=0,total=0;
-  rows.forEach(s=>{taxable+=Number(s.taxable||0);vat+=Number(s.vat||0);zero+=Number(s.zeroRated||0);total+=Number(s.total||0)});
-  document.getElementById('reportSummary').innerHTML=
-    `<b>Sales: ${rows.length}</b> &nbsp; | &nbsp; Amount taxable: <b>${money2(taxable)}</b> &nbsp; | &nbsp; VAT: <b>${money2(vat)}</b> &nbsp; | &nbsp; Zero-rated: <b>${money2(zero)}</b> &nbsp; | &nbsp; Final total: <b>${money2(total)}</b>`;
-  document.getElementById('reportTable').innerHTML=rows.length?`
-    <table style="width:100%;border-collapse:collapse">
-    <tr><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Date</th><th style="text-align:left;padding:8px;border-bottom:1px solid #ddd">Customer</th><th style="padding:8px;border-bottom:1px solid #ddd">Status</th><th style="padding:8px;border-bottom:1px solid #ddd">Taxable</th><th style="padding:8px;border-bottom:1px solid #ddd">VAT</th><th style="padding:8px;border-bottom:1px solid #ddd">Zero-rated</th><th style="padding:8px;border-bottom:1px solid #ddd">Total</th><th style="padding:8px;border-bottom:1px solid #ddd">Action</th></tr>
-    ${rows.map(s=>`<tr>
-      <td style="padding:8px;border-bottom:1px solid #eee">${e(dateOnly(s.date))}</td>
-      <td style="padding:8px;border-bottom:1px solid #eee">${e(s.customerName||'Manual sale')}</td>
-      <td style="padding:8px;border-bottom:1px solid #eee">${e(s.status)}</td>
-      <td style="padding:8px;border-bottom:1px solid #eee;text-align:right">${money2(s.taxable)}</td>
-      <td style="padding:8px;border-bottom:1px solid #eee;text-align:right">${money2(s.vat)}</td>
-      <td style="padding:8px;border-bottom:1px solid #eee;text-align:right">${money2(s.zeroRated)}</td>
-      <td style="padding:8px;border-bottom:1px solid #eee;text-align:right">${money2(s.total)}</td>
-      <td style="padding:8px;border-bottom:1px solid #eee"><button class="btn ${s.status==='completed'?'danger':'goldbtn'}" onclick="toggleSaleStatus('${s.id}')">${s.status==='completed'?'Reopen':'Mark completed'}</button> <button class="btn danger" onclick="deleteSale('${s.id}')">Delete</button></td>
-    </tr>`).join('')}
-    </table>`:'<p class="small">No sales found for the selected filters.</p>';
-}
-function toggleSaleStatus(id){ensureSalesLocal();const s=store.sales.find(x=>x.id===id);if(!s)return;s.status=s.status==='completed'?'order-sent':'completed';SATYANANDS_SAVE(store);renderReports()}
-function deleteSale(id){if(confirm('Delete this sale record?')){store.sales=store.sales.filter(x=>x.id!==id);SATYANANDS_SAVE(store);renderReports()}}
-function addManualSale(){
-  ensureSalesLocal();
-  const items=store.products.filter(p=>p.active&&p.tax!=='quote').map(p=>({p,q:1}));
-  if(!items.length){alert('No active priced products available.');return}
-  let choice=prompt('Enter product name exactly as listed:\\n\\n'+items.map(x=>x.p.name).join('\\n'));
-  if(!choice)return;
-  const p=items.find(x=>x.p.name.toLowerCase()===choice.trim().toLowerCase())?.p;
-  if(!p){alert('Product not found.');return}
-  let q=Math.max(1,Number(prompt('Quantity:', '1'))||1);
-  let customer=prompt('Customer name (optional):','')||'Manual sale';
-  let line=p.price*q, taxable=0, vat=0, zero=0;
-  if(p.tax==='inclusive'){taxable=line/(1+store.settings.vatRate/100);vat=line-taxable}
-  else if(p.tax==='taxable'){taxable=line;vat=line*store.settings.vatRate/100}
-  else zero=line;
-  store.sales.push({id:'sale-'+Date.now(),date:new Date().toISOString(),status:'completed',customerName:customer,phone:'',items:[{productId:p.id,name:p.name,qty:q,unitPrice:p.price,taxType:p.tax,lineTotal:line,taxable,vat,zeroRated:zero}],taxable:Number(taxable.toFixed(2)),vat:Number(vat.toFixed(2)),zeroRated:Number(zero.toFixed(2)),total:Number((taxable+vat+zero).toFixed(2))});
-  SATYANANDS_SAVE(store);renderReports();
-}
-function exportSales(){
-  ensureSalesLocal();
-  const rows=filteredSales();
-  const payload={business:"Satyanand's Limited",vatRate:store.settings.vatRate,generated:new Date().toISOString(),sales:rows};
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));a.download='satyanands-sales-report.json';a.click();URL.revokeObjectURL(a.href);
-}
-function importSales(input){
-  const f=input.files&&input.files[0];if(!f)return;
-  const r=new FileReader();r.onload=()=>{try{const data=JSON.parse(r.result);if(!Array.isArray(data.sales))throw Error();ensureSalesLocal();const ids=new Set(store.sales.map(s=>s.id));data.sales.forEach(s=>{if(!ids.has(s.id))store.sales.push(s)});SATYANANDS_SAVE(store);renderReports();alert('Sales imported successfully.')}catch(err){alert('That file is not a valid Satyanand\\'s sales report.')}};r.readAsText(f);
+
+  SATYANANDS_SAVE(store);
+
+  render();
+
 }
 
-</script></body></html>
+
+function delProduct(i){
+
+  if(confirm('Delete this item?')){
+
+    collect();
+
+    store.products.splice(i,1);
+
+    SATYANANDS_SAVE(store);
+
+    render();
+
+  }
+
+}
+
+
+function addFree(){
+
+  collect();
+
+  store.freeItems.push({
+
+    id:
+      'free-' + Date.now(),
+
+    name:
+      'New Free Item',
+
+    description:
+      'Free with order.'
+
+  });
+
+  SATYANANDS_SAVE(store);
+
+  render();
+
+}
+
+
+function delFree(i){
+
+  collect();
+
+  store.freeItems.splice(i,1);
+
+  SATYANANDS_SAVE(store);
+
+  render();
+
+}
+
+
+function resetData(){
+
+  if(
+    confirm(
+      'Reset all products and settings?'
+    )
+  ){
+
+    localStorage.removeItem(
+      'satyanandsStore'
+    );
+
+    store =
+      SATYANANDS_LOAD();
+
+    render();
+
+  }
+
+}
+
+
+function exportData(){
+
+  collect();
+
+  let js =
+    'const DEFAULT_STORE = ' +
+    JSON.stringify(store,null,2) +
+    ';\n' +
+
+    'function loadStore(){' +
+    'try{' +
+    'const s=localStorage.getItem("satyanandsStore");' +
+    'if(s)return JSON.parse(s)' +
+    '}catch(e){}' +
+    'return structuredClone(DEFAULT_STORE)' +
+    '}\n' +
+
+    'function saveStore(s){' +
+    'localStorage.setItem("satyanandsStore",JSON.stringify(s))' +
+    '}\n' +
+
+    'function money(n){' +
+    'return `TT$${Number(n||0).toFixed(2)}`' +
+    '}\n' +
+
+    'if(typeof window!=="undefined"){' +
+    'window.SATYANANDS_DEFAULT_STORE=DEFAULT_STORE;' +
+    'window.SATYANANDS_LOAD=loadStore;' +
+    'window.SATYANANDS_SAVE=saveStore;' +
+    'window.SATYANANDS_MONEY=money' +
+    '}';
+
+
+  let a =
+    document.createElement('a');
+
+  a.href =
+    URL.createObjectURL(
+      new Blob(
+        [js],
+        {type:'text/javascript'}
+      )
+    );
+
+  a.download =
+    'product.js';
+
+  a.click();
+
+  URL.revokeObjectURL(a.href);
+
+}
+
+
+function e(s){
+
+  return String(s||'')
+    .replace(
+      /[&<>"']/g,
+      m=>({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#39;'
+      }[m])
+    );
+
+}
+
+</script>
+
+</body>
+</html>
