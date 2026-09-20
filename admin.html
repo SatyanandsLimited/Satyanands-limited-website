@@ -1,59 +1,2202 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Owner — Satyanand's Limited</title><style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#fbf8ef;color:#222}.head{background:#fff;border-bottom:2px solid #c9a227;padding:16px;text-align:center}.head img{width:90px;height:90px;object-fit:contain}.wrap{max-width:1100px;margin:auto;padding:25px 16px}.box{background:#fff;border:1px solid #e5d9b9;border-radius:18px;padding:20px;margin-bottom:20px;box-shadow:0 6px 20px #0000000d}h1,h2{margin-top:0}.gold{color:#9b7a0c}.login{max-width:440px;margin:60px auto}.input{width:100%;padding:13px;border:1px solid #cfc4a7;border-radius:10px;margin:8px 0 12px}.btn{border:0;border-radius:10px;padding:11px 14px;font-weight:800;cursor:pointer;margin:4px}.primary{background:#171717;color:#fff}.goldbtn{background:#c9a227}.danger{background:#eee}.row{display:grid;grid-template-columns:1.4fr .8fr .9fr .9fr 1fr auto;gap:8px;align-items:center;border-top:1px solid #eee;padding:12px 0}.row input,.row select{width:100%;padding:9px;border:1px solid #d8cfba;border-radius:8px}.small{font-size:12px;color:#6f685b}.actions{display:flex;flex-wrap:wrap;gap:7px}.hidden{display:none}.free-row{display:grid;grid-template-columns:1fr 2fr auto;gap:8px;margin:8px 0}.notice{padding:12px;background:#fff7dc;border-left:4px solid #c9a227;line-height:1.5}@media(max-width:850px){.row{grid-template-columns:1fr 1fr}.free-row{grid-template-columns:1fr}.row .full{grid-column:1/-1}}
-</style></head><body><div class="head"><img src="logo.png" alt="Logo"><h1>Owner Price & Product Manager</h1><div>Satyanand's Limited • Est. 2024</div></div>
+<!doctype html>
+<html lang="en">
 
-<div id="login" class="login box"><h2>Owner Login</h2><p class="small">Sign in with the owner account created in Firebase Authentication.</p><input id="emailLogin" class="input" type="email" placeholder="Owner email"><input id="pw" class="input" type="password" placeholder="Password"><button class="btn primary" onclick="login()">Unlock</button><p id="loginErr"></p></div>
+<head>
+
+<meta charset="utf-8">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
+
+<title>Owner — Satyanand's Limited</title>
+
+<style>
+
+*{
+  box-sizing:border-box
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#fbf8ef;
+  color:#222
+}
+
+.head{
+  background:#fff;
+  border-bottom:2px solid #c9a227;
+  padding:16px;
+  text-align:center
+}
+
+.head img{
+  width:90px;
+  height:90px;
+  object-fit:contain
+}
+
+.wrap{
+  max-width:1100px;
+  margin:auto;
+  padding:25px 16px
+}
+
+.box{
+  background:#fff;
+  border:1px solid #e5d9b9;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 6px 20px #0000000d
+}
+
+h1,
+h2{
+  margin-top:0
+}
+
+.gold{
+  color:#9b7a0c
+}
+
+.login{
+  max-width:440px;
+  margin:60px auto
+}
+
+.input{
+  width:100%;
+  padding:13px;
+  border:1px solid #cfc4a7;
+  border-radius:10px;
+  margin:8px 0 12px
+}
+
+.btn{
+  border:0;
+  border-radius:10px;
+  padding:11px 14px;
+  font-weight:800;
+  cursor:pointer;
+  margin:4px
+}
+
+.primary{
+  background:#171717;
+  color:#fff
+}
+
+.goldbtn{
+  background:#c9a227
+}
+
+.danger{
+  background:#eee
+}
+
+.row{
+  display:grid;
+  grid-template-columns:
+    1.4fr
+    .8fr
+    .9fr
+    .9fr
+    1fr
+    auto;
+  gap:8px;
+  align-items:center;
+  border-top:1px solid #eee;
+  padding:12px 0
+}
+
+.row input,
+.row select{
+  width:100%;
+  padding:9px;
+  border:1px solid #d8cfba;
+  border-radius:8px
+}
+
+.small{
+  font-size:12px;
+  color:#6f685b
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px
+}
+
+.hidden{
+  display:none
+}
+
+.free-row{
+  display:grid;
+  grid-template-columns:1fr 2fr auto;
+  gap:8px;
+  margin:8px 0
+}
+
+.notice{
+  padding:12px;
+  background:#fff7dc;
+  border-left:4px solid #c9a227;
+  line-height:1.5
+}
+
+@media(max-width:850px){
+
+  .row{
+    grid-template-columns:1fr 1fr
+  }
+
+  .free-row{
+    grid-template-columns:1fr
+  }
+
+  .row .full{
+    grid-column:1/-1
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="head">
+
+  <img
+    src="logo.png"
+    alt="Satyanand's Limited Logo"
+  >
+
+  <h1>
+    Owner Price & Product Manager
+  </h1>
+
+  <div>
+    Satyanand's Limited • Est. 2024
+  </div>
+
+</div>
+
+
+<!-- OWNER LOGIN -->
+
+<div id="login" class="login box">
+
+  <h2>
+    Owner Login
+  </h2>
+
+  <p class="small">
+    Sign in with the owner account created in Firebase Authentication.
+  </p>
+
+  <input
+    id="emailLogin"
+    class="input"
+    type="email"
+    placeholder="Owner email"
+  >
+
+  <input
+    id="pw"
+    class="input"
+    type="password"
+    placeholder="Password"
+  >
+
+  <button
+    class="btn primary"
+    onclick="login()"
+  >
+    Unlock
+  </button>
+
+  <p id="loginErr"></p>
+
+</div>
+
+
+<!-- OWNER DASHBOARD -->
+
 <main id="app" class="wrap hidden">
-<section class="box"><div class="actions" style="justify-content:space-between"><div><h2 class="gold" style="margin-bottom:4px">Owner Dashboard</h2><div id="signedInAs" class="small"></div></div><button class="btn danger" onclick="logout()">Lock</button></div></section>
-<section class="box"><h2 class="gold">Pending Orders</h2><p class="small">Orders from the customer website are stored centrally in Firebase and appear here from any device.</p>
-<div class="actions"><button class="btn primary" onclick="loadOrders()">Refresh Orders</button><select id="orderFilter" class="input" style="max-width:220px;margin:4px" onchange="renderOrders()"><option value="all">All statuses</option><option value="Pending">Pending</option><option value="Processing">Processing</option><option value="Completed">Completed</option><option value="Sent">Sent</option></select></div>
-<div id="ordersTable" style="overflow:auto;margin-top:12px"></div></section>
-<section class="box"><h2 class="gold">Reports</h2><div class="row" style="grid-template-columns:1fr 1fr 1fr auto"><label>From<input id="reportFrom" type="date"></label><label>To<input id="reportTo" type="date"></label><label>Status<select id="reportStatus"><option value="all">All</option><option value="Pending">Pending</option><option value="Processing">Processing</option><option value="Completed">Completed</option><option value="Sent">Sent</option></select></label><div class="actions"><button class="btn primary" onclick="renderReports()">Run Report</button></div></div><div id="reportSummary" class="notice"></div><div id="reportTable" style="overflow:auto;margin-top:12px"></div><div class="actions"><button class="btn goldbtn" onclick="exportReport()">Export Report CSV</button></div></section>
-<section class="box"><h2 class="gold">Business Settings</h2><div class="row"><label>VAT rate %<input id="vat" type="number" step="0.01" value="12.5"></label><label>Phone<input id="phone"></label><label>Email<input id="email"></label><label>Instagram<input id="instagram"></label></div><div class="actions"><button class="btn goldbtn" onclick="saveSettings()">Save Settings</button></div><p id="settingsMsg" class="small"></p></section>
-<section class="box"><h2 class="gold">Products</h2><p class="small">Product changes are saved centrally in Firestore. Existing customer-page design is not changed here.</p><div id="products"></div><div class="actions"><button class="btn goldbtn" onclick="addProduct()">+ Add New Item</button><button class="btn primary" onclick="saveProducts()">Save Product Changes</button></div><p id="productsMsg" class="small"></p></section>
-<section class="box"><h2 class="gold">Free Items</h2><div id="free"></div><button class="btn goldbtn" onclick="addFree()">+ Add Free Item</button><button class="btn primary" onclick="saveFree()">Save Free Items</button><p id="freeMsg" class="small"></p></section>
+
+
+  <!-- DASHBOARD HEADER -->
+
+  <section class="box">
+
+    <div
+      class="actions"
+      style="justify-content:space-between"
+    >
+
+      <div>
+
+        <h2
+          class="gold"
+          style="margin-bottom:4px"
+        >
+          Owner Dashboard
+        </h2>
+
+        <div
+          id="signedInAs"
+          class="small"
+        ></div>
+
+      </div>
+
+      <button
+        class="btn danger"
+        onclick="logout()"
+      >
+        Lock
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- PENDING ORDERS -->
+
+  <section class="box">
+
+    <h2 class="gold">
+      Pending Orders
+    </h2>
+
+    <p class="small">
+      Orders from the customer website are stored centrally in Firebase and appear here from any device.
+    </p>
+
+    <div class="actions">
+
+      <button
+        class="btn primary"
+        onclick="loadOrders()"
+      >
+        Refresh Orders
+      </button>
+
+      <select
+        id="orderFilter"
+        class="input"
+        style="max-width:220px;margin:4px"
+        onchange="renderOrders()"
+      >
+
+        <option value="all">
+          All statuses
+        </option>
+
+        <option value="Pending">
+          Pending
+        </option>
+
+        <option value="Processing">
+          Processing
+        </option>
+
+        <option value="Completed">
+          Completed
+        </option>
+
+        <option value="Sent">
+          Sent
+        </option>
+
+      </select>
+
+    </div>
+
+    <div
+      id="ordersTable"
+      style="overflow:auto;margin-top:12px"
+    ></div>
+
+  </section>
+
+
+  <!-- REPORTS -->
+
+  <section class="box">
+
+    <h2 class="gold">
+      Reports
+    </h2>
+
+    <div
+      class="row"
+      style="grid-template-columns:1fr 1fr 1fr auto"
+    >
+
+      <label>
+        From
+        <input
+          id="reportFrom"
+          type="date"
+        >
+      </label>
+
+      <label>
+        To
+        <input
+          id="reportTo"
+          type="date"
+        >
+      </label>
+
+      <label>
+        Status
+
+        <select id="reportStatus">
+
+          <option value="all">
+            All
+          </option>
+
+          <option value="Pending">
+            Pending
+          </option>
+
+          <option value="Processing">
+            Processing
+          </option>
+
+          <option value="Completed">
+            Completed
+          </option>
+
+          <option value="Sent">
+            Sent
+          </option>
+
+        </select>
+
+      </label>
+
+      <div class="actions">
+
+        <button
+          class="btn primary"
+          onclick="renderReports()"
+        >
+          Run Report
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div
+      id="reportSummary"
+      class="notice"
+    ></div>
+
+
+    <div
+      id="reportTable"
+      style="overflow:auto;margin-top:12px"
+    ></div>
+
+
+    <div class="actions">
+
+      <button
+        class="btn goldbtn"
+        onclick="exportReport()"
+      >
+        Export Report CSV
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- BUSINESS SETTINGS -->
+
+  <section class="box">
+
+    <h2 class="gold">
+      Business Settings
+    </h2>
+
+    <div class="row">
+
+      <label>
+        VAT rate %
+        <input
+          id="vat"
+          type="number"
+          step="0.01"
+          value="12.5"
+        >
+      </label>
+
+      <label>
+        Phone
+        <input id="phone">
+      </label>
+
+      <label>
+        Email
+        <input id="email">
+      </label>
+
+      <label>
+        Instagram
+        <input id="instagram">
+      </label>
+
+    </div>
+
+    <div class="actions">
+
+      <button
+        class="btn goldbtn"
+        onclick="saveSettings()"
+      >
+        Save Settings
+      </button>
+
+    </div>
+
+    <p
+      id="settingsMsg"
+      class="small"
+    ></p>
+
+  </section>
+
+
+  <!-- PRODUCTS -->
+
+  <section class="box">
+
+    <h2 class="gold">
+      Products
+    </h2>
+
+    <p class="small">
+      Product changes are saved centrally in Firestore. The customer website reads the central product list.
+    </p>
+
+    <div id="products"></div>
+
+    <div class="actions">
+
+      <button
+        class="btn goldbtn"
+        onclick="addProduct()"
+      >
+        + Add New Item
+      </button>
+
+      <button
+        class="btn primary"
+        onclick="saveProducts()"
+      >
+        Save Product Changes
+      </button>
+
+    </div>
+
+    <p
+      id="productsMsg"
+      class="small"
+    ></p>
+
+  </section>
+
+
+  <!-- FREE ITEMS -->
+
+  <section class="box">
+
+    <h2 class="gold">
+      Free Items
+    </h2>
+
+    <div id="free"></div>
+
+    <button
+      class="btn goldbtn"
+      onclick="addFree()"
+    >
+      + Add Free Item
+    </button>
+
+    <button
+      class="btn primary"
+      onclick="saveFree()"
+    >
+      Save Free Items
+    </button>
+
+    <p
+      id="freeMsg"
+      class="small"
+    ></p>
+
+  </section>
+
 </main>
-<script src="product.js"></script><script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore-compat.js"></script><script>const firebaseConfig = {
-  apiKey: "AIzaSyCVI8gDAYlG9ocCO8Od8TQ44auxPZhkx1E",
-  authDomain: "satyanand-s-limited.firebaseapp.com",
-  projectId: "satyanand-s-limited",
-  storageBucket: "satyanand-s-limited.firebasestorage.app",
-  messagingSenderId: "563244813133",
-  appId: "1:563244813133:web:ded929fafeac63f71f0504",
-  measurementId: "G-ELFTP9HHJM"
+
+
+<!-- PRODUCT.JS -->
+
+<script src="product.js"></script>
+
+
+<!-- FIREBASE -->
+
+<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore-compat.js"></script>
+
+
+<script>
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyCVI8gDAYlG9ocCO8Od8TQ44auxPZhkx1E",
+
+  authDomain:
+    "satyanand-s-limited.firebaseapp.com",
+
+  projectId:
+    "satyanand-s-limited",
+
+  storageBucket:
+    "satyanand-s-limited.firebasestorage.app",
+
+  messagingSenderId:
+    "563244813133",
+
+  appId:
+    "1:563244813133:web:ded929fafeac63f71f0504",
+
+  measurementId:
+    "G-ELFTP9HHJM"
+
 };
+
+
 firebase.initializeApp(firebaseConfig);
-const auth=firebase.auth();
-const db=firebase.firestore();
 
-const ADMIN_UID="nrJsiAXA7wN5iYhtQp9p6h7xE9f2";
-let orders=[]; let products=[]; let freeItems=[]; let settings={vatRate:12.5,phone:'',email:'',instagram:''};
-function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function money(n){return 'TT$'+Number(n||0).toFixed(2)}
-function login(){const email=document.getElementById('emailLogin').value.trim();const pw=document.getElementById('pw').value;const err=document.getElementById('loginErr');err.textContent='';if(!email||!pw){err.textContent='Enter the owner email and password.';return}auth.signInWithEmailAndPassword(email,pw).catch(e=>{err.textContent=e.message||'Login failed.'})}
-function logout(){auth.signOut()}
-auth.onAuthStateChanged(async user=>{if(user){if(user.uid!==ADMIN_UID){await auth.signOut();document.getElementById('loginErr').textContent='This account is not authorized as the owner.';return}document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.remove('hidden');document.getElementById('signedInAs').textContent='Signed in as '+(user.email||'owner');await loadAll()}else{document.getElementById('login').classList.remove('hidden');document.getElementById('app').classList.add('hidden')}});
-async function loadAll(){await Promise.all([loadOrders(),loadSettings(),loadProducts(),loadFree()]);renderReports()}
-async function loadOrders(){try{const snap=await db.collection('orders').orderBy('createdAt','desc').limit(200).get();orders=snap.docs.map(d=>({docId:d.id,...d.data()}));renderOrders();renderReports()}catch(e){document.getElementById('ordersTable').innerHTML='<p>'+esc(e.message)+'</p>'}}
-function itemText(o){return (o.items||[]).map(i=>`${i.productName||i.product||'Item'} × ${i.quantity||0}`).join('<br>')}
-function renderOrders(){const f=document.getElementById('orderFilter').value;const rows=orders.filter(o=>f==='all'||o.status===f);if(!rows.length){document.getElementById('ordersTable').innerHTML='<p class="small">No orders found.</p>';return}let h='<table style="width:100%;border-collapse:collapse;min-width:950px"><tr><th>Order</th><th>Customer</th><th>Items</th><th>Order date</th><th>Required date</th><th>Total</th><th>Status</th></tr>';for(const o of rows){const dt=o.createdAt&&o.createdAt.toDate?o.createdAt.toDate().toLocaleString():'';h+=`<tr style="border-top:1px solid #eee"><td style="padding:10px"><b>${esc(o.orderNumber||o.docId)}</b><br><span class="small">${esc(o.customerPhone||'')}</span></td><td style="padding:10px">${esc(o.customerName||'')}<br>${esc(o.customerEmail||'')}</td><td style="padding:10px">${itemText(o)}</td><td style="padding:10px">${esc(dt)}</td><td style="padding:10px">${esc(o.requiredDate||'')}</td><td style="padding:10px">${money(o.total)}</td><td style="padding:10px"><select onchange="changeStatus('${o.docId}',this.value)" style="padding:8px;border:1px solid #d8cfba;border-radius:8px"><option ${o.status==='Pending'?'selected':''}>Pending</option><option ${o.status==='Processing'?'selected':''}>Processing</option><option ${o.status==='Completed'?'selected':''}>Completed</option><option ${o.status==='Sent'?'selected':''}>Sent</option></select></td></tr>`}h+='</table>';document.getElementById('ordersTable').innerHTML=h}
-async function changeStatus(id,status){try{await db.collection('orders').doc(id).update({status});const o=orders.find(x=>x.docId===id);if(o)o.status=status;renderOrders();renderReports()}catch(e){alert(e.message)}}
-function dateValue(o){if(!o.createdAt)return '';if(o.createdAt.toDate)return o.createdAt.toDate().toISOString().slice(0,10);return String(o.createdAt).slice(0,10)}
-function renderReports(){const from=document.getElementById('reportFrom').value;const to=document.getElementById('reportTo').value;const st=document.getElementById('reportStatus').value;const rows=orders.filter(o=>{const d=dateValue(o);return(!from||d>=from)&&(!to||d<=to)&&(st==='all'||o.status===st)});let taxable=0,vat=0,zero=0,total=0;rows.forEach(o=>{taxable+=Number(o.taxableAmount||0);vat+=Number(o.vatAmount||0);zero+=Number(o.zeroRatedAmount||0);total+=Number(o.total||0)});document.getElementById('reportSummary').innerHTML=`<b>${rows.length}</b> orders • Taxable: <b>${money(taxable)}</b> • VAT: <b>${money(vat)}</b> • Zero-rated: <b>${money(zero)}</b> • Total: <b>${money(total)}</b>`;let h='<table style="width:100%;border-collapse:collapse;min-width:1100px"><tr><th>Order</th><th>Order date</th><th>Customer</th><th>Products</th><th>Qty</th><th>Subtotal</th><th>Taxable</th><th>VAT</th><th>Zero-rated</th><th>Total</th><th>Required date</th><th>Status</th></tr>';for(const o of rows){h+=`<tr style="border-top:1px solid #eee"><td>${esc(o.orderNumber||o.docId)}</td><td>${esc(dateValue(o))}</td><td>${esc(o.customerName||'')}<br>${esc(o.customerPhone||'')}</td><td>${(o.items||[]).map(i=>esc(i.productName||i.product||'')).join('<br>')}</td><td>${(o.items||[]).map(i=>esc(i.quantity||0)).join('<br>')}</td><td>${money(o.subtotal)}</td><td>${money(o.taxableAmount)}</td><td>${money(o.vatAmount)}</td><td>${money(o.zeroRatedAmount)}</td><td>${money(o.total)}</td><td>${esc(o.requiredDate||'')}</td><td>${esc(o.status||'Pending')}</td></tr>`}h+='</table>';document.getElementById('reportTable').innerHTML=h}
-function exportReport(){const table=document.getElementById('reportTable').innerText;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([table],{type:'text/plain'}));a.download='satyanands-report.txt';a.click();URL.revokeObjectURL(a.href)}
-async function loadSettings(){try{const d=await db.collection('settings').doc('business').get();if(d.exists)settings={...settings,...d.data()};document.getElementById('vat').value=settings.vatRate||12.5;document.getElementById('phone').value=settings.phone||'8687870821';document.getElementById('email').value=settings.email||'satyanandslimitedest.24@yahoo.com';document.getElementById('instagram').value=settings.instagram||"Satyanand's Limited"}catch(e){document.getElementById('settingsMsg').textContent=e.message}}
-async function saveSettings(){settings.vatRate=Number(document.getElementById('vat').value||12.5);settings.phone=document.getElementById('phone').value.trim();settings.email=document.getElementById('email').value.trim();settings.instagram=document.getElementById('instagram').value.trim();try{await db.collection('settings').doc('business').set(settings,{merge:true});document.getElementById('settingsMsg').textContent='Settings saved to Firebase.'}catch(e){document.getElementById('settingsMsg').textContent=e.message}}
-async function loadProducts(){try{const snap=await db.collection('products').get();if(!snap.empty){products=snap.docs.map(d=>({docId:d.id,...d.data()}))}else{const local=(window.SATYANANDS_DEFAULT_STORE?.products||[]).map(p=>({...p}));const rt=local.find(p=>p.id==='raksha-thread');if(rt){rt.price=14;rt.tax='inclusive';}products=local;const batch=db.batch();local.forEach(p=>batch.set(db.collection('products').doc(p.id),p));await batch.commit()}renderProducts()}catch(e){document.getElementById('productsMsg').textContent=e.message}}
-function renderProducts(){document.getElementById('products').innerHTML=products.map((p,i)=>`<div class="row" data-i="${i}"><input data-k="name" value="${esc(p.name)}"><input data-k="price" type="number" step="0.01" value="${Number(p.price||0)}"><input data-k="unit" value="${esc(p.unit||'pc')}"><select data-k="tax"><option value="taxable" ${p.tax==='taxable'?'selected':''}>Taxable</option><option value="inclusive" ${p.tax==='inclusive'?'selected':''}>VAT inclusive</option><option value="zero" ${p.tax==='zero'?'selected':''}>Zero-rated</option><option value="quote" ${p.tax==='quote'?'selected':''}>Price on request</option></select><input data-k="image" value="${esc(p.image||'')}" placeholder="image filename"><div class="full"><input data-k="description" value="${esc(p.description||'')}" placeholder="Description"><label><input data-k="active" type="checkbox" ${p.active!==false?'checked':''}> Active</label> <button class="btn danger" onclick="deleteProduct(${i})">Delete</button></div></div>`).join('')}
-function collectProducts(){document.querySelectorAll('#products .row').forEach(r=>{const p=products[Number(r.dataset.i)];r.querySelectorAll('[data-k]').forEach(x=>{const k=x.dataset.k;p[k]=k==='price'?Number(x.value||0):k==='active'?x.checked:x.value})})}
-async function saveProducts(){collectProducts();try{const batch=db.batch();products.forEach(p=>{const id=p.docId||p.id||('item-'+Date.now());p.id=id;batch.set(db.collection('products').doc(id),p,{merge:true})});await batch.commit();document.getElementById('productsMsg').textContent='Product changes saved to Firebase. Customers will use the central product list.';await loadProducts()}catch(e){document.getElementById('productsMsg').textContent=e.message}}
-function addProduct(){collectProducts();products.push({id:'item-'+Date.now(),name:'New Item',description:'Add a description.',price:0,unit:'pc',tax:'taxable',image:'',active:true});renderProducts()}
-async function deleteProduct(i){if(!confirm('Delete this product?'))return;const p=products[i];try{await db.collection('products').doc(p.docId||p.id).delete();products.splice(i,1);renderProducts();document.getElementById('productsMsg').textContent='Product deleted from Firebase.'}catch(e){document.getElementById('productsMsg').textContent=e.message}}
-async function loadFree(){try{const snap=await db.collection('settings').doc('freeItems').get();if(snap.exists&&Array.isArray(snap.data().items))freeItems=snap.data().items;else freeItems=window.SATYANANDS_DEFAULT_STORE?.freeItems||[];renderFree()}catch(e){document.getElementById('freeMsg').textContent=e.message}}
-function renderFree(){document.getElementById('free').innerHTML=freeItems.map((x,i)=>`<div class="free-row"><input class="input" data-f="name" data-i="${i}" value="${esc(x.name)}"><input class="input" data-f="description" data-i="${i}" value="${esc(x.description||'')}"><button class="btn danger" onclick="freeItems.splice(${i},1);renderFree()">Delete</button></div>`).join('')}
-function collectFree(){document.querySelectorAll('[data-f]').forEach(x=>freeItems[Number(x.dataset.i)][x.dataset.f]=x.value)}
-function addFree(){collectFree();freeItems.push({id:'free-'+Date.now(),name:'New Free Item',description:'Free with order.'});renderFree()}
-async function saveFree(){collectFree();try{await db.collection('settings').doc('freeItems').set({items:freeItems},{merge:true});document.getElementById('freeMsg').textContent='Free items saved to Firebase.'}catch(e){document.getElementById('freeMsg').textContent=e.message}}
-function setDefaultDates(){const n=new Date(),y=n.getFullYear(),m=String(n.getMonth()+1).padStart(2,'0');document.getElementById('reportFrom').value=`${y}-${m}-01`;document.getElementById('reportTo').value=new Date(y,n.getMonth()+1,0).toISOString().slice(0,10)}setDefaultDates();
 
-</script></body></html>
+const auth =
+  firebase.auth();
+
+
+const db =
+  firebase.firestore();
+
+
+const ADMIN_UID =
+  "nrJsiAXA7wN5iYhtQp9p6h7xE9f2";
+
+
+let orders = [];
+
+let products = [];
+
+let freeItems = [];
+
+let settings = {
+  vatRate: 12.5,
+  phone: '',
+  email: '',
+  instagram: ''
+};
+
+
+function esc(v){
+
+  return String(v ?? '')
+    .replace(
+      /[&<>"']/g,
+      m => ({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#39;'
+      }[m])
+    );
+
+}
+
+
+function money(n){
+
+  return 'TT$' +
+    Number(n || 0).toFixed(2);
+
+}
+
+
+/* LOGIN */
+
+function login(){
+
+  const email =
+    document
+      .getElementById('emailLogin')
+      .value
+      .trim();
+
+  const pw =
+    document
+      .getElementById('pw')
+      .value;
+
+  const err =
+    document
+      .getElementById('loginErr');
+
+  err.textContent = '';
+
+  if(!email || !pw){
+
+    err.textContent =
+      'Enter the owner email and password.';
+
+    return;
+  }
+
+  auth
+    .signInWithEmailAndPassword(
+      email,
+      pw
+    )
+    .catch(e => {
+
+      err.textContent =
+        e.message ||
+        'Login failed.';
+
+    });
+
+}
+
+
+function logout(){
+
+  auth.signOut();
+
+}
+
+
+auth.onAuthStateChanged(
+  async user => {
+
+    if(user){
+
+      if(user.uid !== ADMIN_UID){
+
+        await auth.signOut();
+
+        document
+          .getElementById('loginErr')
+          .textContent =
+          'This account is not authorized as the owner.';
+
+        return;
+      }
+
+
+      document
+        .getElementById('login')
+        .classList
+        .add('hidden');
+
+
+      document
+        .getElementById('app')
+        .classList
+        .remove('hidden');
+
+
+      document
+        .getElementById('signedInAs')
+        .textContent =
+        'Signed in as ' +
+        (user.email || 'owner');
+
+
+      await loadAll();
+
+    }else{
+
+      document
+        .getElementById('login')
+        .classList
+        .remove('hidden');
+
+
+      document
+        .getElementById('app')
+        .classList
+        .add('hidden');
+
+    }
+
+  }
+);
+
+
+/* LOAD EVERYTHING */
+
+async function loadAll(){
+
+  await Promise.all([
+
+    loadOrders(),
+
+    loadSettings(),
+
+    loadProducts(),
+
+    loadFree()
+
+  ]);
+
+  renderReports();
+
+}
+
+
+/* ORDERS */
+
+async function loadOrders(){
+
+  try{
+
+    const snap =
+      await db
+        .collection('orders')
+        .orderBy(
+          'createdAt',
+          'desc'
+        )
+        .limit(200)
+        .get();
+
+
+    orders =
+      snap.docs.map(
+        d => ({
+          docId:d.id,
+          ...d.data()
+        })
+      );
+
+
+    renderOrders();
+
+    renderReports();
+
+  }catch(e){
+
+    document
+      .getElementById('ordersTable')
+      .innerHTML =
+      '<p>' +
+      esc(e.message) +
+      '</p>';
+
+  }
+
+}
+
+
+function itemText(o){
+
+  return (o.items || [])
+    .map(
+      i =>
+        `${i.productName || i.product || 'Item'} × ${i.quantity || 0}`
+    )
+    .join('<br>');
+
+}
+
+
+function renderOrders(){
+
+  const f =
+    document
+      .getElementById('orderFilter')
+      .value;
+
+
+  const rows =
+    orders.filter(
+      o =>
+        f === 'all' ||
+        o.status === f
+    );
+
+
+  if(!rows.length){
+
+    document
+      .getElementById('ordersTable')
+      .innerHTML =
+      '<p class="small">No orders found.</p>';
+
+    return;
+
+  }
+
+
+  let h = `
+
+  <table
+    style="
+      width:100%;
+      border-collapse:collapse;
+      min-width:950px
+    "
+  >
+
+  <tr>
+
+    <th>Order</th>
+
+    <th>Customer</th>
+
+    <th>Items</th>
+
+    <th>Order date</th>
+
+    <th>Required date</th>
+
+    <th>Total</th>
+
+    <th>Status</th>
+
+  </tr>
+
+  `;
+
+
+  for(const o of rows){
+
+    const dt =
+      o.createdAt &&
+      o.createdAt.toDate
+        ? o.createdAt
+            .toDate()
+            .toLocaleString()
+        : '';
+
+
+    h += `
+
+    <tr
+      style="border-top:1px solid #eee"
+    >
+
+      <td style="padding:10px">
+
+        <b>
+          ${esc(
+            o.orderNumber ||
+            o.docId
+          )}
+        </b>
+
+        <br>
+
+        <span class="small">
+          ${esc(
+            o.customerPhone || ''
+          )}
+        </span>
+
+      </td>
+
+
+      <td style="padding:10px">
+
+        ${esc(
+          o.customerName || ''
+        )}
+
+        <br>
+
+        ${esc(
+          o.customerEmail || ''
+        )}
+
+      </td>
+
+
+      <td style="padding:10px">
+
+        ${itemText(o)}
+
+      </td>
+
+
+      <td style="padding:10px">
+
+        ${esc(dt)}
+
+      </td>
+
+
+      <td style="padding:10px">
+
+        ${esc(
+          o.requiredDate || ''
+        )}
+
+      </td>
+
+
+      <td style="padding:10px">
+
+        ${money(o.total)}
+
+      </td>
+
+
+      <td style="padding:10px">
+
+        <select
+          onchange="changeStatus(
+            '${o.docId}',
+            this.value
+          )"
+
+          style="
+            padding:8px;
+            border:1px solid #d8cfba;
+            border-radius:8px
+          "
+        >
+
+          <option
+            ${o.status === 'Pending'
+              ? 'selected'
+              : ''}
+          >
+            Pending
+          </option>
+
+          <option
+            ${o.status === 'Processing'
+              ? 'selected'
+              : ''}
+          >
+            Processing
+          </option>
+
+          <option
+            ${o.status === 'Completed'
+              ? 'selected'
+              : ''}
+          >
+            Completed
+          </option>
+
+          <option
+            ${o.status === 'Sent'
+              ? 'selected'
+              : ''}
+          >
+            Sent
+          </option>
+
+        </select>
+
+      </td>
+
+    </tr>
+
+    `;
+
+  }
+
+
+  h += '</table>';
+
+  document
+    .getElementById('ordersTable')
+    .innerHTML = h;
+
+}
+
+
+/* CHANGE ORDER STATUS */
+
+async function changeStatus(
+  id,
+  status
+){
+
+  try{
+
+    await db
+      .collection('orders')
+      .doc(id)
+      .update({
+        status
+      });
+
+
+    const o =
+      orders.find(
+        x => x.docId === id
+      );
+
+
+    if(o){
+
+      o.status = status;
+
+    }
+
+
+    renderOrders();
+
+    renderReports();
+
+  }catch(e){
+
+    alert(e.message);
+
+  }
+
+}
+
+
+/* REPORT DATE */
+
+function dateValue(o){
+
+  if(!o.createdAt)
+    return '';
+
+  if(o.createdAt.toDate){
+
+    return o.createdAt
+      .toDate()
+      .toISOString()
+      .slice(0,10);
+
+  }
+
+  return String(
+    o.createdAt
+  ).slice(0,10);
+
+}
+
+
+/* REPORTS */
+
+function renderReports(){
+
+  const from =
+    document
+      .getElementById('reportFrom')
+      .value;
+
+  const to =
+    document
+      .getElementById('reportTo')
+      .value;
+
+  const st =
+    document
+      .getElementById('reportStatus')
+      .value;
+
+
+  const rows =
+    orders.filter(o => {
+
+      const d =
+        dateValue(o);
+
+      return (
+
+        (!from || d >= from) &&
+
+        (!to || d <= to) &&
+
+        (
+          st === 'all' ||
+          o.status === st
+        )
+
+      );
+
+    });
+
+
+  let taxable = 0;
+
+  let vat = 0;
+
+  let zero = 0;
+
+  let total = 0;
+
+
+  rows.forEach(o => {
+
+    taxable +=
+      Number(
+        o.taxableAmount || 0
+      );
+
+    vat +=
+      Number(
+        o.vatAmount || 0
+      );
+
+    zero +=
+      Number(
+        o.zeroRatedAmount || 0
+      );
+
+    total +=
+      Number(
+        o.total || 0
+      );
+
+  });
+
+
+  document
+    .getElementById('reportSummary')
+    .innerHTML = `
+
+      <b>${rows.length}</b>
+      orders
+
+      • Taxable:
+      <b>${money(taxable)}</b>
+
+      • VAT:
+      <b>${money(vat)}</b>
+
+      • Zero-rated:
+      <b>${money(zero)}</b>
+
+      • Total:
+      <b>${money(total)}</b>
+
+    `;
+
+
+  let h = `
+
+  <table
+    style="
+      width:100%;
+      border-collapse:collapse;
+      min-width:1100px
+    "
+  >
+
+  <tr>
+
+    <th>Order</th>
+
+    <th>Order date</th>
+
+    <th>Customer</th>
+
+    <th>Products</th>
+
+    <th>Qty</th>
+
+    <th>Subtotal</th>
+
+    <th>Taxable</th>
+
+    <th>VAT</th>
+
+    <th>Zero-rated</th>
+
+    <th>Total</th>
+
+    <th>Required date</th>
+
+    <th>Status</th>
+
+  </tr>
+
+  `;
+
+
+  for(const o of rows){
+
+    h += `
+
+    <tr
+      style="
+        border-top:1px solid #eee
+      "
+    >
+
+      <td>
+        ${esc(
+          o.orderNumber ||
+          o.docId
+        )}
+      </td>
+
+      <td>
+        ${esc(
+          dateValue(o)
+        )}
+      </td>
+
+      <td>
+        ${esc(
+          o.customerName || ''
+        )}
+
+        <br>
+
+        ${esc(
+          o.customerPhone || ''
+        )}
+      </td>
+
+      <td>
+        ${
+          (o.items || [])
+            .map(
+              i =>
+                esc(
+                  i.productName ||
+                  i.product ||
+                  ''
+                )
+            )
+            .join('<br>')
+        }
+      </td>
+
+      <td>
+        ${
+          (o.items || [])
+            .map(
+              i =>
+                esc(
+                  i.quantity || 0
+                )
+            )
+            .join('<br>')
+        }
+      </td>
+
+      <td>
+        ${money(o.subtotal)}
+      </td>
+
+      <td>
+        ${money(o.taxableAmount)}
+      </td>
+
+      <td>
+        ${money(o.vatAmount)}
+      </td>
+
+      <td>
+        ${money(o.zeroRatedAmount)}
+      </td>
+
+      <td>
+        ${money(o.total)}
+      </td>
+
+      <td>
+        ${esc(
+          o.requiredDate || ''
+        )}
+      </td>
+
+      <td>
+        ${esc(
+          o.status ||
+          'Pending'
+        )}
+      </td>
+
+    </tr>
+
+    `;
+
+  }
+
+
+  h += '</table>';
+
+
+  document
+    .getElementById('reportTable')
+    .innerHTML = h;
+
+}
+
+
+/* EXPORT */
+
+function exportReport(){
+
+  const table =
+    document
+      .getElementById('reportTable')
+      .innerText;
+
+
+  const a =
+    document.createElement('a');
+
+
+  a.href =
+    URL.createObjectURL(
+      new Blob(
+        [table],
+        {
+          type:'text/plain'
+        }
+      )
+    );
+
+
+  a.download =
+    'satyanands-report.txt';
+
+
+  a.click();
+
+
+  URL.revokeObjectURL(
+    a.href
+  );
+
+}
+
+
+/* BUSINESS SETTINGS */
+
+async function loadSettings(){
+
+  try{
+
+    const d =
+      await db
+        .collection('settings')
+        .doc('business')
+        .get();
+
+
+    if(d.exists){
+
+      settings = {
+        ...settings,
+        ...d.data()
+      };
+
+    }
+
+
+    document
+      .getElementById('vat')
+      .value =
+      settings.vatRate ||
+      12.5;
+
+
+    document
+      .getElementById('phone')
+      .value =
+      settings.phone ||
+      '8687870821';
+
+
+    document
+      .getElementById('email')
+      .value =
+      settings.email ||
+      'satyanandslimitedest.24@yahoo.com';
+
+
+    document
+      .getElementById('instagram')
+      .value =
+      settings.instagram ||
+      "Satyanand's Limited";
+
+
+  }catch(e){
+
+    document
+      .getElementById('settingsMsg')
+      .textContent =
+      e.message;
+
+  }
+
+}
+
+
+async function saveSettings(){
+
+  settings.vatRate =
+    Number(
+      document
+        .getElementById('vat')
+        .value ||
+      12.5
+    );
+
+
+  settings.phone =
+    document
+      .getElementById('phone')
+      .value
+      .trim();
+
+
+  settings.email =
+    document
+      .getElementById('email')
+      .value
+      .trim();
+
+
+  settings.instagram =
+    document
+      .getElementById('instagram')
+      .value
+      .trim();
+
+
+  try{
+
+    await db
+      .collection('settings')
+      .doc('business')
+      .set(
+        settings,
+        {
+          merge:true
+        }
+      );
+
+
+    document
+      .getElementById('settingsMsg')
+      .textContent =
+      'Settings saved to Firebase.';
+
+  }catch(e){
+
+    document
+      .getElementById('settingsMsg')
+      .textContent =
+      e.message;
+
+  }
+
+}
+
+
+/* PRODUCTS */
+
+async function loadProducts(){
+
+  try{
+
+    const snap =
+      await db
+        .collection('products')
+        .get();
+
+
+    if(!snap.empty){
+
+      products =
+        snap.docs.map(
+          d => ({
+            docId:d.id,
+            ...d.data()
+          })
+        );
+
+    }else{
+
+      const local =
+        (
+          window
+            .SATYANANDS_DEFAULT_STORE
+            ?.products ||
+          []
+        )
+        .map(
+          p => ({
+            ...p
+          })
+        );
+
+
+      const rt =
+        local.find(
+          p =>
+            p.id ===
+            'raksha-thread'
+        );
+
+
+      if(rt){
+
+        rt.price = 14;
+
+        rt.tax =
+          'inclusive';
+
+      }
+
+
+      products = local;
+
+
+      const batch =
+        db.batch();
+
+
+      local.forEach(p => {
+
+        batch.set(
+          db
+            .collection('products')
+            .doc(p.id),
+          p
+        );
+
+      });
+
+
+      await batch.commit();
+
+    }
+
+
+    renderProducts();
+
+  }catch(e){
+
+    document
+      .getElementById('productsMsg')
+      .textContent =
+      e.message;
+
+  }
+
+}
+
+
+function renderProducts(){
+
+  document
+    .getElementById('products')
+    .innerHTML =
+
+    products
+      .map(
+        (p,i) => `
+
+        <div
+          class="row"
+          data-i="${i}"
+        >
+
+          <input
+            data-k="name"
+            value="${esc(p.name)}"
+          >
+
+          <input
+            data-k="price"
+            type="number"
+            step="0.01"
+            value="${Number(
+              p.price || 0
+            )}"
+          >
+
+          <input
+            data-k="unit"
+            value="${esc(
+              p.unit || 'pc'
+            )}"
+          >
+
+          <select
+            data-k="tax"
+          >
+
+            <option
+              value="taxable"
+              ${
+                p.tax === 'taxable'
+                  ? 'selected'
+                  : ''
+              }
+            >
+              Taxable
+            </option>
+
+            <option
+              value="inclusive"
+              ${
+                p.tax === 'inclusive'
+                  ? 'selected'
+                  : ''
+              }
+            >
+              VAT inclusive
+            </option>
+
+            <option
+              value="zero"
+              ${
+                p.tax === 'zero'
+                  ? 'selected'
+                  : ''
+              }
+            >
+              Zero-rated
+            </option>
+
+            <option
+              value="quote"
+              ${
+                p.tax === 'quote'
+                  ? 'selected'
+                  : ''
+              }
+            >
+              Price on request
+            </option>
+
+          </select>
+
+
+          <input
+            data-k="image"
+            value="${esc(
+              p.image || ''
+            )}"
+            placeholder="image filename"
+          >
+
+
+          <div class="full">
+
+            <input
+              data-k="description"
+              value="${esc(
+                p.description || ''
+              )}"
+              placeholder="Description"
+            >
+
+            <label>
+
+              <input
+                data-k="active"
+                type="checkbox"
+                ${
+                  p.active !== false
+                    ? 'checked'
+                    : ''
+                }
+              >
+
+              Active
+
+            </label>
+
+
+            <button
+              class="btn danger"
+              onclick="deleteProduct(${i})"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        </div>
+
+        `
+      )
+      .join('');
+
+}
+
+
+function collectProducts(){
+
+  document
+    .querySelectorAll(
+      '#products .row'
+    )
+    .forEach(r => {
+
+      const p =
+        products[
+          Number(
+            r.dataset.i
+          )
+        ];
+
+
+      r
+        .querySelectorAll(
+          '[data-k]'
+        )
+        .forEach(x => {
+
+          const k =
+            x.dataset.k;
+
+
+          p[k] =
+            k === 'price'
+              ? Number(
+                  x.value || 0
+                )
+              : k === 'active'
+              ? x.checked
+              : x.value;
+
+        });
+
+    });
+
+}
+
+
+/* SAVE PRODUCTS TO FIREBASE */
+
+async function saveProducts(){
+
+  collectProducts();
+
+
+  try{
+
+    const batch =
+      db.batch();
+
+
+    products.forEach(p => {
+
+      const id =
+        p.docId ||
+        p.id ||
+        (
+          'item-' +
+          Date.now()
+        );
+
+
+      p.id = id;
+
+
+      batch.set(
+        db
+          .collection('products')
+          .doc(id),
+        p,
+        {
+          merge:true
+        }
+      );
+
+    });
+
+
+    await batch.commit();
+
+
+    document
+      .getElementById('productsMsg')
+      .textContent =
+      'Product changes saved to Firebase. Customers will use the central product list.';
+
+
+    await loadProducts();
+
+  }catch(e){
+
+    document
+      .getElementById('productsMsg')
+      .textContent =
+      e.message;
+
+  }
+
+}
+
+
+/* ADD PRODUCT */
+
+function addProduct(){
+
+  collectProducts();
+
+
+  products.push({
+
+    id:
+      'item-' +
+      Date.now(),
+
+    name:
+      'New Item',
+
+    description:
+      'Add a description.',
+
+    price:
+      0,
+
+    unit:
+      'pc',
+
+    tax:
+      'taxable',
+
+    image:
+      '',
+
+    active:
+      true
+
+  });
+
+
+  renderProducts();
+
+}
+
+
+/* DELETE PRODUCT */
+
+async function deleteProduct(i){
+
+  if(
+    !confirm(
+      'Delete this product?'
+    )
+  )
+    return;
+
+
+  const p =
+    products[i];
+
+
+  try{
+
+    await db
+      .collection('products')
+      .doc(
+        p.docId ||
+        p.id
+      )
+      .delete();
+
+
+    products.splice(
+      i,
+      1
+    );
+
+
+    renderProducts();
+
+
+    document
+      .getElementById('productsMsg')
+      .textContent =
+      'Product deleted from Firebase.';
+
+  }catch(e){
+
+    document
+      .getElementById('productsMsg')
+      .textContent =
+      e.message;
+
+  }
+
+}
+
+
+/* FREE ITEMS */
+
+async function loadFree(){
+
+  try{
+
+    const snap =
+      await db
+        .collection('settings')
+        .doc('freeItems')
+        .get();
+
+
+    if(
+      snap.exists &&
+      Array.isArray(
+        snap.data().items
+      )
+    ){
+
+      freeItems =
+        snap.data().items;
+
+    }else{
+
+      freeItems =
+        window
+          .SATYANANDS_DEFAULT_STORE
+          ?.freeItems ||
+        [];
+
+    }
+
+
+    renderFree();
+
+  }catch(e){
+
+    document
+      .getElementById('freeMsg')
+      .textContent =
+      e.message;
+
+  }
+
+}
+
+
+function renderFree(){
+
+  document
+    .getElementById('free')
+    .innerHTML =
+
+    freeItems
+      .map(
+        (x,i) => `
+
+        <div
+          class="free-row"
+        >
+
+          <input
+            class="input"
+            data-f="name"
+            data-i="${i}"
+            value="${esc(
+              x.name
+            )}"
+          >
+
+          <input
+            class="input"
+            data-f="description"
+            data-i="${i}"
+            value="${esc(
+              x.description || ''
+            )}"
+          >
+
+          <button
+            class="btn danger"
+            onclick="
+              freeItems.splice(
+                ${i},
+                1
+              );
+              renderFree()
+            "
+          >
+            Delete
+          </button>
+
+        </div>
+
+        `
+      )
+      .join('');
+
+}
+
+
+function collectFree(){
+
+  document
+    .querySelectorAll(
+      '[data-f]'
+    )
+    .forEach(x => {
+
+      freeItems[
+        Number(
+          x.dataset.i
+        )
+      ][
+        x.dataset.f
+      ] =
+        x.value;
+
+    });
+
+}
+
+
+function addFree(){
+
+  collectFree();
+
+
+  freeItems.push({
+
+    id:
+      'free-' +
+      Date.now(),
+
+    name:
+      'New Free Item',
+
+    description:
+      'Free with order.'
+
+  });
+
+
+  renderFree();
+
+}
+
+
+async function saveFree(){
+
+  collectFree();
+
+
+  try{
+
+    await db
+      .collection('settings')
+      .doc('freeItems')
+      .set(
+        {
+          items:
+            freeItems
+        },
+        {
+          merge:true
+        }
+      );
+
+
+    document
+      .getElementById('freeMsg')
+      .textContent =
+      'Free items saved to Firebase.';
+
+  }catch(e){
+
+    document
+      .getElementById('freeMsg')
+      .textContent =
+      e.message;
+
+  }
+
+}
+
+
+/* DEFAULT REPORT DATES */
+
+function setDefaultDates(){
+
+  const n =
+    new Date();
+
+  const y =
+    n.getFullYear();
+
+  const m =
+    String(
+      n.getMonth() + 1
+    ).padStart(
+      2,
+      '0'
+    );
+
+
+  document
+    .getElementById('reportFrom')
+    .value =
+    `${y}-${m}-01`;
+
+
+  document
+    .getElementById('reportTo')
+    .value =
+    new Date(
+      y,
+      n.getMonth() + 1,
+      0
+    )
+    .toISOString()
+    .slice(
+      0,
+      10
+    );
+
+}
+
+
+setDefaultDates();
+
+</script>
+
+</body>
+  </html>
