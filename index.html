@@ -35,7 +35,18 @@ const db = firebaseApp.firestore();
 
 let store=SATYANANDS_LOAD();
 
-function activeProducts(){return store.products.filter(p=>p.active)}
+async function loadCentralStore(){
+  try{
+    const [ps,bs,fs]=await Promise.all([db.collection('products').get(),db.collection('settings').doc('business').get(),db.collection('settings').doc('freeItems').get()]);
+    if(!ps.empty) store.products=ps.docs.map(d=>({id:d.id,...d.data()}));
+    if(bs.exists) store.settings={...store.settings,...bs.data()};
+    if(fs.exists&&Array.isArray(fs.data().items)) store.freeItems=fs.data().items;
+  }catch(e){console.error('Central product load failed',e)}
+  renderProducts();
+  document.getElementById('orderRows').innerHTML='';
+  addRow();
+}
+function activeProducts(){return (store.products||[]).filter(p=>p.active!==false)}
 function renderProducts(){
   document.getElementById('productGrid').innerHTML=activeProducts().map(p=>`<article class="card"><div class="pic">${p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}">`:`<span>Product image<br>can be added</span>`}</div><h3>${esc(p.name)}</h3><div class="desc">${esc(p.description||'')}</div><div class="price">${p.price>0?money(p.price)+' / '+esc(p.unit):'Price on request'}</div></article>`).join('');
   document.getElementById('freeGrid').innerHTML=store.freeItems.map(x=>`<div class="free"><strong>✓ ${esc(x.name)} — FREE</strong><p>${esc(x.description||'')}</p></div>`).join('');
@@ -164,7 +175,7 @@ async function sendOrder(){
 }
 function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function money(n){return 'TT$'+Number(n||0).toFixed(2)}
-renderProducts();addRow();
+loadCentralStore();
 const dateInput=document.getElementById('requiredDate');
 if(dateInput){const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());dateInput.min=d.toISOString().slice(0,10);}
 setTimeout(()=>document.getElementById('install').style.display='block',2500);
