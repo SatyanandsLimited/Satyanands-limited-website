@@ -47,8 +47,34 @@ async function loadCentralStore(){
   document.getElementById('orderRows').innerHTML='';
   addRow();
 }
+const PRODUCT_IMAGES = {
+  'raksha-thread': 'images/raksha-thread.png',
+  'milk-barfi': 'images/milk-barfi.jpg',
+  'ladoo': 'images/ladoo.jpg',
+  'gulab-jamun': 'images/gulab-jamun.jpg'
+};
+
+function productImage(p){
+  // Keep the four existing Satyanand's Limited product photos connected
+  // to the correct products. Admin-saved custom images still take priority.
+  if(p.image){
+    const v=String(p.image).trim();
+    if(/^https?:\/\//i.test(v) || v.startsWith('/') || v.startsWith('./') || v.startsWith('images/')) return v;
+    if(PRODUCT_IMAGES[p.id]) return PRODUCT_IMAGES[p.id];
+    if(PRODUCT_IMAGES[v]) return PRODUCT_IMAGES[v];
+  }
+  if(PRODUCT_IMAGES[p.id]) return PRODUCT_IMAGES[p.id];
+  const n=String(p.name||'').toLowerCase();
+  if(n.includes('raksha') && n.includes('thread')) return PRODUCT_IMAGES['raksha-thread'];
+  if(n.includes('barfi')) return PRODUCT_IMAGES['milk-barfi'];
+  if(n.includes('ladoo') || n.includes('laddu')) return PRODUCT_IMAGES['ladoo'];
+  if(n.includes('gulab') && n.includes('jamun')) return PRODUCT_IMAGES['gulab-jamun'];
+  return '';
+}
+
 function effectiveProduct(p){
   const out={...p};
+  out.image=productImage(p);
   if(p.scheduledPriceEffectiveDate && p.scheduledPrice!==undefined && p.scheduledPrice!==null && p.scheduledPrice!==''){
     const today=new Date().toISOString().slice(0,10);
     if(today>=String(p.scheduledPriceEffectiveDate).slice(0,10)) out.price=Number(p.scheduledPrice);
