@@ -174,6 +174,7 @@ h2{
 
 }
 
+@media(max-width:700px){.wrap{padding:12px 8px}.box{padding:14px;border-radius:14px}.actions{display:flex;flex-wrap:wrap;gap:6px}.actions .notice{flex:1 1 130px}.input{max-width:100%!important}.btn{padding:10px 12px}}
 </style>
 
 </head>
@@ -341,6 +342,9 @@ h2{
       <div class="notice"><b id="newCount">0</b> New / Pending</div>
       <div class="notice"><b id="processingCount">0</b> Processing</div>
       <div class="notice"><b id="completedCount">0</b> Completed</div>
+      <div class="notice"><b id="readyCount">0</b> Ready for Collection</div>
+      <div class="notice"><b id="dueTomorrowCount">0</b> Due tomorrow</div>
+      <div class="notice"><b id="unpaidCount">0</b> Unpaid / outstanding</div>
       <div class="notice"><b id="todaySales">TT$0.00</b> Sales today</div>
     </div>
     <p class="small">Orders refresh automatically while the owner dashboard is open.</p>
@@ -381,25 +385,34 @@ h2{
           All statuses
         </option>
 
-        <option value="Pending">
-          Pending
-        </option>
-
-        <option value="Processing">
-          Processing
-        </option>
-
-        <option value="Completed">
-          Completed
-        </option>
-
-        <option value="Sent">
-          Sent
-        </option>
+        <option value="Pending">Pending</option>
+        <option value="Awaiting Confirmation">Awaiting Confirmation</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Awaiting Payment">Awaiting Payment</option>
+        <option value="Processing">Preparing</option>
+        <option value="Ready for Collection">Ready for Collection</option>
+        <option value="Out for Delivery">Out for Delivery</option>
+        <option value="Completed">Completed</option>
+        <option value="Sent">Sent / Delivered (legacy)</option>
+        <option value="Cancelled">Cancelled</option>
 
       </select>
 
+      <label class="small" style="display:inline-block;min-width:180px">Collection date
+        <input id="collectionDateFilter" type="date" class="input" style="margin:4px" onchange="renderOrders()">
+      </label>
+
+      <select id="paymentFilter" class="input" style="max-width:220px;margin:4px" onchange="renderOrders()">
+        <option value="all">All payment statuses</option>
+        <option value="Unpaid">Unpaid</option>
+        <option value="Deposit received">Deposit received</option>
+        <option value="Partially paid">Partially paid</option>
+        <option value="Paid">Paid</option>
+        <option value="Verification pending">Verification pending</option>
+      </select>
+
     </div>
+    <div class="notice" style="margin-top:10px"><b>Reminder:</b> WhatsApp buttons open a pre-filled message for you to review and send. Automatic email/WhatsApp delivery is not enabled by this dashboard alone.</div>
 
     <div
       id="ordersTable"
@@ -878,34 +891,38 @@ function itemText(o){return (o.items||[]).map(i=>`${esc(i.productName||i.product
 function orderDateText(o){return o.createdAt&&o.createdAt.toDate?o.createdAt.toDate().toLocaleString():''}
 function dateValue(o){if(!o.createdAt)return ''; if(o.createdAt.toDate)return o.createdAt.toDate().toISOString().slice(0,10); return String(o.createdAt).slice(0,10)}
 
+function localISODate(d){const x=new Date(d.getTime()-d.getTimezoneOffset()*60000);return x.toISOString().slice(0,10)}
+function requiredDateValue(o){return String(o.requiredDate||o.collectionDate||'').slice(0,10)}
 function updateDashboard(){
-  const pending=orders.filter(o=>!o.status||o.status==='Pending').length;
-  const processing=orders.filter(o=>o.status==='Processing').length;
+  const pending=orders.filter(o=>!o.status||['Pending','Awaiting Confirmation'].includes(o.status)).length;
+  const processing=orders.filter(o=>['Processing','Preparing','Confirmed','Awaiting Payment'].includes(o.status)).length;
   const completed=orders.filter(o=>o.status==='Completed'||o.status==='Sent').length;
-  const today=new Date().toISOString().slice(0,10);
-  const sales=orders.filter(o=>dateValue(o)===today).reduce((s,o)=>s+Number(o.total||0),0);
-  document.getElementById('newCount').textContent=pending;
-  document.getElementById('processingCount').textContent=processing;
-  document.getElementById('completedCount').textContent=completed;
-  document.getElementById('todaySales').textContent=money(sales);
+  const today=localISODate(new Date());const tomorrowDate=new Date();tomorrowDate.setDate(tomorrowDate.getDate()+1);const tomorrow=localISODate(tomorrowDate);
+  const dueTomorrow=orders.filter(o=>requiredDateValue(o)===tomorrow&&!['Completed','Sent','Cancelled'].includes(o.status)).length;
+  const ready=orders.filter(o=>o.status==='Ready for Collection').length;
+  const unpaid=orders.filter(o=>(o.paymentStatus||'Unpaid')!=='Paid'&&!['Completed','Cancelled'].includes(o.status)).length;
+  const sales=orders.filter(o=>dateValue(o)===today).reduce((sum,o)=>sum+Number(o.total||0),0);
+  document.getElementById('newCount').textContent=pending;document.getElementById('processingCount').textContent=processing;document.getElementById('completedCount').textContent=completed;
+  document.getElementById('readyCount').textContent=ready;document.getElementById('dueTomorrowCount').textContent=dueTomorrow;document.getElementById('unpaidCount').textContent=unpaid;document.getElementById('todaySales').textContent=money(sales);
 }
 
 function renderOrders(){
-  const f=document.getElementById('orderFilter').value;
-  const q=(document.getElementById('orderSearch')?.value||'').trim().toLowerCase();
-  const rows=orders.filter(o=>{
-    const text=[o.orderNumber,o.customerName,o.customerPhone,o.customerEmail].join(' ').toLowerCase();
-    return (f==='all'||o.status===f) && (!q||text.includes(q));
-  });
-  if(!rows.length){document.getElementById('ordersTable').innerHTML='<p class="small">No orders found.</p>';return;}
-  let h=`<table style="width:100%;border-collapse:collapse;min-width:1250px"><tr><th>Order</th><th>Customer</th><th>Items</th><th>Order date</th><th>Required date</th><th>Subtotal</th><th>Discount</th><th>Total</th><th>Status</th><th>Actions</th></tr>`;
-  for(const o of rows){
-    h+=`<tr style="border-top:1px solid #eee;vertical-align:top"><td style="padding:10px"><b>${esc(o.orderNumber||o.docId)}</b><br><span class="small">${esc(o.customerPhone||'')}</span></td><td style="padding:10px">${esc(o.customerName||'')}<br>${esc(o.customerEmail||'')}</td><td style="padding:10px">${itemText(o)}</td><td style="padding:10px">${esc(orderDateText(o))}</td><td style="padding:10px"><b>${esc(o.requiredDate||'')}</b></td><td style="padding:10px">${money(o.subtotal)}</td><td style="padding:10px"><input type="number" min="0" step="0.01" value="${Number(o.discountAmount||0).toFixed(2)}" style="width:105px;padding:7px;border:1px solid #d8cfba;border-radius:8px" onchange="saveOrderDiscount('${o.docId}',this.value)"></td><td style="padding:10px"><b>${money(o.total)}</b></td><td style="padding:10px"><select onchange="changeStatus('${o.docId}',this.value)" style="padding:8px;border:1px solid #d8cfba;border-radius:8px"><option ${o.status==='Pending'||!o.status?'selected':''}>Pending</option><option ${o.status==='Processing'?'selected':''}>Processing</option><option ${o.status==='Completed'?'selected':''}>Completed</option><option ${o.status==='Sent'?'selected':''}>Sent</option></select></td><td style="padding:10px;white-space:nowrap"><button class="btn goldbtn" onclick="printReceipt('${o.docId}')">Receipt</button><button class="btn primary" onclick="openWhatsApp('${o.docId}')">WhatsApp</button></td></tr>`;
+  const f=document.getElementById('orderFilter').value;const pf=document.getElementById('paymentFilter')?.value||'all';const df=document.getElementById('collectionDateFilter')?.value||'';const q=(document.getElementById('orderSearch')?.value||'').trim().toLowerCase();
+  const rows=orders.filter(o=>{const text=[o.orderNumber,o.customerName,o.customerPhone,o.customerEmail].join(' ').toLowerCase();const status=o.status||'Pending';const payment=o.paymentStatus||'Unpaid';return(f==='all'||status===f)&&(pf==='all'||payment===pf)&&(!df||requiredDateValue(o)===df)&&(!q||text.includes(q))});
+  if(!rows.length){document.getElementById('ordersTable').innerHTML='<p class="small">No orders found.</p>';return}
+  let h=`<table style="width:100%;border-collapse:collapse;min-width:1550px"><tr><th>Order</th><th>Customer</th><th>Items</th><th>Required date</th><th>Total</th><th>Order status</th><th>Payment status</th><th>Actions</th></tr>`;
+  for(const o of rows){const status=o.status||'Pending',pay=o.paymentStatus||'Unpaid';const opts=['Pending','Awaiting Confirmation','Confirmed','Awaiting Payment','Processing','Ready for Collection','Out for Delivery','Completed','Cancelled','Sent'];const payOpts=['Unpaid','Deposit received','Partially paid','Paid','Verification pending'];
+    h+=`<tr style="border-top:1px solid #eee;vertical-align:top"><td style="padding:10px"><b>${esc(o.orderNumber||o.docId)}</b><br><span class="small">${esc(orderDateText(o))}</span></td><td style="padding:10px">${esc(o.customerName||'')}<br>${esc(o.customerPhone||'')}<br>${esc(o.customerEmail||'')}</td><td style="padding:10px">${itemText(o)}</td><td style="padding:10px"><b>${esc(requiredDateValue(o)||'Not set')}</b></td><td style="padding:10px"><b>${money(o.total)}</b><br><span class="small">Subtotal ${money(o.subtotal)}</span><br><label class="small">Discount <input aria-label="Discount" type="number" min="0" step="0.01" value="${Number(o.discountAmount||0).toFixed(2)}" style="width:90px;padding:6px;border:1px solid #d8cfba;border-radius:8px" onchange="saveOrderDiscount('${o.docId}',this.value)"></label></td><td style="padding:10px"><select aria-label="Order status" onchange="changeStatus('${o.docId}',this.value)" style="min-width:170px;padding:8px;border:1px solid #d8cfba;border-radius:8px">${opts.map(x=>`<option value="${x}" ${status===x?'selected':''}>${x==='Processing'?'Preparing':x}</option>`).join('')}</select></td><td style="padding:10px"><select aria-label="Payment status" onchange="changePaymentStatus('${o.docId}',this.value)" style="min-width:160px;padding:8px;border:1px solid #d8cfba;border-radius:8px">${payOpts.map(x=>`<option value="${x}" ${pay===x?'selected':''}>${x}</option>`).join('')}</select></td><td style="padding:10px;white-space:nowrap"><button class="btn goldbtn" onclick="printReceipt('${o.docId}')">Receipt</button><button class="btn primary" onclick="openWhatsApp('${o.docId}')">Order update</button><button class="btn primary" onclick="openReadyWhatsApp('${o.docId}')">Ready message</button><button class="btn primary" onclick="openReminderWhatsApp('${o.docId}')">Date reminder</button></td></tr>`;
   }
-  h+='</table>'; document.getElementById('ordersTable').innerHTML=h;
+  h+='</table>';document.getElementById('ordersTable').innerHTML=h;
 }
 
-async function changeStatus(id,status){try{await db.collection('orders').doc(id).update({status});const o=orders.find(x=>x.docId===id);if(o)o.status=status;updateDashboard();renderOrders();renderReports();}catch(e){alert(e.message)}}
+async function changeStatus(id,status){try{const patch={status,statusUpdatedAt:firebase.firestore.FieldValue.serverTimestamp()};await db.collection('orders').doc(id).update(patch);const o=orders.find(x=>x.docId===id);if(o)Object.assign(o,patch);updateDashboard();renderOrders();renderReports()}catch(e){alert('Could not update order status: '+e.message);renderOrders()}}
+async function changePaymentStatus(id,paymentStatus){try{const patch={paymentStatus,paymentStatusUpdatedAt:firebase.firestore.FieldValue.serverTimestamp()};await db.collection('orders').doc(id).update(patch);const o=orders.find(x=>x.docId===id);if(o)Object.assign(o,patch);updateDashboard();renderOrders();renderReports()}catch(e){alert('Could not update payment status: '+e.message);renderOrders()}}
+function waCustomer(o,msg){const phone=String(o.customerPhone||'').replace(/\D/g,'');if(!phone){alert('This order has no customer phone number.');return}const full=phone.startsWith('1')?phone:'1'+phone;window.open('https://wa.me/'+full+'?text='+encodeURIComponent(msg),'_blank')}
+function openWhatsApp(id){const o=orders.find(x=>x.docId===id);if(!o)return;waCustomer(o,`Hello ${o.customerName||''}, this is Satyanand's Limited regarding order ${o.orderNumber||o.docId}. Required date: ${requiredDateValue(o)||'not specified'}. Order total: ${money(o.total)}. Current order status: ${o.status||'Pending'}. Payment status: ${o.paymentStatus||'Unpaid'}. Please reply if you have any questions.`)}
+function openReadyWhatsApp(id){const o=orders.find(x=>x.docId===id);if(!o)return;waCustomer(o,`Hello ${o.customerName||''}, good news! Your Satyanand's Limited order ${o.orderNumber||o.docId} is marked ready for ${o.fulfilmentType||o.deliveryMethod||'collection'}. Required date: ${requiredDateValue(o)||'please contact us to confirm'}. Please reply to confirm your collection/delivery arrangements. Payment status on our record: ${o.paymentStatus||'Unpaid'}. Thank you!`)}
+function openReminderWhatsApp(id){const o=orders.find(x=>x.docId===id);if(!o)return;waCustomer(o,`Hello ${o.customerName||''}, this is a friendly reminder from Satyanand's Limited that order ${o.orderNumber||o.docId} is scheduled for ${requiredDateValue(o)||'the date arranged with us'}. Please reply to confirm your collection/delivery arrangements. Payment status on our record: ${o.paymentStatus||'Unpaid'}. Thank you!`)}
 
 function recalcOrder(o,discount){
   const originalItems=o.items||[]; const base=originalItems.reduce((s,i)=>s+Number(i.lineTotal||0),0); const d=Math.max(0,Math.min(Number(discount||0),base));
