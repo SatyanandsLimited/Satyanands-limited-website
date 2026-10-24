@@ -21,13 +21,14 @@
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  background:#fbf8ef;
-  color:#222
+  background:#f5f2e9;
+  color:#10213b
 }
 
 .head{
-  background:#fff;
-  border-bottom:2px solid #c9a227;
+  background:linear-gradient(135deg,#071a35,#102b50);
+  color:#f1d889;
+  border-bottom:3px solid #d5ad48;
   padding:16px;
   text-align:center
 }
@@ -59,7 +60,7 @@ h2{
 }
 
 .gold{
-  color:#9b7a0c
+  color:#b18a25
 }
 
 .login{
@@ -85,12 +86,13 @@ h2{
 }
 
 .primary{
-  background:#171717;
+  background:#071a35;
   color:#fff
 }
 
 .goldbtn{
-  background:#c9a227
+  background:linear-gradient(135deg,#d5ad48,#f1d889);
+  color:#071a35
 }
 
 .danger{
@@ -145,9 +147,16 @@ h2{
 .notice{
   padding:12px;
   background:#fff7dc;
-  border-left:4px solid #c9a227;
+  border-left:4px solid #d5ad48;
   line-height:1.5
 }
+.theme-preview{border-radius:14px;padding:18px;color:#fff;margin:12px 0;border:2px solid #d5ad48;background:linear-gradient(135deg,#071a35,#183a63)}
+.theme-preview h3{margin:0 0 6px;color:#f1d889;font-size:24px}
+.theme-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.theme-grid label{display:block;font-weight:700;font-size:13px}
+.theme-grid input,.theme-grid select,.theme-grid textarea{width:100%;margin-top:5px;padding:10px;border:1px solid #d8cfba;border-radius:8px;font:inherit}
+.swatches{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.swatch{width:30px;height:30px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #aaa}
+@media(max-width:600px){.theme-grid{grid-template-columns:1fr}}
 
 @media(max-width:850px){
 
@@ -268,6 +277,61 @@ h2{
 
   </section>
 
+
+  <!-- FESTIVAL THEME SCHEDULER -->
+  <section class="box">
+    <h2 class="gold">Festival Theme & Banner Scheduler</h2>
+    <p class="small">Choose a festival design, customize the banner text and schedule when it should appear on the customer website. Save the settings here, then connect the matching theme reader in index.html so the storefront changes automatically.</p>
+    <div class="theme-grid">
+      <label>Festival / theme
+        <select id="festivalPreset" onchange="applyFestivalPreset()">
+          <option value="general">Everyday — Navy & Gold</option>
+          <option value="diwali">Diwali — Gold, Deep Navy & Warm Lights</option>
+          <option value="ganesh">Ganesh Utsav — Saffron & Gold</option>
+          <option value="raksha">Raksha Bandhan — Royal Purple & Gold</option>
+          <option value="navratri">Navratri — Crimson & Gold</option>
+          <option value="holi">Holi — Bright Festive Colours</option>
+          <option value="shivratri">Maha Shivratri — Indigo & Silver</option>
+          <option value="janmashtami">Krishna Janmashtami — Peacock Blue & Gold</option>
+        </select>
+      </label>
+      <label>Theme status
+        <select id="themeEnabled"><option value="true">Enabled</option><option value="false">Disabled — use default theme</option></select>
+      </label>
+      <label>Start date
+        <input id="themeStart" type="date">
+      </label>
+      <label>End date
+        <input id="themeEnd" type="date">
+      </label>
+      <label>Banner heading
+        <input id="themeHeading" maxlength="90" placeholder="Celebrate tradition with Satyanand's Limited">
+      </label>
+      <label>Banner subheading
+        <input id="themeSubheading" maxlength="180" placeholder="Sweets, sacred threads and festive essentials">
+      </label>
+      <label>Primary colour
+        <input id="themePrimary" type="color" value="#071a35">
+      </label>
+      <label>Accent / gold colour
+        <input id="themeAccent" type="color" value="#d5ad48">
+      </label>
+      <label>Background colour
+        <input id="themeBackground" type="color" value="#fbf8f0">
+      </label>
+      <label>Banner image URL (optional)
+        <input id="themeImage" type="url" placeholder="https://...">
+      </label>
+    </div>
+    <div class="theme-preview" id="themePreview"><h3 id="previewHeading">Tradition, Made Special</h3><div id="previewSubheading">Sweets, sacred threads and festive essentials</div><div class="swatches"><span class="swatch" id="swatchPrimary"></span><span class="swatch" id="swatchAccent"></span><span class="swatch" id="swatchBackground"></span></div></div>
+    <div class="actions">
+      <button class="btn goldbtn" onclick="saveFestivalTheme()">Save Festival Theme</button>
+      <button class="btn primary" onclick="loadFestivalTheme()">Reload Saved Theme</button>
+      <button class="btn danger" onclick="resetFestivalTheme()">Reset Form</button>
+    </div>
+    <p id="themeMsg" class="small" role="status"></p>
+    <p class="notice"><b>Scheduling note:</b> the website must read these saved settings to switch themes automatically on the start/end dates. If no dates are set, the theme is treated as available whenever enabled.</p>
+  </section>
 
   <!-- QUICK DASHBOARD -->
 
@@ -790,7 +854,8 @@ async function loadAll(){
 
     loadProducts(),
 
-    loadFree()
+    loadFree(),
+    loadFestivalTheme()
 
   ]);
 
@@ -848,7 +913,14 @@ function recalcOrder(o,discount){
 }
 async function saveOrderDiscount(id,value){try{const o=orders.find(x=>x.docId===id);if(!o)return;const x=recalcOrder(o,Number(value||0));await db.collection('orders').doc(id).update(x);Object.assign(o,x);renderOrders();renderReports();}catch(e){alert(e.message);renderOrders()}}
 
-function printReceipt(id){const o=orders.find(x=>x.docId===id);if(!o)return;const lines=(o.items||[]).map(i=>`<tr><td>${esc(i.productName)}</td><td>${i.quantity}</td><td>${money(i.unitPrice)}</td><td>${money(i.discountedLineTotal??i.lineTotal)}</td></tr>`).join('');const w=window.open('','_blank');w.document.write(`<html><head><title>${esc(o.orderNumber)}</title><style>body{font-family:Arial;padding:30px}h1{color:#9b7a0c}table{width:100%;border-collapse:collapse}th,td{padding:8px;border-bottom:1px solid #ddd;text-align:left}.total{font-size:20px;font-weight:bold}</style></head><body><h1>Satyanand's Limited</h1><h2>Order Receipt</h2><p><b>Order:</b> ${esc(o.orderNumber)}<br><b>Customer:</b> ${esc(o.customerName)}<br><b>Phone:</b> ${esc(o.customerPhone)}<br><b>Required date:</b> ${esc(o.requiredDate||'')}</p><table><tr><th>Product</th><th>Qty</th><th>Unit price</th><th>Line</th></tr>${lines}</table><p>Subtotal: ${money(o.subtotal)}</p><p>Discount: ${money(o.discountAmount)}</p><p>Taxable: ${money(o.taxableAmount)}</p><p>VAT: ${money(o.vatAmount)}</p><p>Zero-rated: ${money(o.zeroRatedAmount)}</p><p class="total">Total: ${money(o.total)}</p><script>window.print()<\/script></body></html>`);w.document.close()}
+function printReceipt(id){
+  const o=orders.find(x=>x.docId===id);if(!o)return;
+  const lines=(o.items||[]).map(i=>`<tr><td>${esc(i.productName)}</td><td>${esc(i.quantity)}</td><td>${money(i.unitPrice)}</td><td>${money(i.discountedLineTotal??i.lineTotal)}</td></tr>`).join('');
+  const free=(o.freeItems||[]).map(i=>`<li>${esc(i.name||i.itemName||'Free item')} × ${esc(i.quantity||1)} — FREE</li>`).join('');
+  const freeHtml=free?'<h2>Free items</h2><div class=\"free\"><ul>'+free+'</ul><small>Free items are not included in sales totals.</small></div>':'';
+  const w=window.open('','_blank');if(!w){alert('Please allow pop-ups to print the receipt.');return;}
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${esc(o.orderNumber||'Order Receipt')}</title><style>*{box-sizing:border-box}body{font-family:Arial,sans-serif;padding:28px;color:#10213b;max-width:850px;margin:auto}.head{background:#071a35;color:#f1d889;padding:20px;border-bottom:5px solid #d5ad48;border-radius:10px}h1{margin:0;font-size:26px}h2{color:#071a35;margin-top:22px}p{line-height:1.5}.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#f8f5ec;padding:14px;border-radius:8px}table{width:100%;border-collapse:collapse;margin-top:18px}th{background:#102b50;color:#f1d889;text-align:left}th,td{padding:10px;border-bottom:1px solid #e4d8bb} .totals{margin-left:auto;max-width:360px}.totals p{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding:5px}.total{font-size:22px;font-weight:bold;background:#071a35;color:#f1d889;padding:13px;border-radius:8px}.free{background:#f7f2e5;padding:12px;border-radius:8px}.foot{margin-top:25px;border-top:2px solid #d5ad48;padding-top:12px;font-size:12px;color:#5b5b5b}@media print{body{padding:0}.head,.total,th{-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style></head><body><div class="head"><h1>Satyanand's Limited</h1><div>Est. 2024 · Indian sweets & sacred threads</div><div>WhatsApp / Call: (868) 787-0821 · satyanandslimitedest.24@yahoo.com</div></div><h2>Order Receipt</h2><div class="meta"><div><b>Order:</b> ${esc(o.orderNumber||o.docId)}</div><div><b>Status:</b> ${esc(o.status||'Pending')}</div><div><b>Customer:</b> ${esc(o.customerName||'')}</div><div><b>Phone:</b> ${esc(o.customerPhone||'')}</div><div><b>Order date:</b> ${esc(dateValue(o))}</div><div><b>Required / collection date:</b> ${esc(o.requiredDate||'')}</div></div><table><thead><tr><th>Product</th><th>Qty</th><th>Unit price</th><th>Line total</th></tr></thead><tbody>${lines}</tbody></table><div class="totals"><p><span>Subtotal</span><b>${money(o.subtotal)}</b></p><p><span>Discount</span><b>${money(o.discountAmount)}</b></p><p><span>Amount taxable</span><b>${money(o.taxableAmount)}</b></p><p><span>VAT</span><b>${money(o.vatAmount)}</b></p><p><span>Zero-rated sales</span><b>${money(o.zeroRatedAmount)}</b></p><div class="total">Final total: ${money(o.total)}</div></div>${freeHtml}<div class="foot">Thank you for supporting Satyanand's Limited. Please contact us promptly if there is an issue with your order. Food returns are handled subject to food-safety requirements and applicable consumer protections.</div></body></html>`);w.document.close();w.focus();setTimeout(()=>w.print(),500);
+}
 function openWhatsApp(id){const o=orders.find(x=>x.docId===id);if(!o)return;const msg=`Hello ${o.customerName||''}, this is Satyanand's Limited regarding order ${o.orderNumber}. Required date: ${o.requiredDate||''}. Current total: ${money(o.total)}. Status: ${o.status||'Pending'}.`;const phone=String(o.customerPhone||'').replace(/\D/g,'');window.open('https://wa.me/'+(phone.startsWith('1')?phone:'1'+phone)+'?text='+encodeURIComponent(msg),'_blank')}
 
 function renderReports(){
@@ -1472,6 +1544,57 @@ async function saveFree(){
 
 }
 
+
+/* FESTIVAL THEME SCHEDULER */
+const FESTIVAL_PRESETS={
+ general:{heading:'Tradition, Made Special',subheading:'Indian sweets, sacred threads and festive essentials',primary:'#071a35',accent:'#d5ad48',background:'#fbf8f0'},
+ diwali:{heading:'Celebrate Diwali with Satyanand’s Limited',subheading:'Light up your celebrations with traditional sweets and sacred essentials',primary:'#071a35',accent:'#f1c453',background:'#fff8e8'},
+ ganesh:{heading:'Ganesh Utsav Essentials',subheading:'Celebrate with devotion, traditional sweets and fresh puja offerings',primary:'#8b2d12',accent:'#f2b544',background:'#fff6e9'},
+ raksha:{heading:'Stronger Threads, Brighter Celebrations',subheading:'Plaited Raksha Thread by Satyanand’s Limited',primary:'#35145e',accent:'#e6bd55',background:'#fbf5ff'},
+ navratri:{heading:'Celebrate Navratri',subheading:'Festive traditions, sacred threads and sweets for your celebrations',primary:'#761d2b',accent:'#f0bd54',background:'#fff6f0'},
+ holi:{heading:'A Colourful Holi Celebration',subheading:'Bring colour, joy and tradition to your festive gathering',primary:'#54236d',accent:'#f3b63f',background:'#fff7fb'},
+ shivratri:{heading:'Maha Shivratri',subheading:'Sacred essentials for your prayers and observances',primary:'#20245b',accent:'#c7cbd8',background:'#f5f6fb'},
+ janmashtami:{heading:'Celebrate Krishna Janmashtami',subheading:'A joyful celebration of devotion, tradition and family',primary:'#07506b',accent:'#e5bd4c',background:'#f1fbfc'}
+};
+function setThemePreview(){
+ const val=id=>document.getElementById(id).value;
+ const p=val('themePrimary')||'#071a35',a=val('themeAccent')||'#d5ad48',b=val('themeBackground')||'#fbf8f0';
+ document.getElementById('themePreview').style.background=`linear-gradient(135deg,${p},${p}dd)`;
+ document.getElementById('themePreview').style.borderColor=a;
+ document.getElementById('previewHeading').textContent=val('themeHeading')||'Tradition, Made Special';
+ document.getElementById('previewHeading').style.color=a;
+ document.getElementById('previewSubheading').textContent=val('themeSubheading')||'Sweets, sacred threads and festive essentials';
+ document.getElementById('swatchPrimary').style.background=p;document.getElementById('swatchAccent').style.background=a;document.getElementById('swatchBackground').style.background=b;
+}
+function applyFestivalPreset(){
+ const p=FESTIVAL_PRESETS[document.getElementById('festivalPreset').value]||FESTIVAL_PRESETS.general;
+ document.getElementById('themeHeading').value=p.heading;document.getElementById('themeSubheading').value=p.subheading;
+ document.getElementById('themePrimary').value=p.primary;document.getElementById('themeAccent').value=p.accent;document.getElementById('themeBackground').value=p.background;setThemePreview();
+}
+function resetFestivalTheme(){document.getElementById('festivalPreset').value='general';document.getElementById('themeEnabled').value='true';document.getElementById('themeStart').value='';document.getElementById('themeEnd').value='';document.getElementById('themeImage').value='';applyFestivalPreset();document.getElementById('themeMsg').textContent='Form reset. Press Save Festival Theme to save the default design.';}
+async function loadFestivalTheme(){
+ try{
+  const d=await db.collection('settings').doc('festivalTheme').get();
+  const t=d.exists?d.data():{};
+  document.getElementById('festivalPreset').value=t.preset||'general';
+  document.getElementById('themeEnabled').value=String(t.enabled!==false);
+  document.getElementById('themeStart').value=t.startDate||'';document.getElementById('themeEnd').value=t.endDate||'';
+  document.getElementById('themeHeading').value=t.heading||FESTIVAL_PRESETS[t.preset||'general'].heading;
+  document.getElementById('themeSubheading').value=t.subheading||FESTIVAL_PRESETS[t.preset||'general'].subheading;
+  document.getElementById('themePrimary').value=t.primary||FESTIVAL_PRESETS[t.preset||'general'].primary;
+  document.getElementById('themeAccent').value=t.accent||FESTIVAL_PRESETS[t.preset||'general'].accent;
+  document.getElementById('themeBackground').value=t.background||FESTIVAL_PRESETS[t.preset||'general'].background;
+  document.getElementById('themeImage').value=t.imageUrl||'';setThemePreview();
+  document.getElementById('themeMsg').textContent=d.exists?'Saved festival theme loaded.':'No saved festival theme yet. Choose a preset and save it.';
+ }catch(e){document.getElementById('themeMsg').textContent='Could not load theme: '+e.message;}
+}
+async function saveFestivalTheme(){
+ const preset=document.getElementById('festivalPreset').value,startDate=document.getElementById('themeStart').value,endDate=document.getElementById('themeEnd').value;
+ if(startDate&&endDate&&endDate<startDate){document.getElementById('themeMsg').textContent='End date must be the same as or later than the start date.';return;}
+ const theme={preset,enabled:document.getElementById('themeEnabled').value==='true',startDate,endDate,heading:document.getElementById('themeHeading').value.trim(),subheading:document.getElementById('themeSubheading').value.trim(),primary:document.getElementById('themePrimary').value,accent:document.getElementById('themeAccent').value,background:document.getElementById('themeBackground').value,imageUrl:document.getElementById('themeImage').value.trim(),updatedAt:firebase.firestore.FieldValue.serverTimestamp()};
+ try{await db.collection('settings').doc('festivalTheme').set(theme,{merge:true});document.getElementById('themeMsg').textContent='Festival theme saved to Firebase. The storefront must read settings/festivalTheme to display it and honor the schedule.';}catch(e){document.getElementById('themeMsg').textContent='Could not save theme: '+e.message;}
+}
+['themeHeading','themeSubheading','themePrimary','themeAccent','themeBackground'].forEach(id=>document.addEventListener('input',e=>{if(e.target&&e.target.id===id)setThemePreview()}));
 
 /* DEFAULT REPORT DATES */
 
