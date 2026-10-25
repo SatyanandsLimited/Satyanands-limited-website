@@ -14,19 +14,13 @@ header{position:sticky;top:0;z-index:20;background:rgba(7,26,53,.97);border-bott
 #products>h3{font:700 21px Georgia,serif;color:var(--navy);margin-top:42px!important}#freeGrid{margin-top:15px}
 @media(max-width:760px){.top{padding:10px 14px;gap:10px;align-items:center}.logo{width:54px;height:54px}.brand h1{font-size:20px}.brand p{font-size:8px;letter-spacing:.08em;max-width:240px}.top nav{display:none}.hero{padding:54px 17px 61px}.hero .mark{width:102px;height:102px}.hero h2{font-size:clamp(35px,10vw,52px)}.hero p{font-size:14px}.wrap{padding:44px 15px}.grid{grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:13px}.card{padding:10px 10px 16px;border-radius:16px}.pic{height:150px}.card h3{font-size:17px;margin-top:12px}.desc{font-size:12px;min-height:0}.price{font-size:15px}.order-row{grid-template-columns:minmax(0,1fr) 64px 90px 32px;gap:6px;padding:9px}.field input,.field select,.field textarea{padding:11px 9px;font-size:13px}.order-row .field label{font-size:10px}.remove{height:40px}.customer{grid-template-columns:1fr;gap:12px}.customer .full{grid-column:auto}.summary{padding:14px}.summary div{font-size:12px}.grand,.grand strong{font-size:18px!important}.contact{padding:42px 20px}}
 @media(max-width:390px){.brand h1{font-size:17px}.brand p{font-size:7px}.grid{grid-template-columns:1fr 1fr}.order-row{grid-template-columns:minmax(0,1fr) 55px 76px 28px}.pic{height:125px}.remove{font-size:16px}}
-
-/* Usability improvements: clearer actions, mobile navigation and larger tap targets */
-.menu-toggle{display:none;margin-left:auto;border:1px solid var(--gold);border-radius:12px;background:transparent;color:#fff8e8;padding:10px 12px;font:700 13px Arial,sans-serif;cursor:pointer}
-.card-actions{display:flex;gap:8px;margin:16px 2px 0}.card-add{width:100%;border:1px solid var(--gold);border-radius:24px;padding:12px 10px;background:var(--navy);color:#fff8e8;font:700 12px Arial,sans-serif;cursor:pointer}.card-add:hover{background:var(--navy2)}
-.steps{max-width:1100px;margin:24px auto 0;padding:0 18px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.step{background:#fffdf8;border:1px solid #e7dcc0;border-radius:14px;padding:13px;text-align:center;color:#10213b;font:12px/1.5 Arial,sans-serif}.step b{display:block;color:#8a6813;font-size:13px;margin-bottom:4px}.field input,.field select,.field textarea{min-height:44px}.order-row .line{background:#f6f0df;font-weight:700}.wa:disabled{opacity:.65;cursor:wait;transform:none}
-@media(max-width:760px){.menu-toggle{display:block}.top nav{display:none;position:absolute;top:100%;left:0;right:0;margin:0;padding:12px 16px 16px;background:rgba(7,26,53,.99);border-bottom:2px solid var(--gold);flex-direction:column;align-items:stretch;gap:4px}.top nav.open{display:flex}.top nav a{display:block;text-align:center;padding:13px}.steps{grid-template-columns:1fr;gap:8px;margin-top:18px}.step{display:flex;align-items:center;gap:12px;text-align:left}.step b{min-width:92px;margin:0}.card-add{padding:13px 8px;min-height:44px}}
 </style></head>
 <body>
-<header><div class="top"><img src="logo.png" class="logo" alt="Satyanand's Limited logo"><div class="brand"><h1>Satyanand's Limited</h1><p>Indian Sweets • Raksha Thread • Religious Essentials</p></div><button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav">☰ Menu</button><nav id="mainNav"><a href="#products">Products</a><a href="#order">Order</a><a href="#contact">Contact</a></nav></div></header>
-<section class="hero"><img src="logo.png" class="mark" alt="Satyanand's Limited"><p class="eyebrow">Satyanand's Limited · Est. 2024</p><h2>Tradition, <em>Made Special.</em></h2><p>Authentic Indian sweets, hand-plaited raksha thread and selected religious essentials for your celebrations.</p><a class="btn primary" href="#products">Shop Products</a><a class="btn gold" href="#order">Place an Order</a></section><div class="steps" aria-label="How to order"><div class="step"><b>1. Choose</b><span>Browse products and add what you need.</span></div><div class="step"><b>2. Review</b><span>Check quantities, total and collection date.</span></div><div class="step"><b>3. Submit</b><span>Send your request; we will confirm availability.</span></div></div>
+<header><div class="top"><img src="logo.png" class="logo" alt="Satyanand's Limited logo"><div class="brand"><h1>Satyanand's Limited</h1><p>Indian Sweets • Raksha Thread • Religious Essentials</p></div><nav><a href="#products">Products</a><a href="#order">Order</a><a href="#contact">Contact</a></nav></div></header>
+<section class="hero"><img src="logo.png" class="mark" alt="Satyanand's Limited"><p class="eyebrow">Satyanand's Limited · Est. 2024</p><h2>Tradition, <em>Made Special.</em></h2><p>Authentic Indian sweets, hand-plaited raksha thread and selected religious essentials for your celebrations.</p><a class="btn primary" href="#products">Shop Products</a><a class="btn gold" href="#order">Place an Order</a></section>
 <main>
 <section class="wrap" id="products"><h2 class="title">Our Products</h2><div id="priceNotice" class="notice" style="display:none;margin-bottom:18px"></div><div id="productGrid" class="grid"></div><h3 style="margin-top:38px">Free with your order</h3><div id="freeGrid" class="grid"></div></section>
-<section class="wrap" id="order"><div class="order"><h2 class="title">Build Your Order</h2><p class="notice">Choose your products and quantities; your total updates automatically. Items marked “Price on request” must be confirmed with us. Submitting sends an order request—your order is not confirmed until we contact you.</p><div id="orderRows"></div><button class="add" onclick="addRow()">+ Add another product</button><div class="summary"><div><span>Amount taxable</span><strong id="taxable">TT$0.00</strong></div><div><span>VAT</span><strong id="vat">TT$0.00</strong></div><div><span>Zero-rated / free</span><strong id="zero">TT$0.00</strong></div><div class="grand"><span>Final total</span><strong id="grand">TT$0.00</strong></div></div><div class="customer"><div class="field"><label for="name">Full name *</label><input id="name" autocomplete="name" required></div><div class="field"><label for="phone">Phone / WhatsApp *</label><input id="phone" type="tel" autocomplete="tel" required placeholder="868-xxx-xxxx"></div><div class="field full"><label for="email">Email (optional)</label><input id="email" type="email" autocomplete="email"></div><div class="field"><label for="requiredDate">Required / Collection date *</label><input id="requiredDate" type="date" required></div><div class="field"><label>Order status</label><input value="Awaiting confirmation" readonly aria-label="Order status: awaiting confirmation"></div><div class="field full"><label for="notes">Order notes (optional)</label><textarea id="notes" rows="3" placeholder="Collection or delivery details, special requests…"></textarea></div></div><button class="wa" onclick="sendOrder()">Send Order on WhatsApp</button><p id="error" class="notice"></p></div></section>
+<section class="wrap" id="order"><div class="order"><h2 class="title">Build Your Order</h2><p class="notice">Enter quantities and the website will calculate each line total and your order total. Items marked price on request will be confirmed before finalizing.</p><div id="orderRows"></div><button class="add" onclick="addRow()">+ Add another product</button><div class="summary"><div><span>Amount taxable</span><strong id="taxable">TT$0.00</strong></div><div><span>VAT (12.5%)</span><strong id="vat">TT$0.00</strong></div><div><span>Zero-rated</span><strong id="zero">TT$0.00</strong></div><div class="grand"><span>Final total</span><strong id="grand">TT$0.00</strong></div></div><div class="customer"><div class="field"><label>Full name</label><input id="name" required></div><div class="field"><label>Phone / WhatsApp</label><input id="phone" required placeholder="868-xxx-xxxx"></div><div class="field full"><label>Email (optional)</label><input id="email" type="email"></div><div class="field"><label>Required / Collection date</label><input id="requiredDate" type="date" required></div><div class="field"><label>Order status</label><input value="Pending" readonly></div><div class="field full"><label>Order notes</label><textarea id="notes" rows="3" placeholder="Collection/delivery details, special requests..."></textarea></div></div><button class="wa" onclick="sendOrder()">Send Order on WhatsApp</button><p id="error" class="notice"></p></div></section>
 <section class="wrap"><h2 class="title">Free Items</h2><div class="free"><strong>🌿 Fresh flowers • Neem leaf • Bay leaf — FREE</strong><p class="notice">These are listed as free items and are not added to the order total.</p></div></section>
 <section class="wrap contact" id="contact"><h2 class="title" style="color:#fff">Contact Satyanand's Limited</h2><p><strong>WhatsApp / Call:</strong> <a href="tel:+18687870821">(868) 787-0821</a></p><p><strong>Email:</strong> <a href="mailto:satyanandslimitedest.24@yahoo.com">satyanandslimitedest.24@yahoo.com</a></p><p><strong>Instagram:</strong> Satyanand's Limited</p></section>
 </main><footer><strong>Satyanand's Limited</strong><br>Est. 2024<br>© 2026 Satyanand's Limited. All rights reserved.</footer>
@@ -158,23 +152,15 @@ function renderPriceNotice(){
   el.style.display='block';el.innerHTML='<b>Price update notice:</b> '+notices.map(x=>`${esc(x.p.name)} will be ${money(x.p.scheduledPrice)} from ${x.d.toLocaleDateString()}.`).join(' ');
 }
 function renderProducts(){
-  document.getElementById('productGrid').innerHTML=activeProducts().map(p=>`<article class="card"><div class="pic">${p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}">`:`<span>Product image<br>can be added</span>`}</div><h3>${esc(p.name)}</h3><div class="desc">${esc(p.description||'')}</div><div class="price">${p.price>0?money(p.price)+' / '+esc(p.unit):'Price on request'}</div><div class="card-actions"><button class="card-add" type="button" data-add-product="${esc(p.id)}">Add to Order ↓</button></div></article>`).join('');
+  document.getElementById('productGrid').innerHTML=activeProducts().map(p=>`<article class="card"><div class="pic">${p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}">`:`<span>Product image<br>can be added</span>`}</div><h3>${esc(p.name)}</h3><div class="desc">${esc(p.description||'')}</div><div class="price">${p.price>0?money(p.price)+' / '+esc(p.unit):'Price on request'}</div></article>`).join('');
   document.getElementById('freeGrid').innerHTML=store.freeItems.map(x=>`<div class="free"><strong>✓ ${esc(x.name)} — FREE</strong><p>${esc(x.description||'')}</p></div>`).join('');
 }
 function options(){return activeProducts().map(p=>`<option value="${p.id}">${esc(p.name)} — ${p.price>0?money(p.price):'Price on request'}</option>`).join('')}
-function addRow(selectedId){
+function addRow(){
   let d=document.createElement('div');d.className='order-row';
   d.innerHTML=`<div class="field"><label>Product</label><select class="sel" onchange="calc()">${options()}</select></div><div class="field"><label>Qty</label><input class="qty" type="number" min="1" value="1" oninput="calc()"></div><div class="field"><label>Line total</label><input class="line" readonly value="TT$0.00"></div><button class="remove" onclick="this.parentElement.remove();calc()" title="Remove">×</button>`;
-  document.getElementById('orderRows').appendChild(d);
-  if(selectedId){const sel=d.querySelector('.sel');sel.value=selectedId;}
-  calc();
+  document.getElementById('orderRows').appendChild(d);calc();
 }
-function addProductToOrder(productId){
-  addRow(productId);
-  document.getElementById('order').scrollIntoView({behavior:'smooth',block:'start'});
-  const err=document.getElementById('error');err.textContent='Product added to your order. Adjust the quantity if needed.';
-}
-
 function calc(){
   let taxable=0,vat=0,zero=0;
   document.querySelectorAll('.order-row').forEach(r=>{
@@ -270,12 +256,9 @@ async function saveOrderToFirebase(){
   }
 }
 async function sendOrder(){
-  const button=document.querySelector('.wa');
-  if(button&&button.disabled)return;
-  if(button){button.disabled=true;button.textContent='Saving your order…';}
-  document.getElementById('error').textContent='Saving your order… please wait.';
+  document.getElementById('error').textContent='Saving your order...';
   const result=await saveOrderToFirebase();
-  if(!result){if(button){button.disabled=false;button.textContent='Send Order on WhatsApp';}return;}
+  if(!result)return;
 
   const name=document.getElementById('name').value.trim();
   const phone=document.getElementById('phone').value.trim();
@@ -292,16 +275,10 @@ async function sendOrder(){
   const msg=`Hello Satyanand's Limited, I placed an order.%0A%0AOrder No: ${encodeURIComponent(result.orderNumber)}%0ACustomer: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}%0A${email?`Email: ${encodeURIComponent(email)}%0A`:''}Required/Collection date: ${encodeURIComponent(requiredDate)}%0A%0AOrder:%0A${encodeURIComponent(lines.join('\n'))}%0A%0AFinal total shown: ${encodeURIComponent(document.getElementById('grand').textContent)}%0A${notes?`Notes: ${encodeURIComponent(notes)}%0A`:''}%0AThank you!`;
 
   document.getElementById('error').textContent=`Order ${result.orderNumber} saved successfully. Opening WhatsApp...`;
-  const waWindow=window.open('https://wa.me/'+store.settings.phone+'?text='+msg,'_blank');
-  if(!waWindow){document.getElementById('error').textContent=`Order ${result.orderNumber} saved. If WhatsApp did not open, tap the WhatsApp button again or contact us with your order number.`;}
-  if(button){button.disabled=false;button.textContent='Send Order on WhatsApp';}
+  window.open('https://wa.me/'+store.settings.phone+'?text='+msg,'_blank');
 }
 function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function money(n){return 'TT$'+Number(n||0).toFixed(2)}
-document.addEventListener('click',e=>{const btn=e.target.closest('[data-add-product]');if(btn)addProductToOrder(btn.getAttribute('data-add-product'));});
-const menuToggle=document.getElementById('menuToggle');
-const mainNav=document.getElementById('mainNav');
-if(menuToggle&&mainNav){menuToggle.addEventListener('click',()=>{const open=mainNav.classList.toggle('open');menuToggle.setAttribute('aria-expanded',String(open));menuToggle.textContent=open?'✕ Close':'☰ Menu';});mainNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mainNav.classList.remove('open');menuToggle.setAttribute('aria-expanded','false');menuToggle.textContent='☰ Menu';}));}
 loadCentralStore();
 const dateInput=document.getElementById('requiredDate');
 if(dateInput){const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());dateInput.min=d.toISOString().slice(0,10);}
