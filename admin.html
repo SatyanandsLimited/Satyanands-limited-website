@@ -174,7 +174,6 @@ h2{
 
 }
 
-@media(max-width:700px){.wrap{padding:12px 8px}.box{padding:14px;border-radius:14px}.actions{display:flex;flex-wrap:wrap;gap:6px}.actions .notice{flex:1 1 130px}.input{max-width:100%!important}.btn{padding:10px 12px}}
 </style>
 
 </head>
@@ -294,6 +293,11 @@ h2{
           <option value="holi">Holi — Bright Festive Colours</option>
           <option value="shivratri">Maha Shivratri — Indigo & Silver</option>
           <option value="janmashtami">Krishna Janmashtami — Peacock Blue & Gold</option>
+          <option value="ramanavami">Rama Navami — Royal Blue & Saffron</option>
+          <option value="hanuman">Hanuman Jayanti — Vermilion & Gold</option>
+          <option value="saraswati">Saraswati Puja — White & Warm Gold</option>
+          <option value="dussehra">Dussehra — Maroon & Gold</option>
+          <option value="karwachauth">Karwa Chauth — Deep Red & Gold</option>
         </select>
       </label>
       <label>Theme status
@@ -342,9 +346,6 @@ h2{
       <div class="notice"><b id="newCount">0</b> New / Pending</div>
       <div class="notice"><b id="processingCount">0</b> Processing</div>
       <div class="notice"><b id="completedCount">0</b> Completed</div>
-      <div class="notice"><b id="readyCount">0</b> Ready for Collection</div>
-      <div class="notice"><b id="dueTomorrowCount">0</b> Due tomorrow</div>
-      <div class="notice"><b id="unpaidCount">0</b> Unpaid / outstanding</div>
       <div class="notice"><b id="todaySales">TT$0.00</b> Sales today</div>
     </div>
     <p class="small">Orders refresh automatically while the owner dashboard is open.</p>
@@ -385,34 +386,25 @@ h2{
           All statuses
         </option>
 
-        <option value="Pending">Pending</option>
-        <option value="Awaiting Confirmation">Awaiting Confirmation</option>
-        <option value="Confirmed">Confirmed</option>
-        <option value="Awaiting Payment">Awaiting Payment</option>
-        <option value="Processing">Preparing</option>
-        <option value="Ready for Collection">Ready for Collection</option>
-        <option value="Out for Delivery">Out for Delivery</option>
-        <option value="Completed">Completed</option>
-        <option value="Sent">Sent / Delivered (legacy)</option>
-        <option value="Cancelled">Cancelled</option>
+        <option value="Pending">
+          Pending
+        </option>
 
-      </select>
+        <option value="Processing">
+          Processing
+        </option>
 
-      <label class="small" style="display:inline-block;min-width:180px">Collection date
-        <input id="collectionDateFilter" type="date" class="input" style="margin:4px" onchange="renderOrders()">
-      </label>
+        <option value="Completed">
+          Completed
+        </option>
 
-      <select id="paymentFilter" class="input" style="max-width:220px;margin:4px" onchange="renderOrders()">
-        <option value="all">All payment statuses</option>
-        <option value="Unpaid">Unpaid</option>
-        <option value="Deposit received">Deposit received</option>
-        <option value="Partially paid">Partially paid</option>
-        <option value="Paid">Paid</option>
-        <option value="Verification pending">Verification pending</option>
+        <option value="Sent">
+          Sent
+        </option>
+
       </select>
 
     </div>
-    <div class="notice" style="margin-top:10px"><b>Reminder:</b> WhatsApp buttons open a pre-filled message for you to review and send. Automatic email/WhatsApp delivery is not enabled by this dashboard alone.</div>
 
     <div
       id="ordersTable"
@@ -891,38 +883,34 @@ function itemText(o){return (o.items||[]).map(i=>`${esc(i.productName||i.product
 function orderDateText(o){return o.createdAt&&o.createdAt.toDate?o.createdAt.toDate().toLocaleString():''}
 function dateValue(o){if(!o.createdAt)return ''; if(o.createdAt.toDate)return o.createdAt.toDate().toISOString().slice(0,10); return String(o.createdAt).slice(0,10)}
 
-function localISODate(d){const x=new Date(d.getTime()-d.getTimezoneOffset()*60000);return x.toISOString().slice(0,10)}
-function requiredDateValue(o){return String(o.requiredDate||o.collectionDate||'').slice(0,10)}
 function updateDashboard(){
-  const pending=orders.filter(o=>!o.status||['Pending','Awaiting Confirmation'].includes(o.status)).length;
-  const processing=orders.filter(o=>['Processing','Preparing','Confirmed','Awaiting Payment'].includes(o.status)).length;
+  const pending=orders.filter(o=>!o.status||o.status==='Pending').length;
+  const processing=orders.filter(o=>o.status==='Processing').length;
   const completed=orders.filter(o=>o.status==='Completed'||o.status==='Sent').length;
-  const today=localISODate(new Date());const tomorrowDate=new Date();tomorrowDate.setDate(tomorrowDate.getDate()+1);const tomorrow=localISODate(tomorrowDate);
-  const dueTomorrow=orders.filter(o=>requiredDateValue(o)===tomorrow&&!['Completed','Sent','Cancelled'].includes(o.status)).length;
-  const ready=orders.filter(o=>o.status==='Ready for Collection').length;
-  const unpaid=orders.filter(o=>(o.paymentStatus||'Unpaid')!=='Paid'&&!['Completed','Cancelled'].includes(o.status)).length;
-  const sales=orders.filter(o=>dateValue(o)===today).reduce((sum,o)=>sum+Number(o.total||0),0);
-  document.getElementById('newCount').textContent=pending;document.getElementById('processingCount').textContent=processing;document.getElementById('completedCount').textContent=completed;
-  document.getElementById('readyCount').textContent=ready;document.getElementById('dueTomorrowCount').textContent=dueTomorrow;document.getElementById('unpaidCount').textContent=unpaid;document.getElementById('todaySales').textContent=money(sales);
+  const today=new Date().toISOString().slice(0,10);
+  const sales=orders.filter(o=>dateValue(o)===today).reduce((s,o)=>s+Number(o.total||0),0);
+  document.getElementById('newCount').textContent=pending;
+  document.getElementById('processingCount').textContent=processing;
+  document.getElementById('completedCount').textContent=completed;
+  document.getElementById('todaySales').textContent=money(sales);
 }
 
 function renderOrders(){
-  const f=document.getElementById('orderFilter').value;const pf=document.getElementById('paymentFilter')?.value||'all';const df=document.getElementById('collectionDateFilter')?.value||'';const q=(document.getElementById('orderSearch')?.value||'').trim().toLowerCase();
-  const rows=orders.filter(o=>{const text=[o.orderNumber,o.customerName,o.customerPhone,o.customerEmail].join(' ').toLowerCase();const status=o.status||'Pending';const payment=o.paymentStatus||'Unpaid';return(f==='all'||status===f)&&(pf==='all'||payment===pf)&&(!df||requiredDateValue(o)===df)&&(!q||text.includes(q))});
-  if(!rows.length){document.getElementById('ordersTable').innerHTML='<p class="small">No orders found.</p>';return}
-  let h=`<table style="width:100%;border-collapse:collapse;min-width:1550px"><tr><th>Order</th><th>Customer</th><th>Items</th><th>Required date</th><th>Total</th><th>Order status</th><th>Payment status</th><th>Actions</th></tr>`;
-  for(const o of rows){const status=o.status||'Pending',pay=o.paymentStatus||'Unpaid';const opts=['Pending','Awaiting Confirmation','Confirmed','Awaiting Payment','Processing','Ready for Collection','Out for Delivery','Completed','Cancelled','Sent'];const payOpts=['Unpaid','Deposit received','Partially paid','Paid','Verification pending'];
-    h+=`<tr style="border-top:1px solid #eee;vertical-align:top"><td style="padding:10px"><b>${esc(o.orderNumber||o.docId)}</b><br><span class="small">${esc(orderDateText(o))}</span></td><td style="padding:10px">${esc(o.customerName||'')}<br>${esc(o.customerPhone||'')}<br>${esc(o.customerEmail||'')}</td><td style="padding:10px">${itemText(o)}</td><td style="padding:10px"><b>${esc(requiredDateValue(o)||'Not set')}</b></td><td style="padding:10px"><b>${money(o.total)}</b><br><span class="small">Subtotal ${money(o.subtotal)}</span><br><label class="small">Discount <input aria-label="Discount" type="number" min="0" step="0.01" value="${Number(o.discountAmount||0).toFixed(2)}" style="width:90px;padding:6px;border:1px solid #d8cfba;border-radius:8px" onchange="saveOrderDiscount('${o.docId}',this.value)"></label></td><td style="padding:10px"><select aria-label="Order status" onchange="changeStatus('${o.docId}',this.value)" style="min-width:170px;padding:8px;border:1px solid #d8cfba;border-radius:8px">${opts.map(x=>`<option value="${x}" ${status===x?'selected':''}>${x==='Processing'?'Preparing':x}</option>`).join('')}</select></td><td style="padding:10px"><select aria-label="Payment status" onchange="changePaymentStatus('${o.docId}',this.value)" style="min-width:160px;padding:8px;border:1px solid #d8cfba;border-radius:8px">${payOpts.map(x=>`<option value="${x}" ${pay===x?'selected':''}>${x}</option>`).join('')}</select></td><td style="padding:10px;white-space:nowrap"><button class="btn goldbtn" onclick="printReceipt('${o.docId}')">Receipt</button><button class="btn primary" onclick="openWhatsApp('${o.docId}')">Order update</button><button class="btn primary" onclick="openReadyWhatsApp('${o.docId}')">Ready message</button><button class="btn primary" onclick="openReminderWhatsApp('${o.docId}')">Date reminder</button></td></tr>`;
+  const f=document.getElementById('orderFilter').value;
+  const q=(document.getElementById('orderSearch')?.value||'').trim().toLowerCase();
+  const rows=orders.filter(o=>{
+    const text=[o.orderNumber,o.customerName,o.customerPhone,o.customerEmail].join(' ').toLowerCase();
+    return (f==='all'||o.status===f) && (!q||text.includes(q));
+  });
+  if(!rows.length){document.getElementById('ordersTable').innerHTML='<p class="small">No orders found.</p>';return;}
+  let h=`<table style="width:100%;border-collapse:collapse;min-width:1250px"><tr><th>Order</th><th>Customer</th><th>Items</th><th>Order date</th><th>Required date</th><th>Subtotal</th><th>Discount</th><th>Total</th><th>Status</th><th>Actions</th></tr>`;
+  for(const o of rows){
+    h+=`<tr style="border-top:1px solid #eee;vertical-align:top"><td style="padding:10px"><b>${esc(o.orderNumber||o.docId)}</b><br><span class="small">${esc(o.customerPhone||'')}</span></td><td style="padding:10px">${esc(o.customerName||'')}<br>${esc(o.customerEmail||'')}</td><td style="padding:10px">${itemText(o)}</td><td style="padding:10px">${esc(orderDateText(o))}</td><td style="padding:10px"><b>${esc(o.requiredDate||'')}</b></td><td style="padding:10px">${money(o.subtotal)}</td><td style="padding:10px"><input type="number" min="0" step="0.01" value="${Number(o.discountAmount||0).toFixed(2)}" style="width:105px;padding:7px;border:1px solid #d8cfba;border-radius:8px" onchange="saveOrderDiscount('${o.docId}',this.value)"></td><td style="padding:10px"><b>${money(o.total)}</b></td><td style="padding:10px"><select onchange="changeStatus('${o.docId}',this.value)" style="padding:8px;border:1px solid #d8cfba;border-radius:8px"><option ${o.status==='Pending'||!o.status?'selected':''}>Pending</option><option ${o.status==='Processing'?'selected':''}>Processing</option><option ${o.status==='Completed'?'selected':''}>Completed</option><option ${o.status==='Sent'?'selected':''}>Sent</option></select></td><td style="padding:10px;white-space:nowrap"><button class="btn goldbtn" onclick="printReceipt('${o.docId}')">Receipt</button><button class="btn primary" onclick="openWhatsApp('${o.docId}')">WhatsApp</button></td></tr>`;
   }
-  h+='</table>';document.getElementById('ordersTable').innerHTML=h;
+  h+='</table>'; document.getElementById('ordersTable').innerHTML=h;
 }
 
-async function changeStatus(id,status){try{const patch={status,statusUpdatedAt:firebase.firestore.FieldValue.serverTimestamp()};await db.collection('orders').doc(id).update(patch);const o=orders.find(x=>x.docId===id);if(o)Object.assign(o,patch);updateDashboard();renderOrders();renderReports()}catch(e){alert('Could not update order status: '+e.message);renderOrders()}}
-async function changePaymentStatus(id,paymentStatus){try{const patch={paymentStatus,paymentStatusUpdatedAt:firebase.firestore.FieldValue.serverTimestamp()};await db.collection('orders').doc(id).update(patch);const o=orders.find(x=>x.docId===id);if(o)Object.assign(o,patch);updateDashboard();renderOrders();renderReports()}catch(e){alert('Could not update payment status: '+e.message);renderOrders()}}
-function waCustomer(o,msg){const phone=String(o.customerPhone||'').replace(/\D/g,'');if(!phone){alert('This order has no customer phone number.');return}const full=phone.startsWith('1')?phone:'1'+phone;window.open('https://wa.me/'+full+'?text='+encodeURIComponent(msg),'_blank')}
-function openWhatsApp(id){const o=orders.find(x=>x.docId===id);if(!o)return;waCustomer(o,`Hello ${o.customerName||''}, this is Satyanand's Limited regarding order ${o.orderNumber||o.docId}. Required date: ${requiredDateValue(o)||'not specified'}. Order total: ${money(o.total)}. Current order status: ${o.status||'Pending'}. Payment status: ${o.paymentStatus||'Unpaid'}. Please reply if you have any questions.`)}
-function openReadyWhatsApp(id){const o=orders.find(x=>x.docId===id);if(!o)return;waCustomer(o,`Hello ${o.customerName||''}, good news! Your Satyanand's Limited order ${o.orderNumber||o.docId} is marked ready for ${o.fulfilmentType||o.deliveryMethod||'collection'}. Required date: ${requiredDateValue(o)||'please contact us to confirm'}. Please reply to confirm your collection/delivery arrangements. Payment status on our record: ${o.paymentStatus||'Unpaid'}. Thank you!`)}
-function openReminderWhatsApp(id){const o=orders.find(x=>x.docId===id);if(!o)return;waCustomer(o,`Hello ${o.customerName||''}, this is a friendly reminder from Satyanand's Limited that order ${o.orderNumber||o.docId} is scheduled for ${requiredDateValue(o)||'the date arranged with us'}. Please reply to confirm your collection/delivery arrangements. Payment status on our record: ${o.paymentStatus||'Unpaid'}. Thank you!`)}
+async function changeStatus(id,status){try{await db.collection('orders').doc(id).update({status});const o=orders.find(x=>x.docId===id);if(o)o.status=status;updateDashboard();renderOrders();renderReports();}catch(e){alert(e.message)}}
 
 function recalcOrder(o,discount){
   const originalItems=o.items||[]; const base=originalItems.reduce((s,i)=>s+Number(i.lineTotal||0),0); const d=Math.max(0,Math.min(Number(discount||0),base));
@@ -932,13 +920,11 @@ async function saveOrderDiscount(id,value){try{const o=orders.find(x=>x.docId===
 
 function printReceipt(id){
   const o=orders.find(x=>x.docId===id);if(!o)return;
-  const rate=Number(o.vatRate||12.5);
-  const taxLabel=i=>{const t=i.taxType||'';if(t==='inclusive')return `Standard-rated (${rate}% VAT included)`;if(t==='taxable')return `Standard-rated (${rate}% VAT added)`;if(t==='zero'||t==='zero-rated'||t==='exempt')return t==='exempt'?'Exempt':'Zero-rated (0%)';return 'Check tax status'};
-  const lines=(o.items||[]).map(i=>{const tax=taxLabel(i);const line=Number(i.discountedLineTotal??i.lineTotal??0);const lineVat=Number(i.vatAmount||0);const lineZero=Number(i.zeroRatedAmount||0);const detail=(i.taxType==='zero'||i.taxType==='zero-rated'||i.taxType==='exempt')?money(lineZero):money(lineVat);return `<tr><td>${esc(i.productName||'')}</td><td>${esc(i.quantity||0)}</td><td>${money(i.unitPrice)}</td><td>${esc(tax)}</td><td>${money(line)}</td><td>${detail}</td></tr>`}).join('');
+  const lines=(o.items||[]).map(i=>`<tr><td>${esc(i.productName)}</td><td>${esc(i.quantity)}</td><td>${money(i.unitPrice)}</td><td>${money(i.discountedLineTotal??i.lineTotal)}</td></tr>`).join('');
   const free=(o.freeItems||[]).map(i=>`<li>${esc(i.name||i.itemName||'Free item')} × ${esc(i.quantity||1)} — FREE</li>`).join('');
   const freeHtml=free?'<h2>Free items</h2><div class=\"free\"><ul>'+free+'</ul><small>Free items are not included in sales totals.</small></div>':'';
   const w=window.open('','_blank');if(!w){alert('Please allow pop-ups to print the receipt.');return;}
-  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${esc(o.orderNumber||'Order Receipt')}</title><style>*{box-sizing:border-box}body{font-family:Arial,sans-serif;padding:28px;color:#10213b;max-width:1000px;margin:auto}.head{background:#071a35;color:#f1d889;padding:20px;border-bottom:5px solid #d5ad48;border-radius:10px}h1{margin:0;font-size:26px}h2{color:#071a35;margin-top:22px}p{line-height:1.5}.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#f8f5ec;padding:14px;border-radius:8px}table{width:100%;border-collapse:collapse;margin-top:18px}th{background:#102b50;color:#f1d889;text-align:left}th,td{padding:8px;border-bottom:1px solid #e4d8bb;font-size:12px} .totals{margin-left:auto;max-width:360px}.totals p{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding:5px}.total{font-size:22px;font-weight:bold;background:#071a35;color:#f1d889;padding:13px;border-radius:8px}.free{background:#f7f2e5;padding:12px;border-radius:8px}.foot{margin-top:25px;border-top:2px solid #d5ad48;padding-top:12px;font-size:12px;color:#5b5b5b}@media print{body{padding:0}.head,.total,th{-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style></head><body><div class="head"><h1>Satyanand's Limited</h1><div>Est. 2024 · Indian sweets & sacred threads</div><div>WhatsApp / Call: (868) 787-0821 · satyanandslimitedest.24@yahoo.com</div></div><h2>Order Receipt</h2><div class="meta"><div><b>Order:</b> ${esc(o.orderNumber||o.docId)}</div><div><b>Status:</b> ${esc(o.status||'Pending')}</div><div><b>Customer:</b> ${esc(o.customerName||'')}</div><div><b>Phone:</b> ${esc(o.customerPhone||'')}</div><div><b>Order date:</b> ${esc(dateValue(o))}</div><div><b>Required / collection date:</b> ${esc(o.requiredDate||'')}</div></div><table><thead><tr><th>Product</th><th>Qty</th><th>Unit price</th><th>VAT classification</th><th>Line total</th><th>VAT / zero-rated amount</th></tr></thead><tbody>${lines}</tbody></table><div class="totals"><p><span>Subtotal (item prices)</span><b>${money(o.subtotal)}</b></p><p><span>Discount</span><b>− ${money(o.discountAmount)}</b></p><p><span>Standard-rated sales, excluding VAT</span><b>${money(o.taxableAmount)}</b></p><p><span>VAT (${rate}%)</span><b>${money(o.vatAmount)}</b></p><p><span>Zero-rated</span><b>${money(o.zeroRatedAmount)}</b></p><div class="total">Final total payable: ${money(o.total)}</div><p style="display:block;font-size:12px;border:0;color:#555">Calculation: standard-rated sales excluding VAT + VAT + zero-rated sales = final total. Prices marked “VAT included” already contain VAT; prices marked “VAT added” have VAT calculated on top.</p></div>${freeHtml}<div class="foot">Thank you for supporting Satyanand's Limited. Please contact us promptly if there is an issue with your order. Food returns are handled subject to food-safety requirements and applicable consumer protections.</div></body></html>`);w.document.close();w.focus();setTimeout(()=>w.print(),500);
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${esc(o.orderNumber||'Order Receipt')}</title><style>*{box-sizing:border-box}body{font-family:Arial,sans-serif;padding:28px;color:#10213b;max-width:850px;margin:auto}.head{background:#071a35;color:#f1d889;padding:20px;border-bottom:5px solid #d5ad48;border-radius:10px}h1{margin:0;font-size:26px}h2{color:#071a35;margin-top:22px}p{line-height:1.5}.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#f8f5ec;padding:14px;border-radius:8px}table{width:100%;border-collapse:collapse;margin-top:18px}th{background:#102b50;color:#f1d889;text-align:left}th,td{padding:10px;border-bottom:1px solid #e4d8bb} .totals{margin-left:auto;max-width:360px}.totals p{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding:5px}.total{font-size:22px;font-weight:bold;background:#071a35;color:#f1d889;padding:13px;border-radius:8px}.free{background:#f7f2e5;padding:12px;border-radius:8px}.foot{margin-top:25px;border-top:2px solid #d5ad48;padding-top:12px;font-size:12px;color:#5b5b5b}@media print{body{padding:0}.head,.total,th{-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style></head><body><div class="head"><h1>Satyanand's Limited</h1><div>Est. 2024 · Indian sweets & sacred threads</div><div>WhatsApp / Call: (868) 787-0821 · satyanandslimitedest.24@yahoo.com</div></div><h2>Order Receipt</h2><div class="meta"><div><b>Order:</b> ${esc(o.orderNumber||o.docId)}</div><div><b>Status:</b> ${esc(o.status||'Pending')}</div><div><b>Customer:</b> ${esc(o.customerName||'')}</div><div><b>Phone:</b> ${esc(o.customerPhone||'')}</div><div><b>Order date:</b> ${esc(dateValue(o))}</div><div><b>Required / collection date:</b> ${esc(o.requiredDate||'')}</div></div><table><thead><tr><th>Product</th><th>Qty</th><th>Unit price</th><th>Line total</th></tr></thead><tbody>${lines}</tbody></table><div class="totals"><p><span>Subtotal</span><b>${money(o.subtotal)}</b></p><p><span>Discount</span><b>${money(o.discountAmount)}</b></p><p><span>Amount taxable</span><b>${money(o.taxableAmount)}</b></p><p><span>VAT</span><b>${money(o.vatAmount)}</b></p><p><span>Zero-rated sales</span><b>${money(o.zeroRatedAmount)}</b></p><div class="total">Final total: ${money(o.total)}</div></div>${freeHtml}<div class="foot">Thank you for supporting Satyanand's Limited. Please contact us promptly if there is an issue with your order. Food returns are handled subject to food-safety requirements and applicable consumer protections.</div></body></html>`);w.document.close();w.focus();setTimeout(()=>w.print(),500);
 }
 function openWhatsApp(id){const o=orders.find(x=>x.docId===id);if(!o)return;const msg=`Hello ${o.customerName||''}, this is Satyanand's Limited regarding order ${o.orderNumber}. Required date: ${o.requiredDate||''}. Current total: ${money(o.total)}. Status: ${o.status||'Pending'}.`;const phone=String(o.customerPhone||'').replace(/\D/g,'');window.open('https://wa.me/'+(phone.startsWith('1')?phone:'1'+phone)+'?text='+encodeURIComponent(msg),'_blank')}
 
@@ -1573,7 +1559,12 @@ const FESTIVAL_PRESETS={
  navratri:{heading:'Celebrate Navratri',subheading:'Festive traditions, sacred threads and sweets for your celebrations',primary:'#761d2b',accent:'#f0bd54',background:'#fff6f0'},
  holi:{heading:'A Colourful Holi Celebration',subheading:'Bring colour, joy and tradition to your festive gathering',primary:'#54236d',accent:'#f3b63f',background:'#fff7fb'},
  shivratri:{heading:'Maha Shivratri',subheading:'Sacred essentials for your prayers and observances',primary:'#20245b',accent:'#c7cbd8',background:'#f5f6fb'},
- janmashtami:{heading:'Celebrate Krishna Janmashtami',subheading:'A joyful celebration of devotion, tradition and family',primary:'#07506b',accent:'#e5bd4c',background:'#f1fbfc'}
+ janmashtami:{heading:'Celebrate Krishna Janmashtami',subheading:'A joyful celebration of devotion, tradition and family',primary:'#07506b',accent:'#e5bd4c',background:'#f1fbfc'},
+ ramanavami:{heading:'Celebrate Rama Navami',subheading:'Traditional sweets and sacred essentials for your celebration',primary:'#173c78',accent:'#edaa42',background:'#fff8ec'},
+ hanuman:{heading:'Hanuman Jayanti Essentials',subheading:'Offerings, sweets and sacred traditions for Hanuman Jayanti',primary:'#9c321b',accent:'#f2bd48',background:'#fff5e8'},
+ saraswati:{heading:'Saraswati Puja',subheading:'Celebrate wisdom, learning and devotion with Satyanand’s Limited',primary:'#72552b',accent:'#e0bd65',background:'#fffdf5'},
+ dussehra:{heading:'Celebrate Dussehra',subheading:'Share festive sweetness and celebrate the victory of good',primary:'#6d1828',accent:'#e8b84f',background:'#fff6ec'},
+ karwachauth:{heading:'Karwa Chauth Celebrations',subheading:'Thoughtful festive essentials for a special occasion',primary:'#7c162d',accent:'#edbf65',background:'#fff4f3'}
 };
 function setThemePreview(){
  const val=id=>document.getElementById(id).value;
