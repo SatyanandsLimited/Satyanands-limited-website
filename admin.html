@@ -1,1783 +1,422 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-
 <meta charset="utf-8">
-
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
->
-
-<title>Owner — Satyanand's Limited</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071a35">
+<title>Owner Dashboard | Satyanand's Limited</title>
 <style>
-
-*{
-  box-sizing:border-box
-}
-
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f5f2e9;
-  color:#10213b
-}
-
-.head{
-  background:linear-gradient(135deg,#071a35,#102b50);
-  color:#f1d889;
-  border-bottom:3px solid #d5ad48;
-  padding:16px;
-  text-align:center
-}
-
-.head img{
-  width:90px;
-  height:90px;
-  object-fit:contain
-}
-
-.wrap{
-  max-width:1100px;
-  margin:auto;
-  padding:25px 16px
-}
-
-.box{
-  background:#fff;
-  border:1px solid #e5d9b9;
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:20px;
-  box-shadow:0 6px 20px #0000000d
-}
-
-h1,
-h2{
-  margin-top:0
-}
-
-.gold{
-  color:#b18a25
-}
-
-.login{
-  max-width:440px;
-  margin:60px auto
-}
-
-.input{
-  width:100%;
-  padding:13px;
-  border:1px solid #cfc4a7;
-  border-radius:10px;
-  margin:8px 0 12px
-}
-
-.btn{
-  border:0;
-  border-radius:10px;
-  padding:11px 14px;
-  font-weight:800;
-  cursor:pointer;
-  margin:4px
-}
-
-.primary{
-  background:#071a35;
-  color:#fff
-}
-
-.goldbtn{
-  background:linear-gradient(135deg,#d5ad48,#f1d889);
-  color:#071a35
-}
-
-.danger{
-  background:#eee
-}
-
-.row{
-  display:grid;
-  grid-template-columns:
-    1.4fr
-    .8fr
-    .9fr
-    .9fr
-    1fr
-    auto;
-  gap:8px;
-  align-items:center;
-  border-top:1px solid #eee;
-  padding:12px 0
-}
-
-.row input,
-.row select{
-  width:100%;
-  padding:9px;
-  border:1px solid #d8cfba;
-  border-radius:8px
-}
-
-.small{
-  font-size:12px;
-  color:#6f685b
-}
-
-.actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px
-}
-
-.hidden{
-  display:none
-}
-
-.free-row{
-  display:grid;
-  grid-template-columns:1fr 2fr auto;
-  gap:8px;
-  margin:8px 0
-}
-
-.notice{
-  padding:12px;
-  background:#fff7dc;
-  border-left:4px solid #d5ad48;
-  line-height:1.5
-}
-.theme-preview{border-radius:14px;padding:18px;color:#fff;margin:12px 0;border:2px solid #d5ad48;background:linear-gradient(135deg,#071a35,#183a63)}
-.theme-preview h3{margin:0 0 6px;color:#f1d889;font-size:24px}
-.theme-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.theme-grid label{display:block;font-weight:700;font-size:13px}
-.theme-grid input,.theme-grid select,.theme-grid textarea{width:100%;margin-top:5px;padding:10px;border:1px solid #d8cfba;border-radius:8px;font:inherit}
-.swatches{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.swatch{width:30px;height:30px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #aaa}
-@media(max-width:600px){.theme-grid{grid-template-columns:1fr}}
-
-@media(max-width:850px){
-
-  .row{
-    grid-template-columns:1fr 1fr
-  }
-
-  .free-row{
-    grid-template-columns:1fr
-  }
-
-  .row .full{
-    grid-column:1/-1
-  }
-
-}
-
+*{box-sizing:border-box}
+body{margin:0;background:#f5f2e9;color:#10213b;font-family:Arial,sans-serif}
+header{background:linear-gradient(135deg,#071a35,#102b50);color:#f1d889;text-align:center;padding:18px;border-bottom:3px solid #d5ad48}
+header img{width:75px;height:75px;object-fit:contain;background:#fff;border-radius:50%;padding:4px}
+header h1{margin:8px 0 4px;font:700 25px Georgia,serif}
+.wrap{max-width:1200px;margin:auto;padding:20px 14px}
+.box{background:#fff;border:1px solid #e5d9b9;border-radius:16px;padding:18px;margin-bottom:18px;box-shadow:0 6px 20px #0000000d}
+h2{color:#102b50;margin:0 0 12px;font-size:20px}
+.small{font-size:12px;color:#6f685b;line-height:1.6}
+label{display:block;font-size:12px;font-weight:700;color:#102b50;margin-bottom:5px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #d8cfba;border-radius:8px;background:#fff;font:14px Arial,sans-serif;color:#10213b}
+textarea{min-height:70px}
+button{border:0;border-radius:9px;padding:11px 14px;font-weight:800;cursor:pointer;margin:3px}
+.primary{background:#071a35;color:white}
+.goldbtn{background:linear-gradient(135deg,#d5ad48,#f1d889);color:#071a35}
+.danger{background:#f4e8e8;color:#8b2731}
+.mutedbtn{background:#eee;color:#10213b}
+.actions{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-top:12px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.login{max-width:430px;margin:50px auto}
+.hidden{display:none!important}
+.notice{background:#fff7dc;border-left:4px solid #d5ad48;padding:12px;border-radius:5px;font-size:13px;line-height:1.6;margin:10px 0}
+.stat{background:#fff9e8;border:1px solid #e5d9b9;border-radius:12px;padding:13px;font-size:12px}
+.stat b{display:block;font-size:20px;color:#102b50;margin-bottom:3px}
+.tablewrap{overflow:auto;margin-top:12px}
+table{border-collapse:collapse;width:100%;min-width:700px;font-size:12px}
+th{background:#102b50;color:#f1d889;text-align:left;padding:10px}
+td{padding:9px;border-bottom:1px solid #eee;vertical-align:top}
+td input,td select{min-width:75px;padding:7px}
+.productrow,.formrow{border:1px solid #eee3ca;border-radius:12px;padding:12px;margin:10px 0;background:#fffdf8}
+.productrow .grid{align-items:end}
+hr{border:0;border-top:1px solid #eee;margin:16px 0}
+.preview{background:linear-gradient(135deg,#071a35,#183a63);color:#fff;padding:20px;border:2px solid #d5ad48;border-radius:12px;margin-top:12px}
+.preview h3{color:#f1d889;margin:0 0 6px}
+@media(max-width:750px){.grid,.three,.four{grid-template-columns:1fr 1fr}.wrap{padding:12px}.box{padding:14px}}
+@media(max-width:480px){.grid,.three,.four{grid-template-columns:1fr}.actions button{flex:1}}
 </style>
-
 </head>
-
 <body>
-
-<div class="head">
-
-  <img
-    src="logo.png"
-    alt="Satyanand's Limited Logo"
-  >
-
-  <h1>
-    Owner Price & Product Manager
-  </h1>
-
-  <div>
-    Satyanand's Limited • Est. 2024
-  </div>
-
-</div>
-
-
-<!-- OWNER LOGIN -->
+<header>
+<img src="logo.png" alt="Satyanand's Limited logo">
+<h1>Owner Dashboard</h1>
+<div>Satyanand's Limited • Est. 2024</div>
+</header>
 
 <div id="login" class="login box">
-
-  <h2>
-    Owner Login
-  </h2>
-
-  <p class="small">
-    Sign in with the owner account created in Firebase Authentication.
-  </p>
-
-  <input
-    id="emailLogin"
-    class="input"
-    type="email"
-    placeholder="Owner email"
-  >
-
-  <input
-    id="pw"
-    class="input"
-    type="password"
-    placeholder="Password"
-  >
-
-  <button
-    class="btn primary"
-    onclick="login()"
-  >
-    Unlock
-  </button>
-
-  <p id="loginErr"></p>
-
+<h2>Owner Login</h2>
+<p class="small">Sign in with the owner account created in Firebase Authentication.</p>
+<label for="emailLogin">Owner email</label>
+<input id="emailLogin" type="email" autocomplete="username" placeholder="Owner email">
+<label for="pw" style="margin-top:12px">Password</label>
+<input id="pw" type="password" autocomplete="current-password" placeholder="Password">
+<button class="primary" style="width:100%;margin:14px 0" onclick="login()">Unlock Dashboard</button>
+<p id="loginErr" class="small" role="status"></p>
 </div>
-
-
-<!-- OWNER DASHBOARD -->
 
 <main id="app" class="wrap hidden">
 
-
-  <!-- DASHBOARD HEADER -->
-
-  <section class="box">
-
-    <div
-      class="actions"
-      style="justify-content:space-between"
-    >
-
-      <div>
-
-        <h2
-          class="gold"
-          style="margin-bottom:4px"
-        >
-          Owner Dashboard
-        </h2>
-
-        <div
-          id="signedInAs"
-          class="small"
-        ></div>
-
-      </div>
-
-      <button
-        class="btn danger"
-        onclick="logout()"
-      >
-        Lock
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- FESTIVAL THEME SCHEDULER -->
-  <section class="box">
-    <h2 class="gold">Festival Theme & Banner Scheduler</h2>
-    <p class="small">Choose a festival design, customize the banner text and schedule when it should appear on the customer website. Save the settings here, then connect the matching theme reader in index.html so the storefront changes automatically.</p>
-    <div class="theme-grid">
-      <label>Festival / theme
-        <select id="festivalPreset" onchange="applyFestivalPreset()">
-          <option value="general">Everyday — Navy & Gold</option>
-          <option value="diwali">Diwali — Gold, Deep Navy & Warm Lights</option>
-          <option value="ganesh">Ganesh Utsav — Saffron & Gold</option>
-          <option value="raksha">Raksha Bandhan — Royal Purple & Gold</option>
-          <option value="navratri">Navratri — Crimson & Gold</option>
-          <option value="holi">Holi — Bright Festive Colours</option>
-          <option value="shivratri">Maha Shivratri — Indigo & Silver</option>
-          <option value="janmashtami">Krishna Janmashtami — Peacock Blue & Gold</option>
-          <option value="ramanavami">Rama Navami — Royal Blue & Saffron</option>
-          <option value="hanuman">Hanuman Jayanti — Vermilion & Gold</option>
-          <option value="saraswati">Saraswati Puja — White & Warm Gold</option>
-          <option value="dussehra">Dussehra — Maroon & Gold</option>
-          <option value="karwachauth">Karwa Chauth — Deep Red & Gold</option>
-        </select>
-      </label>
-      <label>Theme status
-        <select id="themeEnabled"><option value="true">Enabled</option><option value="false">Disabled — use default theme</option></select>
-      </label>
-      <label>Start date
-        <input id="themeStart" type="date">
-      </label>
-      <label>End date
-        <input id="themeEnd" type="date">
-      </label>
-      <label>Banner heading
-        <input id="themeHeading" maxlength="90" placeholder="Celebrate tradition with Satyanand's Limited">
-      </label>
-      <label>Banner subheading
-        <input id="themeSubheading" maxlength="180" placeholder="Sweets, sacred threads and festive essentials">
-      </label>
-      <label>Primary colour
-        <input id="themePrimary" type="color" value="#071a35">
-      </label>
-      <label>Accent / gold colour
-        <input id="themeAccent" type="color" value="#d5ad48">
-      </label>
-      <label>Background colour
-        <input id="themeBackground" type="color" value="#fbf8f0">
-      </label>
-      <label>Banner image URL (optional)
-        <input id="themeImage" type="url" placeholder="https://...">
-      </label>
-    </div>
-    <div class="theme-preview" id="themePreview"><h3 id="previewHeading">Tradition, Made Special</h3><div id="previewSubheading">Sweets, sacred threads and festive essentials</div><div class="swatches"><span class="swatch" id="swatchPrimary"></span><span class="swatch" id="swatchAccent"></span><span class="swatch" id="swatchBackground"></span></div></div>
-    <div class="actions">
-      <button class="btn goldbtn" onclick="saveFestivalTheme()">Save Festival Theme</button>
-      <button class="btn primary" onclick="loadFestivalTheme()">Reload Saved Theme</button>
-      <button class="btn danger" onclick="resetFestivalTheme()">Reset Form</button>
-    </div>
-    <p id="themeMsg" class="small" role="status"></p>
-    <p class="notice"><b>Scheduling note:</b> the website must read these saved settings to switch themes automatically on the start/end dates. If no dates are set, the theme is treated as available whenever enabled.</p>
-  </section>
-
-  <!-- QUICK DASHBOARD -->
-
-  <section class="box">
-    <h2 class="gold">Order Overview</h2>
-    <div class="actions">
-      <div class="notice"><b id="newCount">0</b> New / Pending</div>
-      <div class="notice"><b id="processingCount">0</b> Processing</div>
-      <div class="notice"><b id="completedCount">0</b> Completed</div>
-      <div class="notice"><b id="todaySales">TT$0.00</b> Sales today</div>
-    </div>
-    <p class="small">Orders refresh automatically while the owner dashboard is open.</p>
-  </section>
-
-
-  <!-- PENDING ORDERS -->
-
-  <section class="box">
-
-    <h2 class="gold">
-      Pending Orders
-    </h2>
-
-    <p class="small">
-      Orders from the customer website are stored centrally in Firebase and appear here from any device.
-    </p>
-
-    <div class="actions">
-
-      <button
-        class="btn primary"
-        onclick="loadOrders()"
-      >
-        Refresh Orders
-      </button>
-
-      <input id="orderSearch" class="input" style="max-width:280px;margin:4px" placeholder="Search order, customer or phone" oninput="renderOrders()">
-
-      <select
-        id="orderFilter"
-        class="input"
-        style="max-width:220px;margin:4px"
-        onchange="renderOrders()"
-      >
-
-        <option value="all">
-          All statuses
-        </option>
-
-        <option value="Pending">
-          Pending
-        </option>
-
-        <option value="Processing">
-          Processing
-        </option>
-
-        <option value="Completed">
-          Completed
-        </option>
-
-        <option value="Sent">
-          Sent
-        </option>
-
-      </select>
-
-    </div>
-
-    <div
-      id="ordersTable"
-      style="overflow:auto;margin-top:12px"
-    ></div>
-
-  </section>
-
-
-  <!-- REPORTS -->
-
-  <section class="box">
-
-    <h2 class="gold">
-      Reports
-    </h2>
-
-    <div
-      class="row"
-      style="grid-template-columns:1fr 1fr 1fr auto"
-    >
-
-      <label>
-        From
-        <input
-          id="reportFrom"
-          type="date"
-        >
-      </label>
-
-      <label>
-        To
-        <input
-          id="reportTo"
-          type="date"
-        >
-      </label>
-
-      <label>
-        Status
-
-        <select id="reportStatus">
-
-          <option value="all">
-            All
-          </option>
-
-          <option value="Pending">
-            Pending
-          </option>
-
-          <option value="Processing">
-            Processing
-          </option>
-
-          <option value="Completed">
-            Completed
-          </option>
-
-          <option value="Sent">
-            Sent
-          </option>
-
-        </select>
-
-      </label>
-
-      <div class="actions">
-
-        <button
-          class="btn primary"
-          onclick="renderReports()"
-        >
-          Run Report
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div
-      id="reportSummary"
-      class="notice"
-    ></div>
-
-
-    <h3 style="margin:22px 0 8px;color:#102b50">Complimentary item demand</h3>
-    <p class="small">Total quantities customers requested in the selected report period. These quantities are not sales.</p>
-    <div id="freeDemandReport" style="overflow:auto;margin-top:8px"></div>
-
-    <div
-      id="reportTable"
-      style="overflow:auto;margin-top:12px"
-    ></div>
-
-
-    <div class="actions">
-
-      <button class="btn goldbtn" onclick="setThisMonth();renderReports()">This Month</button>
-      <button class="btn goldbtn" onclick="setLastMonth();renderReports()">Last Month</button>
-      <button class="btn goldbtn" onclick="exportReport()">Export Zoho CSV</button>
-      <button class="btn primary" onclick="exportReport(true)">Export Detailed CSV</button>
-      <span class="small">CSV uses the order's stored historical prices, discounts and VAT values.</span>
-
-    </div>
-
-  </section>
-
-
-<section class="box" id="exchangeRatesBox">
-  <h2 class="gold">Foreign Currency Exchange Rates</h2>
-  <p class="small">Enter the daily rate manually. Enter how many Trinidad and Tobago dollars (TTD) equal <b>1 unit</b> of the foreign currency. Example: if US$1 equals TT$6.80, enter 6.80. TTD remains the accounting and VAT base currency.</p>
-  <div class="theme-grid">
-    <label>USD — 1 USD = TT$<input class="input" id="rateUSD" type="number" min="0.0001" step="0.0001" inputmode="decimal" placeholder="e.g. 6.8000"></label>
-    <label>CAD — 1 CAD = TT$<input class="input" id="rateCAD" type="number" min="0.0001" step="0.0001" inputmode="decimal" placeholder="e.g. 4.9500"></label>
-    <label>GBP — 1 GBP = TT$<input class="input" id="rateGBP" type="number" min="0.0001" step="0.0001" inputmode="decimal" placeholder="e.g. 8.6500"></label>
-    <label>Rate effective date<input class="input" id="exchangeRateDate" type="date"></label>
-  </div>
-  <div class="actions">
-    <button class="btn goldbtn" type="button" onclick="saveExchangeRateDraft()">Save Rates</button>
-    <button class="btn primary" id="approveExchangeBtn" type="button" onclick="approveDailyExchangeRates()" disabled>Approve &amp; Publish Rates</button>
-    <button class="btn danger" type="button" onclick="rejectDailyExchangeRates()">Discard Saved Changes</button>
-  </div>
-  <p id="exchangeFetchMsg" class="small" aria-live="polite"></p>
-  <div id="pendingExchangeRates" class="notice" style="margin-top:10px">No saved draft. Enter rates and select Save Rates.</div>
-  <p id="approvedExchangeSummary" class="small"></p>
-  <p class="small">Saving stores a draft only. Customers continue using the currently published rates until you select Approve &amp; Publish. Previously placed orders keep the exchange rate saved with that order.</p>
+<section class="box">
+<div class="actions" style="justify-content:space-between">
+<div><h2 style="margin-bottom:4px">Business Management Centre</h2><div class="small" id="signedInAs"></div></div>
+<button class="danger" onclick="logout()">Lock / Sign out</button>
+</div>
+<div class="grid four" style="margin-top:15px">
+<div class="stat"><b id="newCount">0</b>Pending orders</div>
+<div class="stat"><b id="processingCount">0</b>Processing orders</div>
+<div class="stat"><b id="completedCount">0</b>Completed orders</div>
+<div class="stat"><b id="todaySales">TT$0.00</b>Sales today</div>
+<div class="stat"><b id="customerCount">0</b>Customers</div>
+<div class="stat"><b id="lowStockCount">0</b>Low-stock products</div>
+<div class="stat"><b id="monthExpenses">TT$0.00</b>Expenses this month</div>
+<div class="stat"><b id="monthProfit">TT$0.00</b>Estimated month balance</div>
+</div>
 </section>
-  <!-- BUSINESS SETTINGS -->
 
-  <section class="box">
+<section class="box">
+<h2>Customer Orders</h2>
+<p class="small">Orders submitted through your website appear here. Status updates are saved to Firebase. Existing orders retain their stored prices and VAT values.</p>
+<div class="grid">
+<div><label for="orderSearch">Search orders</label><input id="orderSearch" placeholder="Order number, customer or phone" oninput="renderOrders()"></div>
+<div><label for="orderFilter">Filter status</label><select id="orderFilter" onchange="renderOrders()"><option value="all">All statuses</option><option>Pending</option><option>Processing</option><option>Completed</option><option>Sent</option><option>Cancelled</option></select></div>
+</div>
+<div class="actions"><button class="primary" onclick="loadOrders()">Refresh Orders</button></div>
+<div id="ordersTable" class="tablewrap"></div>
+</section>
 
-    <h2 class="gold">
-      Business Settings
-    </h2>
+<section class="box">
+<h2>Sales Reports & Zoho Export</h2>
+<div class="grid three">
+<div><label for="reportFrom">From</label><input id="reportFrom" type="date"></div>
+<div><label for="reportTo">To</label><input id="reportTo" type="date"></div>
+<div><label for="reportStatus">Status</label><select id="reportStatus"><option value="all">All statuses</option><option>Pending</option><option>Processing</option><option>Completed</option><option>Sent</option><option>Cancelled</option></select></div>
+</div>
+<div class="actions">
+<button class="primary" onclick="renderReports()">Run Report</button>
+<button class="goldbtn" onclick="setThisMonth();renderReports()">This Month</button>
+<button class="goldbtn" onclick="setLastMonth();renderReports()">Last Month</button>
+<button class="goldbtn" onclick="exportReport()">Export Zoho CSV</button>
+<button class="mutedbtn" onclick="exportReport(true)">Export Detailed CSV</button>
+</div>
+<div id="reportSummary" class="notice">Select a date range and run your report.</div>
+<div id="reportTable" class="tablewrap"></div>
+<h3>Complimentary item demand</h3>
+<p class="small">Free items are recorded separately and are not included in sales or VAT totals.</p>
+<div id="freeDemand" class="tablewrap"></div>
+</section>
 
-    <div class="row">
+<section class="box">
+<h2>Products, Prices & VAT Classification</h2>
+<p class="small">Manage customer-facing product information. Use the tax selector to maintain the correct VAT treatment. Your existing classifications are preloaded if the Firestore products collection is empty.</p>
+<div id="products"></div>
+<div class="actions">
+<button class="goldbtn" onclick="addProduct()">+ Add Product</button>
+<button class="primary" onclick="saveProducts()">Save All Product Changes</button>
+</div>
+<p id="productsMsg" class="small" role="status"></p>
+</section>
 
-      <label>
-        VAT rate %
-        <input
-          id="vat"
-          type="number"
-          step="0.01"
-          value="12.5"
-        >
-      </label>
+<section class="box">
+<h2>Business Settings</h2>
+<div class="grid four">
+<div><label>VAT rate (%)</label><input id="vatRate" type="number" min="0" step=".01" value="12.5"></div>
+<div><label>Business phone</label><input id="businessPhone" value="8687870821"></div>
+<div><label>Business email</label><input id="businessEmail" value="satyanandslimitedest.24@yahoo.com"></div>
+<div><label>Instagram name</label><input id="businessInstagram" value="Satyanand's Limited"></div>
+</div>
+<div class="actions"><button class="goldbtn" onclick="saveSettings()">Save Business Settings</button></div>
+<p id="settingsMsg" class="small"></p>
+</section>
 
-      <label>
-        Phone
-        <input id="phone">
-      </label>
+<section class="box">
+<h2>Complimentary / Free Items</h2>
+<p class="small">These items are recorded on customer orders separately and do not affect the order total.</p>
+<div id="freeItemsEditor"></div>
+<div class="actions"><button class="goldbtn" onclick="addFreeItem()">+ Add Free Item</button><button class="primary" onclick="saveFreeItems()">Save Free Items</button></div>
+<p id="freeMsg" class="small"></p>
+</section>
 
-      <label>
-        Email
-        <input id="email">
-      </label>
+<section class="box">
+<h2>Foreign Currency Exchange Rates</h2>
+<p class="small">Enter how many Trinidad and Tobago dollars equal one unit of the foreign currency. Example: if US$1 = TT$6.80, enter 6.80. Save Rates stores a draft. Customers only use the published rates after you approve them.</p>
+<div class="grid four">
+<div><label>USD — 1 USD = TT$</label><input id="rateUSD" type="number" min=".0001" step=".0001"></div>
+<div><label>CAD — 1 CAD = TT$</label><input id="rateCAD" type="number" min=".0001" step=".0001"></div>
+<div><label>GBP — 1 GBP = TT$</label><input id="rateGBP" type="number" min=".0001" step=".0001"></div>
+<div><label>Effective date</label><input id="rateDate" type="date"></div>
+</div>
+<div class="actions">
+<button class="goldbtn" onclick="saveRateDraft()">Save Rates</button>
+<button class="primary" id="approveRateBtn" onclick="approveRates()" disabled>Approve & Publish Rates</button>
+<button class="danger" onclick="discardRateDraft()">Discard Draft</button>
+</div>
+<div id="rateDraftStatus" class="notice">Loading rates…</div>
+<p id="rateMsg" class="small"></p>
+</section>
 
-      <label>
-        Instagram
-        <input id="instagram">
-      </label>
+<section class="box">
+<h2>Festival Theme & Banner Scheduler</h2>
+<p class="small">Schedule your seasonal website theme. The storefront reads these settings and changes the theme during the active dates.</p>
+<div class="grid">
+<div><label>Festival</label><select id="themePreset" onchange="themePreset()">
+<option value="general">Everyday — Navy & Gold</option>
+<option value="diwali">Diwali</option><option value="ganesh">Ganesh Utsav</option>
+<option value="raksha">Raksha Bandhan</option><option value="navratri">Navratri</option>
+<option value="holi">Holi</option><option value="shivratri">Maha Shivratri</option>
+<option value="janmashtami">Krishna Janmashtami</option><option value="custom">Custom Theme</option>
+</select></div>
+<div><label>Theme status</label><select id="themeEnabled"><option value="true">Enabled</option><option value="false">Disabled</option></select></div>
+<div><label>Start date</label><input id="themeStart" type="date"></div>
+<div><label>End date</label><input id="themeEnd" type="date"></div>
+<div><label>Banner heading</label><input id="themeHeading" maxlength="90"></div>
+<div><label>Banner subheading</label><input id="themeSubheading" maxlength="180"></div>
+<div><label>Primary colour</label><input id="themePrimary" type="color" value="#071a35"></div>
+<div><label>Accent colour</label><input id="themeAccent" type="color" value="#d5ad48"></div>
+<div><label>Background colour</label><input id="themeBackground" type="color" value="#fbf8f0"></div>
+<div><label>Banner image URL (optional)</label><input id="themeImage" type="url" placeholder="https://..."></div>
+</div>
+<div class="preview"><h3 id="themePreviewHeading">Tradition, Made Special</h3><span id="themePreviewSub">Sweets, sacred threads and festive essentials</span></div>
+<div class="actions"><button class="goldbtn" onclick="saveTheme()">Save Festival Theme</button><button class="primary" onclick="loadTheme()">Reload Saved Theme</button><button class="danger" onclick="resetTheme()">Reset Theme</button></div>
+<p id="themeMsg" class="small"></p>
+</section>
 
-    </div>
+<section class="box">
+<h2>Sales & Promotions</h2>
+<p class="small">Promotions are saved to settings/activePromotion and applied to the storefront during their active date range.</p>
+<div class="grid">
+<div><label>Promotion name</label><input id="promoName" placeholder="e.g. Diwali Special"></div>
+<div><label>Discount type</label><select id="promoType"><option value="percent">Percentage off</option><option value="fixed">Fixed amount off each item</option><option value="salePrice">Special sale price</option></select></div>
+<div><label>Discount value</label><input id="promoValue" type="number" min="0" step=".01"></div>
+<div><label>Applies to</label><select id="promoScope"><option value="all">All active products</option><option value="selected">Selected products</option></select></div>
+<div><label>Start date</label><input id="promoStart" type="date"></div>
+<div><label>End date</label><input id="promoEnd" type="date"></div>
+<div><label>Status</label><select id="promoEnabled"><option value="true">Enabled</option><option value="false">Disabled</option></select></div>
+</div>
+<div id="promoProducts" class="notice"></div>
+<div class="actions"><button class="goldbtn" onclick="savePromotion()">Save Promotion</button><button class="danger" onclick="disablePromotion()">Deactivate Promotion</button></div>
+<p id="promoMsg" class="small"></p>
+</section>
 
-    <div class="actions">
+<section class="box">
+<h2>Inventory & Product Costing</h2>
+<p class="small">Enter stock on hand, low-stock alert quantity and unit cost. These fields do not change your selling price.</p>
+<div id="inventoryTable" class="tablewrap"></div>
+<div class="actions"><button class="primary" onclick="saveInventory()">Save Inventory & Costing</button></div>
+<p id="inventoryMsg" class="small"></p>
+</section>
 
-      <button
-        class="btn goldbtn"
-        onclick="saveSettings()"
-      >
-        Save Settings
-      </button>
+<section class="box">
+<h2>Customer Database</h2>
+<input id="customerSearch" placeholder="Search customer, phone or email" oninput="renderCustomers()">
+<div id="customersTable" class="tablewrap"></div>
+</section>
 
-    </div>
+<section class="box">
+<h2>Expenses</h2>
+<div class="grid four">
+<div><label>Date</label><input id="expenseDate" type="date"></div>
+<div><label>Expense category</label><select id="expenseCategory"><option>Packaging</option><option>Ingredients / Materials</option><option>Labour</option><option>Transport</option><option>Utilities</option><option>Marketing</option><option>Other</option></select></div>
+<div><label>Description</label><input id="expenseDescription"></div>
+<div><label>Amount (TT$)</label><input id="expenseAmount" type="number" min="0" step=".01"></div>
+</div>
+<div class="actions"><button class="goldbtn" onclick="addExpense()">Record Expense</button></div>
+<p id="expenseMsg" class="small"></p>
+<div id="expensesTable" class="tablewrap"></div>
+</section>
 
-    <p
-      id="settingsMsg"
-      class="small"
-    ></p>
+<section class="box">
+<h2>Suppliers</h2>
+<div class="grid three">
+<div><label>Supplier name</label><input id="supplierName"></div>
+<div><label>Contact number</label><input id="supplierPhone"></div>
+<div><label>Email</label><input id="supplierEmail"></div>
+</div>
+<div class="actions"><button class="goldbtn" onclick="addSupplier()">Save Supplier</button></div>
+<div id="suppliersTable" class="tablewrap"></div>
+</section>
 
-  </section>
+<section class="box">
+<h2>Purchases & Restocking</h2>
+<div class="grid four">
+<div><label>Purchase date</label><input id="purchaseDate" type="date"></div>
+<div><label>Product / item</label><input id="purchaseItem"></div>
+<div><label>Supplier</label><input id="purchaseSupplier"></div>
+<div><label>Quantity received</label><input id="purchaseQty" type="number" min="0" step="1"></div>
+<div><label>Total cost (TT$)</label><input id="purchaseCost" type="number" min="0" step=".01"></div>
+<div><label>Stock product ID (optional)</label><input id="purchaseProductId" placeholder="e.g. raksha-thread"></div>
+</div>
+<div class="actions"><button class="goldbtn" onclick="addPurchase()">Record Purchase</button></div>
+<p id="purchaseMsg" class="small"></p>
+<div id="purchasesTable" class="tablewrap"></div>
+</section>
 
-
-  <!-- PRODUCTS -->
-
-  <section class="box">
-
-    <h2 class="gold">
-      Products
-    </h2>
-
-    <p class="small">
-      Product changes are saved centrally in Firestore. Historical orders keep their original price. You can schedule a future price here; the customer website changes automatically on the effective date.
-    </p>
-
-    <div id="products"></div>
-
-    <div class="actions">
-
-      <button
-        class="btn goldbtn"
-        onclick="addProduct()"
-      >
-        + Add New Item
-      </button>
-
-      <button
-        class="btn primary"
-        onclick="saveProducts()"
-      >
-        Save Product Changes
-      </button>
-
-    </div>
-
-    <p
-      id="productsMsg"
-      class="small"
-    ></p>
-
-  </section>
-
-
-  <!-- FREE ITEMS -->
-
-  <section class="box">
-
-    <h2 class="gold">
-      Free Items
-    </h2>
-
-    <div id="free"></div>
-
-    <button
-      class="btn goldbtn"
-      onclick="addFree()"
-    >
-      + Add Free Item
-    </button>
-
-    <button
-      class="btn primary"
-      onclick="saveFree()"
-    >
-      Save Free Items
-    </button>
-
-    <p
-      id="freeMsg"
-      class="small"
-    ></p>
-
-  </section>
+<section class="box">
+<h2>Business Data Backup</h2>
+<p class="small">Download a JSON export of records currently stored in Firebase. Keep the file securely. This is a manual export, not an automatic backup service.</p>
+<button class="goldbtn" onclick="downloadBackup()">Download Business Backup</button>
+<p id="backupMsg" class="small"></p>
+</section>
 
 </main>
 
-
-<!-- PRODUCT.JS -->
-
-<script src="product.js"></script>
-
-
-<!-- FIREBASE -->
-
 <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore-compat.js"></script>
-
-
 <script>
+"use strict";
 
-const firebaseConfig = {
-
-  apiKey:
-    "AIzaSyCVI8gDAYlG9ocCO8Od8TQ44auxPZhkx1E",
-
-  authDomain:
-    "satyanand-s-limited.firebaseapp.com",
-
-  projectId:
-    "satyanand-s-limited",
-
-  storageBucket:
-    "satyanand-s-limited.firebasestorage.app",
-
-  messagingSenderId:
-    "563244813133",
-
-  appId:
-    "1:563244813133:web:ded929fafeac63f71f0504",
-
-  measurementId:
-    "G-ELFTP9HHJM"
-
+const firebaseConfig={
+ apiKey:"AIzaSyCVI8gDAYlG9ocCO8Od8TQ44auxPZhkx1E",
+ authDomain:"satyanand-s-limited.firebaseapp.com",
+ projectId:"satyanand-s-limited",
+ storageBucket:"satyanand-s-limited.firebasestorage.app",
+ messagingSenderId:"563244813133",
+ appId:"1:563244813133:web:ded929fafeac63f71f0504",
+ measurementId:"G-ELFTP9HHJM"
 };
+const appFirebase=firebase.apps.length?firebase.app():firebase.initializeApp(firebaseConfig);
+const auth=appFirebase.auth(),db=appFirebase.firestore();
+const ADMIN_UID="nrJsiAXA7wN5iYhtQp9p6h7xE9f2";
 
-
-firebase.initializeApp(firebaseConfig);
-
-
-const auth =
-  firebase.auth();
-
-
-const db =
-  firebase.firestore();
-
-
-const ADMIN_UID =
-  "nrJsiAXA7wN5iYhtQp9p6h7xE9f2";
-
-
-let orders = [];
-
-let products = [];
-
-const DEFAULT_COMPLIMENTARY_ITEMS = [
-  {id:'fresh-flowers', name:'Fresh flowers', description:'Fresh flowers for puja and religious offerings.'},
-  {id:'neem-leaf', name:'Neem leaf', description:'Neem leaf for puja and religious offerings.'},
-  {id:'bay-leaf', name:'Bay leaf', description:'Bay leaf for puja and religious offerings.'}
+const DEFAULT_PRODUCTS=[
+{id:"gulab-jamun",name:"Gulab Jamun",description:"Traditional Indian sweet.",price:3,unit:"pc",tax:"zero",active:true,image:"images/gulab-jamun.jpg"},
+{id:"ladoo",name:"Ladoo",description:"Traditional sweet ladoo.",price:3,unit:"pc",tax:"zero",active:true,image:"images/ladoo.jpg"},
+{id:"milk-barfi",name:"Milk Barfi",description:"Rich milk barfi.",price:4.5,unit:"pc",tax:"zero",active:true,image:"images/milk-barfi.jpg"},
+{id:"hanuman-roat",name:"Hanuman Roat",description:"Available with banana or without banana.",price:8,unit:"pc",tax:"zero",active:true},
+{id:"sweet-rice",name:"Sweet Rice",description:"Sweet rice per container.",price:0,unit:"container",tax:"quote",active:true},
+{id:"flour-parsad",name:"Flour Parsad",description:"Fresh flour parsad.",price:150,unit:"lb",tax:"zero",active:true},
+{id:"raksha-thread",name:"Plaited Raksha Thread",description:"Hand-plaited raksha thread for pujas and religious celebrations.",price:14,unit:"pc",tax:"inclusive",active:true,image:"images/raksha-thread.png"}
 ];
-let freeItems = DEFAULT_COMPLIMENTARY_ITEMS.map(x=>({...x}));
+const DEFAULT_FREE=[
+{id:"fresh-flowers",name:"Fresh flowers",description:"Fresh flowers for puja and religious offerings."},
+{id:"neem-leaf",name:"Neem leaf",description:"Neem leaf for puja and religious offerings."},
+{id:"bay-leaf",name:"Bay leaf",description:"Bay leaf for puja and religious offerings."}
+];
+let products=[],orders=[],freeItems=DEFAULT_FREE.map(x=>({...x})),expenses=[],suppliers=[],purchases=[],settings={vatRate:12.5,phone:"8687870821",email:"satyanandslimitedest.24@yahoo.com",instagram:"Satyanand's Limited"},pendingRates=null,approvedRates={rates:{},rateDate:""},themeData=null,promotionData=null,unsubs=[];
 
-let pendingExchangeRates=null;
-let approvedExchangeRates={rates:{},rateDate:''};
-
-let settings = {
-  vatRate: 12.5,
-  phone: '',
-  email: '',
-  instagram: ''
-};
-
-
-function esc(v){
-
-  return String(v ?? '')
-    .replace(
-      /[&<>"']/g,
-      m => ({
-        '&':'&amp;',
-        '<':'&lt;',
-        '>':'&gt;',
-        '"':'&quot;',
-        "'":'&#39;'
-      }[m])
-    );
-
-}
-
-
-function money(n){
-
-  return 'TT$' +
-    Number(n || 0).toFixed(2);
-
-}
-
-
-/* LOGIN */
-
-function login(){
-
-  const email =
-    document
-      .getElementById('emailLogin')
-      .value
-      .trim();
-
-  const pw =
-    document
-      .getElementById('pw')
-      .value;
-
-  const err =
-    document
-      .getElementById('loginErr');
-
-  err.textContent = '';
-
-  if(!email || !pw){
-
-    err.textContent =
-      'Enter the owner email and password.';
-
-    return;
-  }
-
-  auth
-    .signInWithEmailAndPassword(
-      email,
-      pw
-    )
-    .catch(e => {
-
-      err.textContent =
-        e.message ||
-        'Login failed.';
-
-    });
-
-}
-
-
-function logout(){
-
-  auth.signOut();
-
-}
-
-
-auth.onAuthStateChanged(
-  async user => {
-
-    if(user){
-
-      if(user.uid !== ADMIN_UID){
-
-        await auth.signOut();
-
-        document
-          .getElementById('loginErr')
-          .textContent =
-          'This account is not authorized as the owner.';
-
-        return;
-      }
-
-
-      document
-        .getElementById('login')
-        .classList
-        .add('hidden');
-
-
-      document
-        .getElementById('app')
-        .classList
-        .remove('hidden');
-
-
-      document
-        .getElementById('signedInAs')
-        .textContent =
-        'Signed in as ' +
-        (user.email || 'owner');
-
-
-      await loadAll();
-
-    }else{
-
-      document
-        .getElementById('login')
-        .classList
-        .remove('hidden');
-
-
-      document
-        .getElementById('app')
-        .classList
-        .add('hidden');
-
-    }
-
-  }
-);
-
-
-/* LOAD EVERYTHING */
-
+function el(id){return document.getElementById(id);}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function money(n){return "TT$"+Number(n||0).toFixed(2);}
+function today(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;}
+function login(){const email=el("emailLogin").value.trim(),pw=el("pw").value;el("loginErr").textContent="";if(!email||!pw){el("loginErr").textContent="Enter your owner email and password.";return;}auth.signInWithEmailAndPassword(email,pw).catch(e=>el("loginErr").textContent=e.message);}
+function logout(){auth.signOut();}
+auth.onAuthStateChanged(async user=>{
+ if(!user){el("login").classList.remove("hidden");el("app").classList.add("hidden");return;}
+ if(user.uid!==ADMIN_UID){await auth.signOut();el("loginErr").textContent="This account is not authorized as the owner.";return;}
+ el("login").classList.add("hidden");el("app").classList.remove("hidden");el("signedInAs").textContent="Signed in as "+(user.email||"owner");
+ await loadAll();
+});
 async function loadAll(){
-
-  await Promise.all([
-
-    loadOrders(),
-
-    loadSettings(),
-
-    loadProducts(),
-
-    loadFree(),
-    loadFestivalTheme(),
-    loadExchangeRateSettings()
-
-  ]);
-
-  renderReports();
-
+ await Promise.all([loadProducts(),loadOrders(),loadSettings(),loadFreeItems(),loadRates(),loadTheme(),loadPromotion(),loadExpenses(),loadSuppliers(),loadPurchases()]);
+ renderReports();renderCustomers();renderInventory();renderDashboard();renderPromotionProducts();
 }
-
-
-/* ORDERS */
-
-async function loadOrders(){
-  try{
-    const snap=await db.collection('orders').orderBy('createdAt','desc').limit(500).get();
-    orders=snap.docs.map(d=>({docId:d.id,...d.data()}));
-    updateDashboard(); renderOrders(); renderReports();
-  }catch(e){ document.getElementById('ordersTable').innerHTML='<p>'+esc(e.message)+'</p>'; }
-}
-
-function itemText(o){const products=(o.items||[]).map(i=>`${esc(i.productName||i.product||'Item')} × ${esc(i.quantity||0)} @ ${money(i.unitPrice)}`);const free=(o.freeItems||[]).filter(i=>Number(i.quantity||0)>0).map(i=>`<span style="color:#287044">${esc(i.name||i.itemName||'Free item')} × ${esc(i.quantity)} (FREE)</span>`);return [...products,...free].join('<br>')}
-function orderDateText(o){return o.createdAt&&o.createdAt.toDate?o.createdAt.toDate().toLocaleString():''}
-function dateValue(o){if(!o.createdAt)return ''; if(o.createdAt.toDate)return o.createdAt.toDate().toISOString().slice(0,10); return String(o.createdAt).slice(0,10)}
-
-function updateDashboard(){
-  const pending=orders.filter(o=>!o.status||o.status==='Pending').length;
-  const processing=orders.filter(o=>o.status==='Processing').length;
-  const completed=orders.filter(o=>o.status==='Completed'||o.status==='Sent').length;
-  const today=new Date().toISOString().slice(0,10);
-  const sales=orders.filter(o=>dateValue(o)===today).reduce((s,o)=>s+Number(o.total||0),0);
-  document.getElementById('newCount').textContent=pending;
-  document.getElementById('processingCount').textContent=processing;
-  document.getElementById('completedCount').textContent=completed;
-  document.getElementById('todaySales').textContent=money(sales);
-}
-
-function renderOrders(){
-  const f=document.getElementById('orderFilter').value;
-  const q=(document.getElementById('orderSearch')?.value||'').trim().toLowerCase();
-  const rows=orders.filter(o=>{
-    const text=[o.orderNumber,o.customerName,o.customerPhone,o.customerEmail].join(' ').toLowerCase();
-    return (f==='all'||o.status===f) && (!q||text.includes(q));
-  });
-  if(!rows.length){document.getElementById('ordersTable').innerHTML='<p class="small">No orders found.</p>';return;}
-  let h=`<table style="width:100%;border-collapse:collapse;min-width:1250px"><tr><th>Order</th><th>Customer</th><th>Items</th><th>Order date</th><th>Required date</th><th>Subtotal</th><th>Discount</th><th>Total</th><th>Status</th><th>Actions</th></tr>`;
-  for(const o of rows){
-    h+=`<tr style="border-top:1px solid #eee;vertical-align:top"><td style="padding:10px"><b>${esc(o.orderNumber||o.docId)}</b><br><span class="small">${esc(o.customerPhone||'')}</span></td><td style="padding:10px">${esc(o.customerName||'')}<br>${esc(o.customerEmail||'')}</td><td style="padding:10px">${itemText(o)}</td><td style="padding:10px">${esc(orderDateText(o))}</td><td style="padding:10px"><b>${esc(o.requiredDate||'')}</b></td><td style="padding:10px">${money(o.subtotal)}</td><td style="padding:10px"><input type="number" min="0" step="0.01" value="${Number(o.discountAmount||0).toFixed(2)}" style="width:105px;padding:7px;border:1px solid #d8cfba;border-radius:8px" onchange="saveOrderDiscount('${o.docId}',this.value)"></td><td style="padding:10px"><b>${money(o.total)}</b></td><td style="padding:10px"><select onchange="changeStatus('${o.docId}',this.value)" style="padding:8px;border:1px solid #d8cfba;border-radius:8px"><option ${o.status==='Pending'||!o.status?'selected':''}>Pending</option><option ${o.status==='Processing'?'selected':''}>Processing</option><option ${o.status==='Completed'?'selected':''}>Completed</option><option ${o.status==='Sent'?'selected':''}>Sent</option></select></td><td style="padding:10px;white-space:nowrap"><button class="btn goldbtn" onclick="printReceipt('${o.docId}')">Receipt</button><button class="btn primary" onclick="openWhatsApp('${o.docId}')">WhatsApp</button></td></tr>`;
-  }
-  h+='</table>'; document.getElementById('ordersTable').innerHTML=h;
-}
-
-async function changeStatus(id,status){try{await db.collection('orders').doc(id).update({status});const o=orders.find(x=>x.docId===id);if(o)o.status=status;updateDashboard();renderOrders();renderReports();}catch(e){alert(e.message)}}
-
-function recalcOrder(o,discount){
-  const originalItems=o.items||[]; const base=originalItems.reduce((s,i)=>s+Number(i.lineTotal||0),0); const d=Math.max(0,Math.min(Number(discount||0),base));
-  let taxable=0,vat=0,zero=0; const items=originalItems.map(i=>{const line=Number(i.lineTotal||0);const share=base?d*line/base:0;const remaining=line-share;let net=0,t=0,z=0;const tax=i.taxType||'zero';if(tax==='inclusive'){net=remaining/(1+Number(o.vatRate||12.5)/100);t=remaining-net}else if(tax==='taxable'){net=remaining;t=remaining*Number(o.vatRate||12.5)/100}else{z=remaining} taxable+=net;vat+=t;zero+=z;return {...i,discountAmount:Number(share.toFixed(2)),discountedLineTotal:Number(remaining.toFixed(2)),taxableAmount:Number(net.toFixed(2)),vatAmount:Number(t.toFixed(2)),zeroRatedAmount:Number(z.toFixed(2))}});return {items,subtotal:Number(base.toFixed(2)),discountAmount:Number(d.toFixed(2)),taxableAmount:Number(taxable.toFixed(2)),vatAmount:Number(vat.toFixed(2)),zeroRatedAmount:Number(zero.toFixed(2)),total:Number((taxable+vat+zero).toFixed(2))};
-}
-async function saveOrderDiscount(id,value){try{const o=orders.find(x=>x.docId===id);if(!o)return;const x=recalcOrder(o,Number(value||0));await db.collection('orders').doc(id).update(x);Object.assign(o,x);renderOrders();renderReports();}catch(e){alert(e.message);renderOrders()}}
-
-function printReceipt(id){
-  const o=orders.find(x=>x.docId===id);if(!o)return;
-  const rate=Number(o.vatRate||12.5);
-  const statusCode=i=>{const t=String(i.taxType||'').toLowerCase();if(['inclusive','taxable','vat'].includes(t))return 'V';if(['zero','zero-rated','zerorated'].includes(t))return 'ZR';if(t==='exempt')return 'EX';return '—'};
-  const lines=(o.items||[]).map(i=>{
-    const code=statusCode(i),line=Number(i.discountedLineTotal??i.lineTotal??0);
-    const vatValue=Number(i.vatAmount||0),zeroValue=Number(i.zeroRatedAmount??(code==='ZR'?line:0));
-    const taxValue=code==='V'?vatValue:(code==='ZR'?zeroValue:0);
-    return `<tr><td>${esc(i.productName||'')}</td><td class="num">${esc(i.quantity||0)}</td><td class="num">${money(i.unitPrice)}</td><td class="status">${code}</td><td class="num">${money(line)}</td><td class="num">${money(taxValue)}</td></tr>`;
-  }).join('');
-  const free=(o.freeItems||[]).map(i=>`<li>${esc(i.name||i.itemName||'Free item')} × ${esc(i.quantity||1)} — TT$0.00</li>`).join('');
-  const freeHtml=free?`<section class="free"><h2>Free items</h2><ul>${free}</ul><small>Free items are listed separately and are not included in sales or VAT totals.</small></section>`:'';
-  const w=window.open('','_blank');if(!w){alert('Please allow pop-ups to print the receipt.');return;}
-  w.document.write(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(o.orderNumber||'Order Receipt')}</title><style>
-  *{box-sizing:border-box}body{font-family:Arial,sans-serif;padding:24px;color:#10213b;max-width:900px;margin:auto;font-size:13px}
-  .head{display:flex;align-items:center;gap:18px;background:#071a35;color:#f1d889;padding:18px 22px;border-bottom:5px solid #d5ad48;border-radius:10px}
-  .head img{width:76px;height:76px;object-fit:contain;background:#fffdf8;border-radius:50%;padding:5px;border:1px solid #d5ad48}h1{margin:0 0 5px;font:700 25px Georgia,serif}.brandline{font-size:12px;line-height:1.7}
-  .receipt-title{color:#071a35;margin:22px 0 12px;font:700 21px Georgia,serif}.meta{display:grid;grid-template-columns:1fr 1fr;gap:9px 18px;background:#f8f5ec;padding:14px;border:1px solid #e4d8bb;border-radius:8px}
-  table{width:100%;border-collapse:collapse;margin-top:18px}th{background:#102b50;color:#f1d889;text-align:left;font-size:11px}th,td{padding:9px 7px;border-bottom:1px solid #e4d8bb}td{font-size:12px}.num{text-align:right;white-space:nowrap}.status{text-align:center;font-weight:800;white-space:nowrap}
-  .legend{font-size:11px;color:#5d6570;margin-top:8px}.totals{margin:18px 0 0 auto;max-width:390px}.totals p{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid #eee;padding:7px 2px;margin:0}.totals b{white-space:nowrap}.total{font-size:20px;font-weight:bold;background:#071a35;color:#f1d889;padding:13px;border-radius:8px;margin-top:10px;text-align:right}
-  .free{margin-top:20px;background:#f7f2e5;padding:13px 16px;border:1px solid #e4d8bb;border-radius:8px}.free h2{margin:0 0 7px;color:#071a35;font-size:15px}.free ul{margin:6px 0}.free small{color:#5d6570}.foot{margin-top:25px;border-top:2px solid #d5ad48;padding-top:12px;font-size:11px;line-height:1.6;color:#5b5b5b}
-  @media(max-width:600px){body{padding:10px}.head{padding:12px;gap:10px}.head img{width:58px;height:58px}h1{font-size:19px}.meta{grid-template-columns:1fr}th,td{padding:6px 4px;font-size:10px}}
-  @media print{body{padding:0}.head,.total,th{-webkit-print-color-adjust:exact;print-color-adjust:exact}tr{break-inside:avoid}}
-  </style></head><body>
-  <div class="head"><img src="logo.png" alt="Satyanand's Limited logo"><div><h1>Satyanand's Limited</h1><div class="brandline">Est. 2024 · Indian Sweets & Sacred Threads<br>WhatsApp / Call: (868) 787-0821<br>satyanandslimitedest.24@yahoo.com</div></div></div>
-  <h2 class="receipt-title">Order Receipt</h2><div class="meta"><div><b>Order:</b> ${esc(o.orderNumber||o.docId)}</div><div><b>Status:</b> ${esc(o.status||'Pending')}</div><div><b>Customer:</b> ${esc(o.customerName||'')}</div><div><b>Phone:</b> ${esc(o.customerPhone||'')}</div><div><b>Order date:</b> ${esc(dateValue(o))}</div><div><b>Required / collection date:</b> ${esc(o.requiredDate||o.collectionDate||'')}</div></div>
-  <table><thead><tr><th>Product</th><th class="num">Qty</th><th class="num">Unit price</th><th class="status">VAT status</th><th class="num">Line total</th><th class="num">VAT / ZR amount</th></tr></thead><tbody>${lines}</tbody></table>
-  <div class="legend"><b>V</b> = Standard-rated · <b>ZR</b> = Zero-rated · <b>EX</b> = Exempt</div>
-  <div class="totals"><p><span>Subtotal</span><b>${money(o.subtotal)}</b></p><p><span>Discount</span><b>− ${money(o.discountAmount)}</b></p><p><span>Amount taxable</span><b>${money(o.taxableAmount)}</b></p><p><span>VAT (${rate}%)</span><b>${money(o.vatAmount)}</b></p><p><span>Zero-rated</span><b>${money(o.zeroRatedAmount)}</b></p><div class="total">Final total: ${money(o.total)}</div></div>
-  ${freeHtml}<div class="foot">Thank you for supporting Satyanand's Limited. Please contact us promptly if there is an issue with your order. Food returns are handled subject to food-safety requirements and applicable consumer protections.</div></body></html>`);
-  w.document.close();w.focus();setTimeout(()=>w.print(),500);
-}
-function openWhatsApp(id){const o=orders.find(x=>x.docId===id);if(!o)return;const msg=`Hello ${o.customerName||''}, this is Satyanand's Limited regarding order ${o.orderNumber}. Required date: ${o.requiredDate||''}. Current total: ${money(o.total)}. Status: ${o.status||'Pending'}.`;const phone=String(o.customerPhone||'').replace(/\D/g,'');window.open('https://wa.me/'+(phone.startsWith('1')?phone:'1'+phone)+'?text='+encodeURIComponent(msg),'_blank')}
-
-function renderReports(){
-  const from=document.getElementById('reportFrom').value,to=document.getElementById('reportTo').value,st=document.getElementById('reportStatus').value;
-  const rows=orders.filter(o=>{const d=dateValue(o);return(!from||d>=from)&&(!to||d<=to)&&(st==='all'||o.status===st)});
-  let gross=0,discount=0,net=0,taxable=0,vat=0,zero=0,total=0;rows.forEach(o=>{gross+=Number(o.subtotal||0);discount+=Number(o.discountAmount||0);net+=gross?0:0;taxable+=Number(o.taxableAmount||0);vat+=Number(o.vatAmount||0);zero+=Number(o.zeroRatedAmount||0);total+=Number(o.total||0)});net=gross-discount;
-  document.getElementById('reportSummary').innerHTML=`<b>${rows.length}</b> orders • Gross Sales: <b>${money(gross)}</b> • Discounts: <b>${money(discount)}</b> • Net Sales: <b>${money(net)}</b> • Taxable Sales: <b>${money(taxable)}</b> • VAT @ 12.5%: <b>${money(vat)}</b> • Zero-rated: <b>${money(zero)}</b> • Total incl. VAT: <b>${money(total)}</b>`;
-  const freeTotals={};
-  rows.forEach(o=>(o.freeItems||[]).forEach(item=>{
-    const name=String(item.name||item.itemName||'Free item');
-    freeTotals[name]=(freeTotals[name]||0)+Math.max(0,Number(item.quantity||0));
-  }));
-  const demand=document.getElementById('freeDemandReport');
-  if(demand){
-    const entries=Object.entries(freeTotals).sort((a,b)=>a[0].localeCompare(b[0]));
-    demand.innerHTML=entries.length?`<table style="width:100%;max-width:520px;border-collapse:collapse"><tr><th style="text-align:left;padding:9px;background:#102b50;color:#f1d889">Complimentary item</th><th style="text-align:right;padding:9px;background:#102b50;color:#f1d889">Quantity requested</th></tr>${entries.map(([name,qty])=>`<tr><td style="padding:9px;border-bottom:1px solid #eee">${esc(name)}</td><td style="padding:9px;text-align:right;border-bottom:1px solid #eee"><b>${qty}</b></td></tr>`).join('')}</table>`:'<p class="small">No complimentary items were requested in this period.</p>';
-  }
-  let h=`<table style="width:100%;border-collapse:collapse;min-width:1450px"><tr><th>Order</th><th>Date</th><th>Customer</th><th>Products</th><th>Qty</th><th>Unit prices</th><th>Gross</th><th>Discount</th><th>Net</th><th>Taxable</th><th>VAT</th><th>Zero-rated</th><th>Total</th><th>Required</th><th>Status</th></tr>`;
-  for(const o of rows){h+=`<tr style="border-top:1px solid #eee"><td>${esc(o.orderNumber||o.docId)}</td><td>${esc(dateValue(o))}</td><td>${esc(o.customerName||'')}<br>${esc(o.customerPhone||'')}</td><td>${(o.items||[]).map(i=>esc(i.productName||'')).join('<br>')}</td><td>${(o.items||[]).map(i=>esc(i.quantity||0)).join('<br>')}</td><td>${(o.items||[]).map(i=>money(i.unitPrice)).join('<br>')}</td><td>${money(o.subtotal)}</td><td>${money(o.discountAmount)}</td><td>${money(Number(o.subtotal||0)-Number(o.discountAmount||0))}</td><td>${money(o.taxableAmount)}</td><td>${money(o.vatAmount)}</td><td>${money(o.zeroRatedAmount)}</td><td>${money(o.total)}</td><td>${esc(o.requiredDate||'')}</td><td>${esc(o.status||'Pending')}</td></tr>`}h+='</table>';document.getElementById('reportTable').innerHTML=h;
-}
-function csvCell(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}
-function exportReport(detailed=false){const from=document.getElementById('reportFrom').value,to=document.getElementById('reportTo').value,st=document.getElementById('reportStatus').value;const rows=orders.filter(o=>{const d=dateValue(o);return(!from||d>=from)&&(!to||d<=to)&&(st==='all'||o.status===st)});let csv=detailed?'Order Number,Order Date,Customer,Phone,Email,Product,Quantity,Unit Price,Gross Line,Discount,Net Line,Tax Type,Taxable,VAT,Zero Rated,Required Date,Status,Complimentary Items\n':'Order Number,Order Date,Customer,Phone,Subtotal,Discount,Net Sales,Taxable Sales,VAT,Zero Rated,Total Sales,Required Date,Status,Complimentary Items\n';rows.forEach(o=>{if(detailed)(o.items||[]).forEach(i=>{csv+=[o.orderNumber,dateValue(o),o.customerName,o.customerPhone,o.customerEmail,i.productName,i.quantity,i.unitPrice,i.lineTotal,i.discountAmount??0,i.discountedLineTotal??i.lineTotal,i.taxType,i.taxableAmount,i.vatAmount,i.zeroRatedAmount,o.requiredDate,o.status,(o.freeItems||[]).map(x=>`${x.name||x.itemName} x ${x.quantity}`).join('; ')].map(csvCell).join(',')+'\n'});else csv+=[o.orderNumber,dateValue(o),o.customerName,o.customerPhone,o.subtotal,o.discountAmount||0,Number(o.subtotal||0)-Number(o.discountAmount||0),o.taxableAmount,o.vatAmount,o.zeroRatedAmount,o.total,o.requiredDate,o.status,(o.freeItems||[]).map(x=>`${x.name||x.itemName} x ${x.quantity}`).join('; ')].map(csvCell).join(',')+'\n'});const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`satyanands-${from||'all'}-to-${to||'all'}-${detailed?'detailed':'zoho'}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
-function setThisMonth(){const d=new Date();document.getElementById('reportFrom').value=new Date(d.getFullYear(),d.getMonth(),1).toISOString().slice(0,10);document.getElementById('reportTo').value=new Date(d.getFullYear(),d.getMonth()+1,0).toISOString().slice(0,10)}
-function setLastMonth(){const d=new Date();document.getElementById('reportFrom').value=new Date(d.getFullYear(),d.getMonth()-1,1).toISOString().slice(0,10);document.getElementById('reportTo').value=new Date(d.getFullYear(),d.getMonth(),0).toISOString().slice(0,10)}
-
-async function loadExchangeRateSettings(){
-  const msg=document.getElementById('exchangeFetchMsg');
-  try{
-    const [ap,pn]=await Promise.all([
-      db.collection('settings').doc('approvedExchangeRates').get(),
-      db.collection('settings').doc('pendingExchangeRates').get()
-    ]);
-    approvedExchangeRates=ap.exists?ap.data():{rates:{},rateDate:''};
-    pendingExchangeRates=pn.exists?pn.data():null;
-    const formRates=pendingExchangeRates?.rates||approvedExchangeRates.rates||{};
-    document.getElementById('rateUSD').value=formRates.USD??'';
-    document.getElementById('rateCAD').value=formRates.CAD??'';
-    document.getElementById('rateGBP').value=formRates.GBP??'';
-    document.getElementById('exchangeRateDate').value=pendingExchangeRates?.rateDate||approvedExchangeRates.rateDate||new Date().toISOString().slice(0,10);
-    renderExchangeRateSettings();
-  }catch(e){msg.textContent='Could not load exchange rates: '+e.message;}
-}
-function renderExchangeRateSettings(){
-  const box=document.getElementById('pendingExchangeRates');
-  const btn=document.getElementById('approveExchangeBtn');
-  const sum=document.getElementById('approvedExchangeSummary');
-  if(pendingExchangeRates?.rates){
-    box.innerHTML='<b>Saved draft — not yet published</b><br>Effective date: '+esc(pendingExchangeRates.rateDate||'Not provided')+'<br>'+['USD','CAD','GBP'].map(c=>c+': TT$'+Number(pendingExchangeRates.rates[c]||0).toFixed(4)).join('<br>');
-    btn.disabled=false;
-  }else{
-    box.textContent='No saved draft. The form shows the currently published rates.';
-    btn.disabled=true;
-  }
-  const r=approvedExchangeRates.rates||{};
-  sum.textContent='Currently published: '+['USD','CAD','GBP'].map(c=>c+' = TT$'+(Number(r[c]||0)?Number(r[c]).toFixed(4):'Not set')).join(' · ')+' | Effective date: '+(approvedExchangeRates.rateDate||'None');
-}
-function readExchangeRateForm(){
-  const rates={USD:Number(document.getElementById('rateUSD').value),CAD:Number(document.getElementById('rateCAD').value),GBP:Number(document.getElementById('rateGBP').value)};
-  const date=document.getElementById('exchangeRateDate').value;
-  for(const c of ['USD','CAD','GBP']){if(!Number.isFinite(rates[c])||rates[c]<=0||rates[c]>100000){throw new Error('Enter a valid rate greater than zero for '+c+'.');}}
-  if(!date)throw new Error('Choose the date these rates take effect.');
-  return {rates,rateDate:date,source:'Entered manually by administrator',updatedAt:new Date().toISOString(),status:'pending'};
-}
-async function saveExchangeRateDraft(){
-  const msg=document.getElementById('exchangeFetchMsg');
-  try{
-    const draft=readExchangeRateForm();
-    await db.collection('settings').doc('pendingExchangeRates').set(draft);
-    pendingExchangeRates=draft;renderExchangeRateSettings();
-    msg.textContent='Rates saved successfully as a draft. Customers are still using the currently published rates until you approve and publish.';
-  }catch(e){msg.textContent='Rates were not saved: '+e.message;}
-}
-async function approveDailyExchangeRates(){
-  const msg=document.getElementById('exchangeFetchMsg');
-  if(!pendingExchangeRates?.rates){msg.textContent='Save the rates first before publishing.';return;}
-  if(!confirm('Approve and publish these exchange rates for customer checkout?'))return;
-  try{
-    const approved={...pendingExchangeRates,status:'approved',approvedAt:new Date().toISOString(),approvedBy:auth.currentUser?.email||'administrator'};
-    await db.collection('settings').doc('approvedExchangeRates').set(approved);
-    await db.collection('settings').doc('pendingExchangeRates').delete();
-    approvedExchangeRates=approved;pendingExchangeRates=null;renderExchangeRateSettings();
-    msg.textContent='Rates approved and published. New customer orders will use these rates; existing orders keep their original rates.';
-  }catch(e){msg.textContent='Publishing failed: '+e.message;}
-}
-async function rejectDailyExchangeRates(){
-  const msg=document.getElementById('exchangeFetchMsg');
-  if(!pendingExchangeRates){msg.textContent='There is no saved draft to discard.';return;}
-  if(!confirm('Discard the saved draft? Currently published rates will remain unchanged.'))return;
-  try{
-    await db.collection('settings').doc('pendingExchangeRates').delete();
-    pendingExchangeRates=null;
-    const r=approvedExchangeRates.rates||{};
-    document.getElementById('rateUSD').value=r.USD??'';document.getElementById('rateCAD').value=r.CAD??'';document.getElementById('rateGBP').value=r.GBP??'';
-    document.getElementById('exchangeRateDate').value=approvedExchangeRates.rateDate||new Date().toISOString().slice(0,10);
-    renderExchangeRateSettings();msg.textContent='Saved draft discarded. Published rates were not changed.';
-  }catch(e){msg.textContent='Could not discard draft: '+e.message;}
-}
-
-/* BUSINESS SETTINGS */
-
-async function loadSettings(){
-
-  try{
-
-    const d =
-      await db
-        .collection('settings')
-        .doc('business')
-        .get();
-
-
-    if(d.exists){
-
-      settings = {
-        ...settings,
-        ...d.data()
-      };
-
-    }
-
-
-    document
-      .getElementById('vat')
-      .value =
-      settings.vatRate ||
-      12.5;
-
-
-    document
-      .getElementById('phone')
-      .value =
-      settings.phone ||
-      '8687870821';
-
-
-    document
-      .getElementById('email')
-      .value =
-      settings.email ||
-      'satyanandslimitedest.24@yahoo.com';
-
-
-    document
-      .getElementById('instagram')
-      .value =
-      settings.instagram ||
-      "Satyanand's Limited";
-
-
-  }catch(e){
-
-    document
-      .getElementById('settingsMsg')
-      .textContent =
-      e.message;
-
-  }
-
-}
-
-
-async function saveSettings(){
-
-  settings.vatRate =
-    Number(
-      document
-        .getElementById('vat')
-        .value ||
-      12.5
-    );
-
-
-  settings.phone =
-    document
-      .getElementById('phone')
-      .value
-      .trim();
-
-
-  settings.email =
-    document
-      .getElementById('email')
-      .value
-      .trim();
-
-
-  settings.instagram =
-    document
-      .getElementById('instagram')
-      .value
-      .trim();
-
-
-  try{
-
-    await db
-      .collection('settings')
-      .doc('business')
-      .set(
-        settings,
-        {
-          merge:true
-        }
-      );
-
-
-    document
-      .getElementById('settingsMsg')
-      .textContent =
-      'Settings saved to Firebase.';
-
-  }catch(e){
-
-    document
-      .getElementById('settingsMsg')
-      .textContent =
-      e.message;
-
-  }
-
-}
-
-
-/* PRODUCTS */
-
+async function getDocs(collection){const s=await db.collection(collection).get();return s.docs.map(d=>({docId:d.id,...d.data()}));}
 async function loadProducts(){
-
-  try{
-
-    const snap =
-      await db
-        .collection('products')
-        .get();
-
-
-    if(!snap.empty){
-
-      products =
-        snap.docs.map(
-          d => ({
-            docId:d.id,
-            ...d.data()
-          })
-        );
-
-    }else{
-
-      const local =
-        (
-          window
-            .SATYANANDS_DEFAULT_STORE
-            ?.products ||
-          []
-        )
-        .map(
-          p => ({
-            ...p
-          })
-        );
-
-
-      const rt =
-        local.find(
-          p =>
-            p.id ===
-            'raksha-thread'
-        );
-
-
-      if(rt){
-
-        rt.price = 14;
-
-        rt.tax =
-          'inclusive';
-
-      }
-
-
-      products = local;
-
-
-      const batch =
-        db.batch();
-
-
-      local.forEach(p => {
-
-        batch.set(
-          db
-            .collection('products')
-            .doc(p.id),
-          p
-        );
-
-      });
-
-
-      await batch.commit();
-
-    }
-
-
-    renderProducts();
-
-  }catch(e){
-
-    document
-      .getElementById('productsMsg')
-      .textContent =
-      e.message;
-
-  }
-
+ try{const s=await db.collection("products").get();products=s.empty?DEFAULT_PRODUCTS.map(x=>({...x})):s.docs.map(d=>({docId:d.id,...d.data(),id:d.id}));renderProducts();renderInventory();}
+ catch(e){el("productsMsg").textContent=e.message;}
 }
-
-
 function renderProducts(){
-  document.getElementById('products').innerHTML=products.map((p,i)=>`<div class="row" data-i="${i}"><input data-k="name" value="${esc(p.name)}"><input data-k="price" type="number" step="0.01" value="${Number(p.price||0)}"><input data-k="unit" value="${esc(p.unit||'pc')}"><select data-k="tax"><option value="taxable" ${p.tax==='taxable'?'selected':''}>Taxable</option><option value="inclusive" ${p.tax==='inclusive'?'selected':''}>VAT inclusive</option><option value="zero" ${p.tax==='zero'?'selected':''}>Zero-rated</option><option value="quote" ${p.tax==='quote'?'selected':''}>Price on request</option></select><input data-k="image" value="${esc(p.image||'')}" placeholder="image filename"><div class="full"><input data-k="description" value="${esc(p.description||'')}" placeholder="Description"><div class="small" style="margin-top:8px"><b>Future price:</b> <input data-k="scheduledPrice" type="number" step="0.01" value="${p.scheduledPrice??''}" placeholder="New price" style="width:130px"> <b>Effective:</b> <input data-k="scheduledPriceEffectiveDate" type="date" value="${esc(p.scheduledPriceEffectiveDate||'')}" style="width:155px"> <span>Customers automatically switch on this date.</span></div><label><input data-k="active" type="checkbox" ${p.active!==false?'checked':''}> Active</label><button class="btn danger" onclick="deleteProduct(${i})">Delete</button></div></div>`).join('')}
-
+ el("products").innerHTML=products.map((p,i)=>`<div class="productrow" data-i="${i}">
+ <div class="grid three">
+ <div><label>Product name</label><input data-k="name" value="${esc(p.name)}"></div>
+ <div><label>Price (TT$)</label><input data-k="price" type="number" min="0" step=".01" value="${Number(p.price||0)}"></div>
+ <div><label>Unit</label><input data-k="unit" value="${esc(p.unit||"pc")}"></div>
+ <div><label>Tax classification</label><select data-k="tax">
+ <option value="inclusive" ${p.tax==="inclusive"?"selected":""}>VAT inclusive</option>
+ <option value="taxable" ${p.tax==="taxable"?"selected":""}>Taxable — VAT added</option>
+ <option value="zero" ${p.tax==="zero"?"selected":""}>Zero-rated</option>
+ <option value="quote" ${p.tax==="quote"?"selected":""}>Price on request</option>
+ </select></div>
+ <div><label>Image path or URL</label><input data-k="image" value="${esc(p.image||"")}"></div>
+ <div><label>Description</label><input data-k="description" value="${esc(p.description||"")}"></div>
+ <div><label>Scheduled future price</label><input data-k="scheduledPrice" type="number" min="0" step=".01" value="${p.scheduledPrice??""}"></div>
+ <div><label>Future price effective date</label><input data-k="scheduledPriceEffectiveDate" type="date" value="${esc(p.scheduledPriceEffectiveDate||"")}"></div>
+ <div><label>Product ID</label><input data-k="id" value="${esc(p.id||"")}"></div>
+ </div>
+ <div class="actions"><label><input data-k="active" type="checkbox" ${p.active!==false?"checked":""} style="width:auto"> Active on website</label><button class="danger" onclick="removeProduct(${i})">Delete Product</button></div>
+ </div>`).join("");
+}
 function collectProducts(){
-
-  document
-    .querySelectorAll(
-      '#products .row'
-    )
-    .forEach(r => {
-
-      const p =
-        products[
-          Number(
-            r.dataset.i
-          )
-        ];
-
-
-      r
-        .querySelectorAll(
-          '[data-k]'
-        )
-        .forEach(x => {
-
-          const k =
-            x.dataset.k;
-
-
-          p[k] =
-            k === 'price'
-              ? Number(
-                  x.value || 0
-                )
-              : k === 'active'
-              ? x.checked
-              : x.value;
-
-        });
-
-    });
-
+ document.querySelectorAll("#products .productrow").forEach(row=>{
+  const p=products[Number(row.dataset.i)];
+  row.querySelectorAll("[data-k]").forEach(x=>{
+   const k=x.dataset.k;
+   p[k]=k==="price"||k==="scheduledPrice"?(x.value===""?"":Number(x.value)):k==="active"?x.checked:x.value;
+  });
+ });
 }
-
-
-/* SAVE PRODUCTS TO FIREBASE */
-
 async function saveProducts(){
-
-  collectProducts();
-
-
-  try{
-
-    const batch =
-      db.batch();
-
-
-    products.forEach(p => {
-
-      const id =
-        p.docId ||
-        p.id ||
-        (
-          'item-' +
-          Date.now()
-        );
-
-
-      p.id = id;
-
-
-      batch.set(
-        db
-          .collection('products')
-          .doc(id),
-        p,
-        {
-          merge:true
-        }
-      );
-
-    });
-
-
-    await batch.commit();
-
-
-    document
-      .getElementById('productsMsg')
-      .textContent =
-      'Product changes saved to Firebase. Customers will use the central product list.';
-
-
-    await loadProducts();
-
-  }catch(e){
-
-    document
-      .getElementById('productsMsg')
-      .textContent =
-      e.message;
-
-  }
-
-}
-
-
-/* ADD PRODUCT */
-
-function addProduct(){
-
-  collectProducts();
-
-
-  products.push({
-
-    id:
-      'item-' +
-      Date.now(),
-
-    name:
-      'New Item',
-
-    description:
-      'Add a description.',
-
-    price:
-      0,
-
-    unit:
-      'pc',
-
-    tax:
-      'taxable',
-
-    image:
-      '',
-
-    active:
-      true
-
-  });
-
-
-  renderProducts();
-
-}
-
-
-/* DELETE PRODUCT */
-
-async function deleteProduct(i){
-
-  if(
-    !confirm(
-      'Delete this product?'
-    )
-  )
-    return;
-
-
-  const p =
-    products[i];
-
-
-  try{
-
-    await db
-      .collection('products')
-      .doc(
-        p.docId ||
-        p.id
-      )
-      .delete();
-
-
-    products.splice(
-      i,
-      1
-    );
-
-
-    renderProducts();
-
-
-    document
-      .getElementById('productsMsg')
-      .textContent =
-      'Product deleted from Firebase.';
-
-  }catch(e){
-
-    document
-      .getElementById('productsMsg')
-      .textContent =
-      e.message;
-
-  }
-
-}
-
-
-/* FREE ITEMS */
-
-async function loadFree(){
-
-  try{
-
-    const snap =
-      await db
-        .collection('settings')
-        .doc('freeItems')
-        .get();
-
-
-    const savedItems = snap.exists ? snap.data().items : null;
-    freeItems = Array.isArray(savedItems) && savedItems.length
-      ? savedItems
-      : DEFAULT_COMPLIMENTARY_ITEMS.map(x=>({...x}));
-
-
-    renderFree();
-
-  }catch(e){
-    // Keep the standard items visible even if Firebase is temporarily unavailable.
-    freeItems=DEFAULT_COMPLIMENTARY_ITEMS.map(x=>({...x}));
-    renderFree();
-    document.getElementById('freeMsg').textContent =
-      'Showing the standard free items. Firebase could not be reached: ' + e.message;
-  }
-
-}
-
-
-function renderFree(){
-
-  document
-    .getElementById('free')
-    .innerHTML =
-
-    freeItems
-      .map(
-        (x,i) => `
-
-        <div
-          class="free-row"
-        >
-
-          <input
-            class="input"
-            data-f="name"
-            data-i="${i}"
-            value="${esc(
-              x.name
-            )}"
-          >
-
-          <input
-            class="input"
-            data-f="description"
-            data-i="${i}"
-            value="${esc(
-              x.description || ''
-            )}"
-          >
-
-          <button
-            class="btn danger"
-            onclick="
-              freeItems.splice(
-                ${i},
-                1
-              );
-              renderFree()
-            "
-          >
-            Delete
-          </button>
-
-        </div>
-
-        `
-      )
-      .join('');
-
-}
-
-
-function collectFree(){
-
-  document
-    .querySelectorAll(
-      '[data-f]'
-    )
-    .forEach(x => {
-
-      freeItems[
-        Number(
-          x.dataset.i
-        )
-      ][
-        x.dataset.f
-      ] =
-        x.value;
-
-    });
-
-}
-
-
-function addFree(){
-
-  collectFree();
-
-
-  freeItems.push({
-
-    id:
-      'free-' +
-      Date.now(),
-
-    name:
-      'New Free Item',
-
-    description:
-      'Free with order.'
-
-  });
-
-
-  renderFree();
-
-}
-
-
-async function saveFree(){
-
-  collectFree();
-  if(!Array.isArray(freeItems) || freeItems.length===0){
-    freeItems=DEFAULT_COMPLIMENTARY_ITEMS.map(x=>({...x}));
-    renderFree();
-  }
-
-  try{
-
-    await db
-      .collection('settings')
-      .doc('freeItems')
-      .set(
-        {
-          items:
-            freeItems
-        },
-        {
-          merge:true
-        }
-      );
-
-
-    document
-      .getElementById('freeMsg')
-      .textContent =
-      'Free items saved to Firebase.';
-
-  }catch(e){
-
-    document
-      .getElementById('freeMsg')
-      .textContent =
-      e.message;
-
-  }
-
-}
-
-
-/* FESTIVAL THEME SCHEDULER */
-const FESTIVAL_PRESETS={
- general:{heading:'Tradition, Made Special',subheading:'Indian sweets, sacred threads and festive essentials',primary:'#071a35',accent:'#d5ad48',background:'#fbf8f0'},
- diwali:{heading:'Celebrate Diwali with Satyanand’s Limited',subheading:'Light up your celebrations with traditional sweets and sacred essentials',primary:'#071a35',accent:'#f1c453',background:'#fff8e8'},
- ganesh:{heading:'Ganesh Utsav Essentials',subheading:'Celebrate with devotion, traditional sweets and fresh puja offerings',primary:'#8b2d12',accent:'#f2b544',background:'#fff6e9'},
- raksha:{heading:'Stronger Threads, Brighter Celebrations',subheading:'Plaited Raksha Thread by Satyanand’s Limited',primary:'#35145e',accent:'#e6bd55',background:'#fbf5ff'},
- navratri:{heading:'Celebrate Navratri',subheading:'Festive traditions, sacred threads and sweets for your celebrations',primary:'#761d2b',accent:'#f0bd54',background:'#fff6f0'},
- holi:{heading:'A Colourful Holi Celebration',subheading:'Bring colour, joy and tradition to your festive gathering',primary:'#54236d',accent:'#f3b63f',background:'#fff7fb'},
- shivratri:{heading:'Maha Shivratri',subheading:'Sacred essentials for your prayers and observances',primary:'#20245b',accent:'#c7cbd8',background:'#f5f6fb'},
- janmashtami:{heading:'Celebrate Krishna Janmashtami',subheading:'A joyful celebration of devotion, tradition and family',primary:'#07506b',accent:'#e5bd4c',background:'#f1fbfc'},
- ramanavami:{heading:'Celebrate Rama Navami',subheading:'Traditional sweets and sacred essentials for your celebration',primary:'#173c78',accent:'#edaa42',background:'#fff8ec'},
- hanuman:{heading:'Hanuman Jayanti Essentials',subheading:'Offerings, sweets and sacred traditions for Hanuman Jayanti',primary:'#9c321b',accent:'#f2bd48',background:'#fff5e8'},
- saraswati:{heading:'Saraswati Puja',subheading:'Celebrate wisdom, learning and devotion with Satyanand’s Limited',primary:'#72552b',accent:'#e0bd65',background:'#fffdf5'},
- dussehra:{heading:'Celebrate Dussehra',subheading:'Share festive sweetness and celebrate the victory of good',primary:'#6d1828',accent:'#e8b84f',background:'#fff6ec'},
- karwachauth:{heading:'Karwa Chauth Celebrations',subheading:'Thoughtful festive essentials for a special occasion',primary:'#7c162d',accent:'#edbf65',background:'#fff4f3'}
-};
-function setThemePreview(){
- const val=id=>document.getElementById(id).value;
- const p=val('themePrimary')||'#071a35',a=val('themeAccent')||'#d5ad48',b=val('themeBackground')||'#fbf8f0';
- document.getElementById('themePreview').style.background=`linear-gradient(135deg,${p},${p}dd)`;
- document.getElementById('themePreview').style.borderColor=a;
- document.getElementById('previewHeading').textContent=val('themeHeading')||'Tradition, Made Special';
- document.getElementById('previewHeading').style.color=a;
- document.getElementById('previewSubheading').textContent=val('themeSubheading')||'Sweets, sacred threads and festive essentials';
- document.getElementById('swatchPrimary').style.background=p;document.getElementById('swatchAccent').style.background=a;document.getElementById('swatchBackground').style.background=b;
-}
-function applyFestivalPreset(){
- const p=FESTIVAL_PRESETS[document.getElementById('festivalPreset').value]||FESTIVAL_PRESETS.general;
- document.getElementById('themeHeading').value=p.heading;document.getElementById('themeSubheading').value=p.subheading;
- document.getElementById('themePrimary').value=p.primary;document.getElementById('themeAccent').value=p.accent;document.getElementById('themeBackground').value=p.background;setThemePreview();
-}
-function resetFestivalTheme(){document.getElementById('festivalPreset').value='general';document.getElementById('themeEnabled').value='true';document.getElementById('themeStart').value='';document.getElementById('themeEnd').value='';document.getElementById('themeImage').value='';applyFestivalPreset();document.getElementById('themeMsg').textContent='Form reset. Press Save Festival Theme to save the default design.';}
-async function loadFestivalTheme(){
+ collectProducts();
  try{
-  const d=await db.collection('settings').doc('festivalTheme').get();
-  const t=d.exists?d.data():{};
-  document.getElementById('festivalPreset').value=t.preset||'general';
-  document.getElementById('themeEnabled').value=String(t.enabled!==false);
-  document.getElementById('themeStart').value=t.startDate||'';document.getElementById('themeEnd').value=t.endDate||'';
-  document.getElementById('themeHeading').value=t.heading||FESTIVAL_PRESETS[t.preset||'general'].heading;
-  document.getElementById('themeSubheading').value=t.subheading||FESTIVAL_PRESETS[t.preset||'general'].subheading;
-  document.getElementById('themePrimary').value=t.primary||FESTIVAL_PRESETS[t.preset||'general'].primary;
-  document.getElementById('themeAccent').value=t.accent||FESTIVAL_PRESETS[t.preset||'general'].accent;
-  document.getElementById('themeBackground').value=t.background||FESTIVAL_PRESETS[t.preset||'general'].background;
-  document.getElementById('themeImage').value=t.imageUrl||'';setThemePreview();
-  document.getElementById('themeMsg').textContent=d.exists?'Saved festival theme loaded.':'No saved festival theme yet. Choose a preset and save it.';
- }catch(e){document.getElementById('themeMsg').textContent='Could not load theme: '+e.message;}
+  const batch=db.batch();
+  products.forEach(p=>{const id=String(p.id||"").trim();if(!id)throw new Error("Every product needs a Product ID.");batch.set(db.collection("products").doc(id),{...p,id},{merge:true});});
+  await batch.commit();el("productsMsg").textContent="Products and prices saved. The customer website will receive the updates.";await loadProducts();await logActivity("Updated product list and prices");
+ }catch(e){el("productsMsg").textContent="Could not save products: "+e.message;}
 }
-async function saveFestivalTheme(){
- const preset=document.getElementById('festivalPreset').value,startDate=document.getElementById('themeStart').value,endDate=document.getElementById('themeEnd').value;
- if(startDate&&endDate&&endDate<startDate){document.getElementById('themeMsg').textContent='End date must be the same as or later than the start date.';return;}
- const theme={preset,enabled:document.getElementById('themeEnabled').value==='true',startDate,endDate,heading:document.getElementById('themeHeading').value.trim(),subheading:document.getElementById('themeSubheading').value.trim(),primary:document.getElementById('themePrimary').value,accent:document.getElementById('themeAccent').value,background:document.getElementById('themeBackground').value,imageUrl:document.getElementById('themeImage').value.trim(),updatedAt:firebase.firestore.FieldValue.serverTimestamp()};
- try{await db.collection('settings').doc('festivalTheme').set(theme,{merge:true});document.getElementById('themeMsg').textContent='Festival theme saved to Firebase. The storefront must read settings/festivalTheme to display it and honor the schedule.';}catch(e){document.getElementById('themeMsg').textContent='Could not save theme: '+e.message;}
-}
-['themeHeading','themeSubheading','themePrimary','themeAccent','themeBackground'].forEach(id=>document.addEventListener('input',e=>{if(e.target&&e.target.id===id)setThemePreview()}));
-
-/* DEFAULT REPORT DATES */
-
-function setDefaultDates(){
-
-  const n =
-    new Date();
-
-  const y =
-    n.getFullYear();
-
-  const m =
-    String(
-      n.getMonth() + 1
-    ).padStart(
-      2,
-      '0'
-    );
-
-
-  document
-    .getElementById('reportFrom')
-    .value =
-    `${y}-${m}-01`;
-
-
-  document
-    .getElementById('reportTo')
-    .value =
-    new Date(
-      y,
-      n.getMonth() + 1,
-      0
-    )
-    .toISOString()
-    .slice(
-      0,
-      10
-    );
-
-}
-
-
-setDefaultDates();
-setInterval(()=>{if(!document.getElementById('app').classList.contains('hidden'))loadOrders()},30000);
-
+function addProduct(){collectProducts();products.push({id:"new-item-"+Date.now(),name:"New Product",description:"",price:0,unit:"pc",tax:"zero",active:true,image:""});renderProducts();}
+async function removeProduct(i){const p=products[i];if(!confirm("Delete "+p.name+" from the website?"))return;try{await db.collection("products").doc(p.id).delete();products.splice(i,1);renderProducts();renderInventory();el("productsMsg").textContent="Product deleted.";await logActivity("Deleted product "+p.name);}catch(e){el("productsMsg").textContent=e.message;}}
+async function loadSettings(){try{const s=await db.collection("settings").doc("business").get();if(s.exists)settings={...settings,...s.data()};el("vatRate").value=settings.vatRate??12.5;el("businessPhone").value=settings.phone||"8687870821";el("businessEmail").value=settings.email||"satyanandslimitedest.24@yahoo.com";el("businessInstagram").value=settings.instagram||"Satyanand's Limited";}catch(e){el("settingsMsg").textContent=e.message;}}
+async function saveSettings(){settings={...settings,vatRate:Number(el("vatRate").value||12.5),phone:el("businessPhone").value.trim(),email:el("businessEmail").value.trim(),instagram:el("businessInstagram").value.trim()};if(!Number.isFinite(settings.vatRate)||settings.vatRate<0){el("settingsMsg").textContent="Enter a valid VAT rate.";return;}try{await db.collection("settings").doc("business").set(settings,{merge:true});el("settingsMsg").textContent="Business settings saved.";await logActivity("Updated business settings");}catch(e){el("settingsMsg").textContent=e.message;}}
+async function loadFreeItems(){try{const s=await db.collection("settings").doc("freeItems").get();freeItems=s.exists&&Array.isArray(s.data().items)&&s.data().items.length?s.data().items:DEFAULT_FREE.map(x=>({...x}));renderFreeItems();}catch(e){el("freeMsg").textContent=e.message;}}
+function renderFreeItems(){el("freeItemsEditor").innerHTML=freeItems.map((x,i)=>`<div class="formrow grid three"><div><label>Name</label><input data-free="${i}" data-k="name" value="${esc(x.name)}"></div><div><label>Description</label><input data-free="${i}" data-k="description" value="${esc(x.description||"")}"></div><div><label>Item ID</label><input data-free="${i}" data-k="id" value="${esc(x.id||"")}"></div></div>`).join("");}
+function addFreeItem(){freeItems.push({id:"free-"+Date.now(),name:"New free item",description:""});renderFreeItems();}
+async function saveFreeItems(){document.querySelectorAll("[data-free]").forEach(x=>{const i=Number(x.dataset.free),k=x.dataset.k;freeItems[i][k]=x.value;});try{await db.collection("settings").doc("freeItems").set({items:freeItems,updatedAt:new Date().toISOString()});el("freeMsg").textContent="Complimentary items saved.";await logActivity("Updated complimentary items");}catch(e){el("freeMsg").textContent=e.message;}}
+async function loadRates(){try{const [a,p]=await Promise.all([db.collection("settings").doc("approvedExchangeRates").get(),db.collection("settings").doc("pendingExchangeRates").get()]);approvedRates=a.exists?a.data():{rates:{},rateDate:""};pendingRates=p.exists?p.data():null;const r=pendingRates?.rates||approvedRates.rates||{};el("rateUSD").value=r.USD??"";el("rateCAD").value=r.CAD??"";el("rateGBP").value=r.GBP??"";el("rateDate").value=pendingRates?.rateDate||approvedRates.rateDate||today();renderRateStatus();}catch(e){el("rateMsg").textContent=e.message;}}
+function renderRateStatus(){const r=approvedRates.rates||{};el("rateDraftStatus").innerHTML=(pendingRates?`<b>Saved draft — awaiting approval</b><br>Effective date: ${esc(pendingRates.rateDate||"")}<br>`+["USD","CAD","GBP"].map(c=>`${c}: TT$${Number(pendingRates.rates[c]||0).toFixed(4)}`).join("<br>"):"No saved draft.")+`<hr><b>Published rates</b><br>`+["USD","CAD","GBP"].map(c=>`${c}: ${Number(r[c]||0)? "TT$"+Number(r[c]).toFixed(4):"Not set"}`).join("<br>")+`<br>Effective date: ${esc(approvedRates.rateDate||"Not set")}`;el("approveRateBtn").disabled=!pendingRates;}
+function readRates(){const rates={USD:Number(el("rateUSD").value),CAD:Number(el("rateCAD").value),GBP:Number(el("rateGBP").value)},rateDate=el("rateDate").value;if(!rateDate)throw new Error("Select the rate effective date.");for(const c of ["USD","CAD","GBP"])if(!Number.isFinite(rates[c])||rates[c]<=0)throw new Error("Enter a valid positive rate for "+c+".");return {rates,rateDate,status:"pending",source:"Manually entered by administrator",updatedAt:new Date().toISOString()};}
+async function saveRateDraft(){try{pendingRates=readRates();await db.collection("settings").doc("pendingExchangeRates").set(pendingRates);renderRateStatus();el("rateMsg").textContent="Rates saved as a draft. Customers are still using the published rates.";await logActivity("Saved exchange-rate draft");}catch(e){el("rateMsg").textContent=e.message;}}
+async function approveRates(){if(!pendingRates)return;if(!confirm("Approve and publish these rates for customer checkout?"))return;try{approvedRates={...pendingRates,status:"approved",approvedAt:new Date().toISOString(),approvedBy:auth.currentUser?.email||"owner"};await db.collection("settings").doc("approvedExchangeRates").set(approvedRates);await db.collection("settings").doc("pendingExchangeRates").delete();pendingRates=null;renderRateStatus();el("rateMsg").textContent="Rates approved and published. Existing orders are unchanged.";await logActivity("Approved and published exchange rates");}catch(e){el("rateMsg").textContent=e.message;}}
+async function discardRateDraft(){if(!pendingRates)return;if(!confirm("Discard the saved exchange-rate draft?"))return;try{await db.collection("settings").doc("pendingExchangeRates").delete();pendingRates=null;const r=approvedRates.rates||{};el("rateUSD").value=r.USD??"";el("rateCAD").value=r.CAD??"";el("rateGBP").value=r.GBP??"";el("rateDate").value=approvedRates.rateDate||today();renderRateStatus();el("rateMsg").textContent="Draft discarded. Published rates were not changed.";}catch(e){el("rateMsg").textContent=e.message;}}
+async function loadTheme(){try{const s=await db.collection("settings").doc("festivalTheme").get();themeData=s.exists?s.data():null;if(!themeData){resetTheme();return;}el("themePreset").value=themeData.preset||"general";el("themeEnabled").value=String(themeData.enabled!==false);el("themeStart").value=themeData.startDate||"";el("themeEnd").value=themeData.endDate||"";el("themeHeading").value=themeData.heading||"";el("themeSubheading").value=themeData.subheading||"";el("themePrimary").value=themeData.primary||"#071a35";el("themeAccent").value=themeData.accent||"#d5ad48";el("themeBackground").value=themeData.background||"#fbf8f0";el("themeImage").value=themeData.imageUrl||"";updateThemePreview();}catch(e){el("themeMsg").textContent=e.message;}}
+function themePreset(){const presets={general:["#071a35","#d5ad48","#fbf8f0"],diwali:["#071a35","#d5ad48","#fbf8f0"],ganesh:["#7a310b","#e8a83e","#fff5e5"],raksha:["#32164d","#d9b45a","#faf4ff"],navratri:["#791e2b","#e2b64f","#fff5ed"],holi:["#49306f","#e7a83c","#fff9ef"],shivratri:["#111b45","#b9c8db","#f5f6fa"],janmashtami:["#07516d","#d8b74f","#f5fbff"],custom:["#071a35","#d5ad48","#fbf8f0"]};const a=presets[el("themePreset").value]||presets.general;el("themePrimary").value=a[0];el("themeAccent").value=a[1];el("themeBackground").value=a[2];updateThemePreview();}
+function updateThemePreview(){el("themePreviewHeading").textContent=el("themeHeading").value||"Tradition, Made Special";el("themePreviewSub").textContent=el("themeSubheading").value||"Sweets, sacred threads and festive essentials";}
+["themeHeading","themeSubheading"].forEach(id=>el(id).addEventListener("input",updateThemePreview));
+function resetTheme(){el("themePreset").value="general";el("themeEnabled").value="false";el("themeStart").value="";el("themeEnd").value="";el("themeHeading").value="";el("themeSubheading").value="";el("themePrimary").value="#071a35";el("themeAccent").value="#d5ad48";el("themeBackground").value="#fbf8f0";el("themeImage").value="";updateThemePreview();}
+async function saveTheme(){const t={preset:el("themePreset").value,enabled:el("themeEnabled").value==="true",startDate:el("themeStart").value,endDate:el("themeEnd").value,heading:el("themeHeading").value.trim(),subheading:el("themeSubheading").value.trim(),primary:el("themePrimary").value,accent:el("themeAccent").value,background:el("themeBackground").value,imageUrl:el("themeImage").value.trim(),updatedAt:new Date().toISOString()};try{await db.collection("settings").doc("festivalTheme").set(t);themeData=t;el("themeMsg").textContent="Festival theme saved. The website will apply it during the selected dates.";await logActivity("Updated festival theme");}catch(e){el("themeMsg").textContent=e.message;}}
+async function loadPromotion(){try{const s=await db.collection("settings").doc("activePromotion").get();promotionData=s.exists?s.data():null;if(promotionData){el("promoName").value=promotionData.name||"";el("promoType").value=promotionData.type||"percent";el("promoValue").value=promotionData.value??"";el("promoScope").value=promotionData.scope||"all";el("promoStart").value=promotionData.startDate||"";el("promoEnd").value=promotionData.endDate||"";el("promoEnabled").value=String(promotionData.enabled!==false);(promotionData.productIds||[]).forEach(id=>{const c=document.querySelector(`[data-promo-id="${CSS.escape(id)}"]`);if(c)c.checked=true;});}renderPromotionProducts();}catch(e){el("promoMsg").textContent=e.message;}}
+function renderPromotionProducts(){el("promoProducts").innerHTML="<b>Products for selected-product promotions</b><br>"+products.map(p=>`<label style="display:inline-flex;align-items:center;gap:5px;margin:7px 12px 0 0"><input type="checkbox" data-promo-id="${esc(p.id)}" style="width:auto"> ${esc(p.name)}</label>`).join("");if(promotionData?.productIds)promotionData.productIds.forEach(id=>{const c=document.querySelector(`[data-promo-id="${CSS.escape(id)}"]`);if(c)c.checked=true;});}
+async function savePromotion(){const ids=[...document.querySelectorAll("[data-promo-id]:checked")].map(x=>x.dataset.promoId);const p={name:el("promoName").value.trim(),type:el("promoType").value,value:Number(el("promoValue").value),scope:el("promoScope").value,productIds:ids,startDate:el("promoStart").value,endDate:el("promoEnd").value,enabled:el("promoEnabled").value==="true",updatedAt:new Date().toISOString()};if(!p.name||!Number.isFinite(p.value)||p.value<0){el("promoMsg").textContent="Enter a promotion name and a valid discount value.";return;}try{await db.collection("settings").doc("activePromotion").set(p);promotionData=p;el("promoMsg").textContent="Promotion saved. The storefront will apply it during the active dates.";await logActivity("Updated promotion "+p.name);}catch(e){el("promoMsg").textContent=e.message;}}
+async function disablePromotion(){try{await db.collection("settings").doc("activePromotion").set({enabled:false,updatedAt:new Date().toISOString()},{merge:true});if(promotionData)promotionData.enabled=false;el("promoMsg").textContent="Promotion deactivated.";await logActivity("Deactivated promotion");}catch(e){el("promoMsg").textContent=e.message;}}
+function renderInventory(){el("inventoryTable").innerHTML=`<table><tr><th>Product</th><th>Stock on hand</th><th>Low-stock alert at</th><th>Unit cost TT$</th><th>Stock value</th></tr>${products.map((p,i)=>`<tr><td>${esc(p.name)}</td><td><input type="number" min="0" step="1" data-inv="${i}" data-k="stockOnHand" value="${p.stockOnHand??""}" placeholder="Not tracked"></td><td><input type="number" min="0" step="1" data-inv="${i}" data-k="lowStockAt" value="${p.lowStockAt??5}"></td><td><input type="number" min="0" step=".01" data-inv="${i}" data-k="unitCost" value="${p.unitCost??0}"></td><td>${money(Number(p.stockOnHand||0)*Number(p.unitCost||0))}</td></tr>`).join("")}</table>`;el("lowStockCount").textContent=products.filter(p=>p.stockOnHand!==undefined&&p.stockOnHand!==null&&Number(p.stockOnHand)<=Number(p.lowStockAt??5)).length;}
+async function saveInventory(){document.querySelectorAll("[data-inv]").forEach(x=>{const p=products[Number(x.dataset.inv)],k=x.dataset.k;p[k]=x.value===""?null:Number(x.value);});try{const b=db.batch();products.forEach(p=>b.set(db.collection("products").doc(p.id),{stockOnHand:p.stockOnHand,lowStockAt:p.lowStockAt,unitCost:p.unitCost},{merge:true}));await b.commit();renderInventory();el("inventoryMsg").textContent="Inventory and costing saved.";await logActivity("Updated inventory and costing");}catch(e){el("inventoryMsg").textContent=e.message;}}
+async function loadOrders(){try{orders=await getDocs("orders");orders.sort((a,b)=>dateValue(b).localeCompare(dateValue(a)));renderOrders();renderDashboard();renderReports();renderCustomers();}catch(e){el("ordersTable").textContent=e.message;}}
+function dateValue(o){if(o.createdAt?.toDate)return o.createdAt.toDate().toISOString().slice(0,10);return String(o.createdAt||"").slice(0,10);}
+function dateText(o){if(o.createdAt?.toDate)return o.createdAt.toDate().toLocaleString();return dateValue(o);}
+function renderDashboard(){const pending=orders.filter(o=>(o.status||"Pending")==="Pending").length,processing=orders.filter(o=>o.status==="Processing").length,completed=orders.filter(o=>["Completed","Sent"].includes(o.status)).length;el("newCount").textContent=pending;el("processingCount").textContent=processing;el("completedCount").textContent=completed;el("todaySales").textContent=money(orders.filter(o=>dateValue(o)===today()).reduce((s,o)=>s+Number(o.total||0),0));el("customerCount").textContent=new Set(orders.map(o=>(o.customerPhone||"").trim()).filter(Boolean)).size;}
+function orderItemsText(o){return (o.items||[]).map(i=>`${esc(i.productName||"Item")} × ${esc(i.quantity)} @ ${money(i.unitPrice)}`).join("<br>")+(o.freeItems||[]).map(i=>`<br>${esc(i.name)} × ${esc(i.quantity)} (FREE)`).join("");}
+function renderOrders(){const q=el("orderSearch").value.toLowerCase(),f=el("orderFilter").value;const rows=orders.filter(o=>(f==="all"||(o.status||"Pending")===f)&&[o.orderNumber,o.customerName,o.customerPhone,o.customerEmail].join(" ").toLowerCase().includes(q));if(!rows.length){el("ordersTable").innerHTML="<p class='small'>No orders found.</p>";return;}el("ordersTable").innerHTML=`<table><tr><th>Order</th><th>Customer</th><th>Items</th><th>Order date</th><th>Required date</th><th>Subtotal</th><th>Taxable</th><th>VAT</th><th>Zero-rated</th><th>Total</th><th>Status</th><th>Action</th></tr>${rows.map(o=>`<tr><td><b>${esc(o.orderNumber||o.docId)}</b></td><td>${esc(o.customerName)}<br>${esc(o.customerPhone)}<br>${esc(o.customerEmail)}</td><td>${orderItemsText(o)}</td><td>${esc(dateText(o))}</td><td>${esc(o.requiredDate||"")}</td><td>${money(o.subtotal)}</td><td>${money(o.taxableAmount)}</td><td>${money(o.vatAmount)}</td><td>${money(o.zeroRatedAmount)}</td><td><b>${money(o.total)}</b></td><td><select onchange="changeStatus('${o.docId}',this.value)">${["Pending","Processing","Completed","Sent","Cancelled"].map(s=>`<option ${((o.status||"Pending")===s)?"selected":""}>${s}</option>`).join("")}</select></td><td><button class="goldbtn" onclick="printReceipt('${o.docId}')">Receipt</button><button class="primary" onclick="openWhatsApp('${o.docId}')">WhatsApp</button></td></tr>`).join("")}</table>`;}
+async function changeStatus(id,status){try{await db.collection("orders").doc(id).update({status});const o=orders.find(x=>x.docId===id);if(o)o.status=status;renderOrders();renderDashboard();renderReports();await logActivity("Changed order "+id+" status to "+status);}catch(e){alert(e.message);}}
+function printReceipt(id){const o=orders.find(x=>x.docId===id);if(!o)return;const lines=(o.items||[]).map(i=>`<tr><td>${esc(i.productName)}</td><td>${esc(i.quantity)}</td><td>${money(i.unitPrice)}</td><td>${esc(i.taxType||"")}</td><td>${money(i.lineTotal)}</td><td>${money(i.vatAmount)}</td></tr>`).join("");const free=(o.freeItems||[]).map(i=>`<li>${esc(i.name)} × ${esc(i.quantity)} — FREE</li>`).join("");const w=window.open("","_blank");if(!w){alert("Please allow pop-ups to print the receipt.");return;}w.document.write(`<!doctype html><html><head><title>${esc(o.orderNumber)}</title><style>body{font:13px Arial;padding:25px;color:#10213b}header{background:#071a35;color:#f1d889;padding:20px;border-bottom:4px solid #d5ad48}h1{font:25px Georgia}table{width:100%;border-collapse:collapse;margin-top:20px}th{background:#102b50;color:#f1d889}td,th{padding:9px;border-bottom:1px solid #ddd;text-align:left}.total{font-size:20px;font-weight:bold;text-align:right;margin-top:20px}.free{background:#f5f8f1;padding:12px;margin-top:18px}</style></head><body><header><h1>Satyanand's Limited</h1>Est. 2024 · (868) 787-0821<br>satyanandslimitedest.24@yahoo.com</header><h2>Order Receipt</h2><p><b>Order:</b> ${esc(o.orderNumber)}<br><b>Customer:</b> ${esc(o.customerName)}<br><b>Phone:</b> ${esc(o.customerPhone)}<br><b>Date:</b> ${esc(dateValue(o))}<br><b>Required:</b> ${esc(o.requiredDate)}<br><b>Status:</b> ${esc(o.status||"Pending")}</p><table><tr><th>Product</th><th>Qty</th><th>Unit price</th><th>VAT status</th><th>Line total</th><th>VAT</th></tr>${lines}</table><p>Subtotal: ${money(o.subtotal)}<br>Amount taxable: ${money(o.taxableAmount)}<br>VAT (${Number(o.vatRate||12.5)}%): ${money(o.vatAmount)}<br>Zero-rated: ${money(o.zeroRatedAmount)}</p><div class="total">Final total: ${money(o.total)}</div>${free?`<div class="free"><b>Complimentary items — not included in sales totals</b><ul>${free}</ul></div>`:""}<p>Thank you for supporting Satyanand's Limited.</p></body></html>`);w.document.close();w.focus();setTimeout(()=>w.print(),400);}
+function openWhatsApp(id){const o=orders.find(x=>x.docId===id);if(!o)return;const phone=String(o.customerPhone||"").replace(/\D/g,"");const message=`Hello ${o.customerName||""}, this is Satyanand's Limited regarding order ${o.orderNumber}. Required date: ${o.requiredDate||""}. Total: ${money(o.total)}. Status: ${o.status||"Pending"}.`;window.open("https://wa.me/"+(phone.startsWith("1")?phone:"1"+phone)+"?text="+encodeURIComponent(message),"_blank");}
+function renderReports(){const from=el("reportFrom").value,to=el("reportTo").value,status=el("reportStatus").value;const rows=orders.filter(o=>{const d=dateValue(o);return(!from||d>=from)&&(!to||d<=to)&&(status==="all"||(o.status||"Pending")===status);});const sum=k=>rows.reduce((s,o)=>s+Number(o[k]||0),0);const gross=sum("subtotal"),discount=sum("discountAmount"),taxable=sum("taxableAmount"),vat=sum("vatAmount"),zero=sum("zeroRatedAmount"),total=sum("total");el("reportSummary").innerHTML=`<b>${rows.length}</b> orders · Gross sales: <b>${money(gross)}</b> · Discounts: <b>${money(discount)}</b> · Net sales: <b>${money(gross-discount)}</b> · Taxable: <b>${money(taxable)}</b> · VAT: <b>${money(vat)}</b> · Zero-rated: <b>${money(zero)}</b> · Total: <b>${money(total)}</b>`;el("reportTable").innerHTML=rows.length?`<table><tr><th>Order</th><th>Date</th><th>Customer</th><th>Subtotal</th><th>Taxable</th><th>VAT</th><th>Zero-rated</th><th>Total</th><th>Status</th></tr>${rows.map(o=>`<tr><td>${esc(o.orderNumber)}</td><td>${esc(dateValue(o))}</td><td>${esc(o.customerName)}</td><td>${money(o.subtotal)}</td><td>${money(o.taxableAmount)}</td><td>${money(o.vatAmount)}</td><td>${money(o.zeroRatedAmount)}</td><td>${money(o.total)}</td><td>${esc(o.status||"Pending")}</td></tr>`).join("")}</table>`:"<p class='small'>No orders in this period.</p>";const demand={};rows.forEach(o=>(o.freeItems||[]).forEach(i=>demand[i.name||"Free item"]=(demand[i.name||"Free item"]||0)+Number(i.quantity||0)));el("freeDemand").innerHTML=Object.keys(demand).length?`<table><tr><th>Free item</th><th>Quantity requested</th></tr>${Object.entries(demand).map(([n,q])=>`<tr><td>${esc(n)}</td><td>${q}</td></tr>`).join("")}</table>`:"<p class='small'>No free items requested in this period.</p>";}
+function setThisMonth(){const d=new Date();el("reportFrom").value=new Date(d.getFullYear(),d.getMonth(),1).toISOString().slice(0,10);el("reportTo").value=new Date(d.getFullYear(),d.getMonth()+1,0).toISOString().slice(0,10);}
+function setLastMonth(){const d=new Date();el("reportFrom").value=new Date(d.getFullYear(),d.getMonth()-1,1).toISOString().slice(0,10);el("reportTo").value=new Date(d.getFullYear(),d.getMonth(),0).toISOString().slice(0,10);}
+function csv(v){return '"'+String(v??"").replace(/"/g,'""')+'"';}
+function exportReport(detailed=false){const from=el("reportFrom").value,to=el("reportTo").value,status=el("reportStatus").value;const rows=orders.filter(o=>{const d=dateValue(o);return(!from||d>=from)&&(!to||d<=to)&&(status==="all"||(o.status||"Pending")===status);});let out=detailed?"Order,Date,Customer,Phone,Email,Product,Qty,Unit Price,Line Total,Tax Type,Taxable,VAT,Zero Rated,Required Date,Status,Free Items\n":"Order,Date,Customer,Phone,Subtotal,Discount,Taxable,VAT,Zero Rated,Total,Required Date,Status\n";rows.forEach(o=>{if(detailed)(o.items||[]).forEach(i=>out+=[o.orderNumber,dateValue(o),o.customerName,o.customerPhone,o.customerEmail,i.productName,i.quantity,i.unitPrice,i.lineTotal,i.taxType,i.taxableAmount,i.vatAmount,i.zeroRatedAmount,o.requiredDate,o.status,(o.freeItems||[]).map(x=>`${x.name} x ${x.quantity}`).join("; ")].map(csv).join(",")+"\n");else out+=[o.orderNumber,dateValue(o),o.customerName,o.customerPhone,o.subtotal,o.discountAmount||0,o.taxableAmount,o.vatAmount,o.zeroRatedAmount,o.total,o.requiredDate,o.status].map(csv).join(",")+"\n";});const a=document.createElement("a"),url=URL.createObjectURL(new Blob([out],{type:"text/csv;charset=utf-8"}));a.href=url;a.download=`satyanands-${detailed?"detailed":"zoho"}-report.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(url),500);}
+async function renderCustomers(){const map=new Map();orders.forEach(o=>{const key=o.customerPhone||o.customerEmail||o.customerName;if(!key)return;const c=map.get(key)||{name:o.customerName,phone:o.customerPhone,email:o.customerEmail,count:0,total:0,last:""};c.count++;c.total+=Number(o.total||0);if(dateValue(o)>c.last)c.last=dateValue(o);map.set(key,c);});const q=(el("customerSearch").value||"").toLowerCase();const rows=[...map.values()].filter(c=>[c.name,c.phone,c.email].join(" ").toLowerCase().includes(q));el("customersTable").innerHTML=rows.length?`<table><tr><th>Customer</th><th>Phone</th><th>Email</th><th>Orders</th><th>Total orders value</th><th>Last order</th></tr>${rows.map(c=>`<tr><td>${esc(c.name)}</td><td>${esc(c.phone)}</td><td>${esc(c.email)}</td><td>${c.count}</td><td>${money(c.total)}</td><td>${esc(c.last)}</td></tr>`).join("")}</table>`:"<p class='small'>No customer records found.</p>";}
+async function loadExpenses(){try{expenses=await getDocs("expenses");renderExpenses();updateFinanceStats();}catch(e){el("expenseMsg").textContent=e.message;}}
+async function addExpense(){const amount=Number(el("expenseAmount").value),date=el("expenseDate").value,description=el("expenseDescription").value.trim();if(!date||!description||!Number.isFinite(amount)||amount<=0){el("expenseMsg").textContent="Enter a date, description and positive amount.";return;}const data={date,category:el("expenseCategory").value,description,amount,createdAt:firebase.firestore.FieldValue.serverTimestamp()};try{const r=await db.collection("expenses").add(data);expenses.unshift({docId:r.id,...data});el("expenseAmount").value="";el("expenseDescription").value="";renderExpenses();updateFinanceStats();el("expenseMsg").textContent="Expense recorded.";await logActivity("Recorded expense "+description);}catch(e){el("expenseMsg").textContent=e.message;}}
+function renderExpenses(){el("expensesTable").innerHTML=expenses.length?`<table><tr><th>Date</th><th>Category</th><th>Description</th><th>Amount</th><th>Action</th></tr>${expenses.map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.category)}</td><td>${esc(x.description)}</td><td>${money(x.amount)}</td><td><button class="danger" onclick="deleteRecord('expenses','${x.docId}')">Delete</button></td></tr>`).join("")}</table>`:"<p class='small'>No expenses recorded.</p>";}
+function updateFinanceStats(){const m=today().slice(0,7),ex=expenses.filter(x=>String(x.date||"").startsWith(m)).reduce((s,x)=>s+Number(x.amount||0),0),sales=orders.filter(x=>dateValue(x).startsWith(m)&&!["Cancelled"].includes(x.status)).reduce((s,x)=>s+Number(x.total||0),0);el("monthExpenses").textContent=money(ex);el("monthProfit").textContent=money(sales-ex);}
+async function loadSuppliers(){try{suppliers=await getDocs("suppliers");renderSuppliers();}catch(e){}}
+async function addSupplier(){const name=el("supplierName").value.trim();if(!name){alert("Enter a supplier name.");return;}const data={name,phone:el("supplierPhone").value.trim(),email:el("supplierEmail").value.trim(),createdAt:firebase.firestore.FieldValue.serverTimestamp()};try{const r=await db.collection("suppliers").add(data);suppliers.push({docId:r.id,...data});renderSuppliers();["supplierName","supplierPhone","supplierEmail"].forEach(id=>el(id).value="");await logActivity("Added supplier "+name);}catch(e){alert(e.message);}}
+function renderSuppliers(){el("suppliersTable").innerHTML=suppliers.length?`<table><tr><th>Supplier</th><th>Phone</th><th>Email</th><th>Action</th></tr>${suppliers.map(s=>`<tr><td>${esc(s.name)}</td><td>${esc(s.phone)}</td><td>${esc(s.email)}</td><td><button class="danger" onclick="deleteRecord('suppliers','${s.docId}')">Delete</button></td></tr>`).join("")}</table>`:"<p class='small'>No suppliers added.</p>";}
+async function loadPurchases(){try{purchases=await getDocs("purchases");renderPurchases();}catch(e){}}
+async function addPurchase(){const date=el("purchaseDate").value,item=el("purchaseItem").value.trim(),qty=Number(el("purchaseQty").value),cost=Number(el("purchaseCost").value),productId=el("purchaseProductId").value.trim();if(!date||!item||qty<=0||cost<0){el("purchaseMsg").textContent="Enter the date, item, quantity and total cost.";return;}const data={date,item,supplier:el("purchaseSupplier").value.trim(),quantity:qty,totalCost:cost,productId,createdAt:firebase.firestore.FieldValue.serverTimestamp()};try{const r=await db.collection("purchases").add(data);purchases.unshift({docId:r.id,...data});if(productId){const p=products.find(x=>x.id===productId);if(p&&p.stockOnHand!==undefined&&p.stockOnHand!==null){p.stockOnHand=Number(p.stockOnHand)+qty;await db.collection("products").doc(productId).set({stockOnHand:p.stockOnHand},{merge:true});renderInventory();}}renderPurchases();el("purchaseMsg").textContent="Purchase recorded. Stock was increased only if a valid tracked Product ID was entered.";await logActivity("Recorded purchase "+item);}catch(e){el("purchaseMsg").textContent=e.message;}}
+function renderPurchases(){el("purchasesTable").innerHTML=purchases.length?`<table><tr><th>Date</th><th>Item</th><th>Supplier</th><th>Qty</th><th>Cost</th><th>Product ID</th></tr>${purchases.map(p=>`<tr><td>${esc(p.date)}</td><td>${esc(p.item)}</td><td>${esc(p.supplier)}</td><td>${esc(p.quantity)}</td><td>${money(p.totalCost)}</td><td>${esc(p.productId)}</td></tr>`).join("")}</table>`:"<p class='small'>No purchases recorded.</p>";}
+async function deleteRecord(collection,id){if(!confirm("Delete this record?"))return;try{await db.collection(collection).doc(id).delete();if(collection==="expenses"){expenses=expenses.filter(x=>x.docId!==id);renderExpenses();updateFinanceStats();}if(collection==="suppliers"){suppliers=suppliers.filter(x=>x.docId!==id);renderSuppliers();}}catch(e){alert(e.message);}}
+async function logActivity(action){try{await db.collection("activityLog").add({action,by:auth.currentUser?.email||"owner",createdAt:firebase.firestore.FieldValue.serverTimestamp()});}catch(e){console.warn("Activity log not saved",e);}}
+async function downloadBackup(){try{const names=["products","orders","settings","expenses","suppliers","purchases","activityLog"],data={business:"Satyanand's Limited",createdAt:new Date().toISOString(),collections:{}};for(const name of names){const s=await db.collection(name).get();data.collections[name]=s.docs.map(d=>({id:d.id,...d.data()}));}const a=document.createElement("a"),url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));a.href=url;a.download="satyanands-business-backup-"+today()+".json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);el("backupMsg").textContent="Backup export created. Store it securely."; }catch(e){el("backupMsg").textContent="Backup failed: "+e.message;}}
 </script>
-
 </body>
-  </html>
+</html>
